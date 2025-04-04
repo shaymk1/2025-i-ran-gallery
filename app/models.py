@@ -36,3 +36,19 @@ class About(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class Blog(models.Model):
+    title = models.CharField(max_length=100)
+    content = models.TextField()
+    image = models.ImageField(upload_to="blog/")
+    date_created = models.DateTimeField(auto_now_add=True)
+    slug = models.SlugField(unique=True)
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.title)
+        super().save(*args, **kwargs)
+
+    def __str__(self):
+        return self.title
