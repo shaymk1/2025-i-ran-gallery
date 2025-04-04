@@ -1,6 +1,6 @@
-
+from re import A
 from django.shortcuts import render
-from .models import Photo, Category
+from .models import Photo, Category, About, Blog
 
 
 def home(request):
@@ -14,8 +14,16 @@ def home(request):
 
 
 def about(request):
-    return render(request, "about.html")
+    about = About.objects.all()
+    context = {
+        "about": about,
+    }
+    return render(request, "about.html", context)
 
 
 def blog(request):
-    return render(request, "blog.html")
+    blogs = Blog.objects.all()
+    context = {
+        "blogs": blogs,
+    }
+    return render(request, "blog.html", context)
