@@ -9,14 +9,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <link rel='stylesheet' href='./static/css/woocommerce-layout.css' type='text/css' media='all'/>
-    <link rel='stylesheet' href='./static/css/woocommerce-smallscreen.css' type='text/css' media='only screen and (max-width: 768px)'/>
-    <link rel='stylesheet' href='./static/css/woocommerce.css' type='text/css' media='all'/>
-    <link rel='stylesheet' href='./static/css/font-awesome.min.css' type='text/css' media='all'/>
-    <link rel='stylesheet' href='./static/style.css' type='text/css' media='all'/>
+    
+    <link rel='stylesheet' href='{% static  "css/woocommerce-layout.css"   %}' type='text/css' media='all'/>
+    <link rel='stylesheet' href='{% static "css/woocommerce-smallscreen.css" %}' type='text/css' media='only screen and (max-width: 768px)'/>
+    <link rel='stylesheet' href='{% static "css/woocommerce.css" %}' type='text/css' media='all'/>
+    <link rel='stylesheet' href='{% static "css/font-awesome.min.css" %}' type='text/css' media='all'/>
+    <link rel='stylesheet' href='{% static "css/style.css" %}' type='text/css' media='all'/>
+    <link rel='stylesheet' href='{% static "css/easy-responsive-shortcodes.css" %}' type='text/css' media='all'/>
     <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Oswald:400,500,700%7CRoboto:400,500,700%7CHerr+Von+Muellerhoff:400,500,700%7CQuattrocento+Sans:400,500,700' type='text/css' media='all'/>
-    <link rel='stylesheet' href='./static/css/easy-responsive-shortcodes.css' type='text/css' media='all'/>
+
     <title>I Ran in 2025</title>
 </head>
 
@@ -30,10 +31,10 @@
         <a class="skip-link screen-reader-text" href="#content">Skip to content</a>
         <div class="menu-menu-1-container">
             <ul id="menu-menu-1" class="menu">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="about.html">About</a></li>
+                <li><a href="{% url 'home' %}">Home</a></li>
+                <li><a href="{% url 'about' %}">About</a></li>
                 <li><a href="shop.html">Shop</a></li>
-                <li><a href="blog.html">Blog</a></li>
+                <li><a href="{% url 'blog' %}">Blog</a></li>
                 <li><a href="elements.html">Elements</a></li>
                 <li><a href="#">Pages</a>
                 <ul class="sub-menu">
@@ -60,10 +61,10 @@
 {% endblock content %}
 
 </body>
-    <script src='./static/js/jquery.js'></script>
-    <script src='./static/js/plugins.js'></script>
-    <script src='./static/js/scripts.js'></script>
-    <script src='./static/js/masonry.pkgd.min.js'></script>
+    <script src='{% static "js/jquery.js" %}'></script>
+    <script src='{% static "js/plugins.js" %}'></script>
+    <script src='{% static "js/scripts.js" %}'></script>
+    <script src='{% static  "js/masonry.pkgd.min.js" %}'></script>
 
   <body>    
  </html>
