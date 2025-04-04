@@ -23,8 +23,13 @@
 
 <header id="masthead" class="site-header">
     <div class="site-branding">
-        <h1 class="site-title"><a href="index.html" rel="home">Moschino</a></h1>
-        <h2 class="site-description">Minimalist Portfolio HTML Template</h2>
+        <h1 class="site-title">
+            <a href="{% url "home" %}">
+              <img src="{% static "images/logo.svg" %}" alt="logo">
+           </a>
+            {% comment %} <a href="index.html" rel="home">Moschino</a> {% endcomment %}
+        </h1>
+        <h2 class="site-description">In 2025 I Ran..</h2>
     </div>
     <nav id="site-navigation" class="main-navigation">
         <button class="menu-toggle">Menu</button>
@@ -33,9 +38,10 @@
             <ul id="menu-menu-1" class="menu">
                 <li><a href="{% url 'home' %}">Home</a></li>
                 <li><a href="{% url 'about' %}">About</a></li>
-                <li><a href="shop.html">Shop</a></li>
                 <li><a href="{% url 'blog' %}">Blog</a></li>
-                <li><a href="elements.html">Elements</a></li>
+                {% comment %} <li><a href="shop.html">Shop</a></li> {% endcomment %}
+
+                {% comment %} <li><a href="elements.html">Elements</a></li> {% endcomment %}
                 <li><a href="#">Pages</a>
                 <ul class="sub-menu">
                     <li><a href="portfolio-item.html">Portfolio Item</a></li>
@@ -44,7 +50,7 @@
                     <li><a href="portfolio-category.html">Portfolio Category</a></li>
                 </ul>
                 </li>
-                <li><a href="contact.html">Contact</a></li>
+                {% comment %} <li><a href="contact.html">Contact</a></li> {% endcomment %}
             </ul>
         </div>
     </nav>
