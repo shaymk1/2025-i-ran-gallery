@@ -9,89 +9,36 @@
 			<div id="content" class="site-content">
 				<div id="primary" class="content-area column full">
 					<main id="main" class="site-main">
-					<div class="grid portfoliogrid">
-					
-						<article class="hentry">
-						<header class="entry-header">
-						<div class="entry-thumbnail">
-							<a href="portfolio-item.html"><img src="{% static 'images/Jan/aunty-boy-2.jpg' %}" class="attachment-post-thumbnail size-post-thumbnail wp-post-image" alt="pic"/></a>
-						</div>
-						<h2 class="entry-title"><a href="portfolio-item.html" rel="bookmark">Aunty and Boy</a></h2>
-						<a class='portfoliotype' href='portfolio-category.html'>summer</a>
-						<a class='portfoliotype' href='portfolio-category.html'>woman</a>
-						<a class='portfoliotype' href='portfolio-category.html'>yellow KM</a>
-						</header>
-						</article>
+						<div class="grid portfoliogrid">
+
+						{% comment %} image-1 {% endcomment %}
+						{% for photos in photo %}
+							<article class="hentry">
+								<header class="entry-header">
+									<div class="entry-thumbnail">
+										<a href="portfolio-item.html"><img src="{{photos.image.url}}" class="attachment-post-thumbnail size-post-thumbnail wp-post-image" alt="pic"/></a>
+									</div>
+									<h2 class="entry-title"><a href="portfolio-item.html" rel="bookmark">{{photos.title}}</a></h2>
+									{% if photos.category %}
+										<a class='portfoliotype' href='portfolio-category.html'>{{photos.category.month}}</a>
+										<a class='portfoliotype' href='portfolio-category.html'>{{photos.category.venue}}</a>
+										<a class='portfoliotype' href='portfolio-category.html'>{{photos.category.race}} KM</a>
+									 {% endif %} 
+								</header>
+							</article>
+						{% endfor %}	
+							
 						
-						<article class="hentry">
-						<header class="entry-header">
-						<div class="entry-thumbnail">
-							<a href="portfolio-item.html"><img src="{% static 'images/Jan/me-aunty-boy-3.jpg' %}" class="attachment-post-thumbnail size-post-thumbnail wp-post-image" alt="pic"/></a>
+							
 						</div>
-						<h2 class="entry-title"><a href="portfolio-item.html" rel="bookmark">Earl of Moreland</a></h2>
-						<a class='portfoliotype' href='portfolio-category.html'>hat</a>
-						<a class='portfoliotype' href='portfolio-category.html'>woman</a>
-						<a class='portfoliotype' href='portfolio-category.html'>yellow</a>
-						</header>
-						</article>
+						<!-- .grid -->
 						
-						<article class="hentry">
-						<header class="entry-header">
-						<div class="entry-thumbnail">
-							<a href="portfolio-item.html"><img src="{% static 'images/Jan/boy-2.jpg' %}" class="attachment-post-thumbnail size-post-thumbnail wp-post-image" alt="p1"/></a>
-						</div>
-						<h2 class="entry-title"><a href="portfolio-item.html" rel="bookmark">Eliza and John</a></h2>
-						<a class='portfoliotype' href='portfolio-category.html'>summer</a>
-						<a class='portfoliotype' href='portfolio-category.html'>woman</a>
-						<a class='portfoliotype' href='portfolio-category.html'>yellow</a>
-						</header>
-						</article>
-						
-						<article class="hentry">
-						<header class="entry-header">
-						<div class="entry-thumbnail">
-							<a href="portfolio-item.html"><img src="{% static 'images/Jan/boy-2.jpg' %}" class="attachment-post-thumbnail size-post-thumbnail wp-post-image" alt="p1"/></a>
-						</div>
-						<h2 class="entry-title"><a href="portfolio-item.html" rel="bookmark">Hot Afternoon</a></h2>
-						<a class='portfoliotype' href='portfolio-category.html'>pink</a>
-						<a class='portfoliotype' href='portfolio-category.html'>woman</a>
-						<a class='portfoliotype' href='portfolio-category.html'>yellow</a>
-						</header>
-						</article>
-						
-						<article class="hentry">
-						<header class="entry-header">
-						<div class="entry-thumbnail">
-							<a href="portfolio-item.html"><img src="{% static 'images/clearwater-1.jpg' %}" class="attachment-post-thumbnail size-post-thumbnail wp-post-image" alt="pic"/></a>
-						</div>
-						<h2 class="entry-title"><a href="portfolio-item.html" rel="bookmark">Long Walks</a></h2>
-						<a class='portfoliotype' href='portfolio-category.html'>hat</a>
-						<a class='portfoliotype' href='portfolio-category.html'>summer</a>
-						<a class='portfoliotype' href='portfolio-category.html'>yellow</a>
-						</header>
-						</article>
-						
-						<article class="hentry">
-						<header class="entry-header">
-						<div class="entry-thumbnail">
-							<a href="portfolio-item.html"><img src="{% static 'images/march/urithi-march-6.jpg' %}" class="attachment-post-thumbnail size-post-thumbnail wp-post-image" alt="pic"/></a>
-						</div>
-						<h2 class="entry-title"><a href="portfolio-item.html" rel="bookmark">Twilight</a></h2>
-						<a class='portfoliotype' href='portfolio-category.html'>hat</a>
-						<a class='portfoliotype' href='portfolio-category.html'>woman</a>
-						<a class='portfoliotype' href='portfolio-category.html'>summer</a>
-						</header>
-						</article>
-						
-					</div>
-					<!-- .grid -->
-					
-					<nav class="pagination">
-					<span class="page-numbers current">1</span>
-					<a class="page-numbers" href="#">2</a>
-					<a class="next page-numbers" href="#">Next »</a>
-					</nav>
-					<br/>
+						<nav class="pagination">
+						<span class="page-numbers current">1</span>
+						<a class="page-numbers" href="#">2</a>
+						<a class="next page-numbers" href="#">Next »</a>
+						</nav>
+						<br/>
 					
 					</main>
 					<!-- #main -->

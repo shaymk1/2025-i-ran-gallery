@@ -1,8 +1,16 @@
+
 from django.shortcuts import render
+from .models import Photo, Category
 
 
 def home(request):
-    return render(request, "index.html")
+    photos = Photo.objects.all()
+    category = Category.objects.all()
+    context = {
+        "photo": photos,
+        "category": category,
+    }
+    return render(request, "index.html", context)
 
 
 def about(request):
