@@ -27,8 +27,7 @@
             <a href="{% url "home" %}">
               <img src="{% static "images/logo.svg" %}" alt="logo">
            </a>
-            {% comment %} <a href="index.html" rel="home">Moschino</a> {% endcomment %}
-        </h1>
+           
         <h2 class="site-description">In 2025 I Ran..</h2>
     </div>
     <nav id="site-navigation" class="main-navigation">
@@ -44,10 +43,26 @@
                 {% comment %} <li><a href="elements.html">Elements</a></li> {% endcomment %}
                 <li><a href="#">Pages</a>
                 <ul class="sub-menu">
-                    <li><a href="portfolio-item.html">Portfolio Item</a></li>
-                    <li><a href="blog-single.html">Blog Article</a></li>
-                    <li><a href="shop-single.html">Shop Item</a></li>
-                    <li><a href="portfolio-category.html">Portfolio Category</a></li>
+                    <li><strong>Photos</strong>
+                        {% for photo in photo_list %}
+                        <li><a href="{% url "photo_detail" photo.id %}">{{ photo.title }}</a></li>
+                   
+                       {% endfor %}
+                    </li>
+                    <li><strong>Blog</strong>
+                    {% for blog in blog_list %}
+                       <li><a href="{% url "blog_detail" blog.slug %}">{{ blog.title }}</a></li>
+                    </li>
+                   {% endfor %}
+                   {% comment %} {% for blog in blog_list %}
+                    <li><a href="{% url "blog_detail" blog.slug %}">{{ blog.title }}</a></li>
+                    {% endfor %} {% endcomment %}
+                    {% comment %} <li><a href="portfolio-item.html">Portfolio Item</a></li> {% endcomment %}
+                    {% comment %} <li><a href="blog-single.html">Blog Article</a></li> {% endcomment %}
+                    {% comment %} <li><a href="shop-single.html">Shop Item</a></li> {% endcomment %}
+                    {% comment %} <li><a href="portfolio-category.html">Portfolio Category</a></li> {% endcomment %}
+                    {% comment %} <li><a href="shop-single.html">Shop Item</a></li>
+                    <li><a href="portfolio-category.html">Portfolio Category</a></li> {% endcomment %}
                 </ul>
                 </li>
                 {% comment %} <li><a href="contact.html">Contact</a></li> {% endcomment %}

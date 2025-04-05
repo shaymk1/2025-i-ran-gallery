@@ -17,18 +17,23 @@
 						{% for blog in blogs %}
 							<article>
 								<header class="entry-header">
-									<h1 class="entry-title"><a href="blog-single.html" rel="bookmark">{{blog.title}}</a></h1>
+									<h1 class="entry-title">
+										<a href="{% url 'blog_detail' blog.slug %}">{{ blog.title }}</a>
+									</h1>
 									<div class="entry-meta">
 										<span class="posted-on"><time class="entry-date published">{{blog.date_created}}</time></span>						
 										{% comment %} <span class="comments-link"><a href="#">Leave a comment</a></span> {% endcomment %}
 									</div>
 									<div class="entry-thumbnail">						
-										<img src="{{blog.image.url}}" alt="image">
+										<a href="{% url 'blog_detail' blog.slug %}">
+											<img src="{{ blog.image.url }}" alt="image">
+										</a>
 									</div>
 							</header>
 								<div class="entry-summary">
 									<p>
-{{blog.content}} <a class="more-link" href="blog-single.html">Read more</a>
+										{{ blog.content|truncatewords:30 }}
+										<a class="more-link" href="{% url 'blog_detail' blog.slug %}">Read more</a>
 									</p>
 								</div>
 								{% comment %} <footer class="entry-footer">
