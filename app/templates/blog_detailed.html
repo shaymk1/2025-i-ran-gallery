@@ -17,37 +17,16 @@
 					<img width="800" height="533" src="{{ blog.image.url }}" class="attachment-post-thumbnail size-post-thumbnail wp-post-image" alt="pic"/>
 				</div>
 				<h1 class="entry-title">{{blog.title}}</h1>
-				{% comment %} <ul>
-					{% for cat in category %}
-					<li>
-						<a href="{% url 'blog_by_category' cat.slug %}">{{ cat.month }} - {{ cat.venue }} ({{ cat.race }} KM)</a>
-					</li>
-					{% endfor %} {% endcomment %}
-					{% comment %} {% for cat in category %}
-						<li>
-							<a href="#">{{ cat.month }} - {{ cat.venue }} ({{ cat.race }} KM)</a>
-						</li>
-					{% endfor %} {% endcomment %}
-				{% comment %} </ul> {% endcomment %}
-				{% comment %} {% if blog.category %}
-				<a class='portfoliotype' href='portfolio-category.html'>{{ blog.category.month }}</a>
-				<a class='portfoliotype' href='portfolio-category.html'>{{ blog.category.venue }}</a>
-				<a class='portfoliotype' href='portfolio-category.html'>{{ blog.category.race }}</a>
-				{% endif %} {% endcomment %}
+				
 				</header>
 				<div class="entry-content">
-					{% comment %} <p>
-						Beautiful young woman in a green dress with curly long hair.
-					</p>
-					<p>
-						There was no possibility of taking a walk that day. We had been wandering, indeed, in the leafless shrubbery an hour in the morning.
-					</p> {% endcomment %}
+					
 					<blockquote>
 						<p>
 							{{blog.content}}
 						</p>
 					</blockquote>
-					<ul>
+					 <ul>
 						{% for cat in category %}
 							<li>
 								<a href="{% url 'blog_by_category' cat.slug %}">
@@ -55,15 +34,8 @@
 								</a>
 							</li>
 						{% endfor %}
-					</ul>
-					{% comment %} {% if blog.category %}
-									<a class="portfoliotype" href="#">{{ blog.category.month }}</a>
-									<a class="portfoliotype" href="#">{{ blog.category.venue }}</a>
-									<a class="portfoliotype" href="#">{{ blog.category.race }} KM</a>
-					{% endif %} {% endcomment %}
-					{% comment %} <p>
-						The said Eliza, John, and Georgiana were now clustered round their mama in the drawing-room: she lay reclined on a sofa by the fireside, and with her darlings about her (for the time neither quarrelling nor crying) looked perfectly happy.
-					</p> {% endcomment %}
+					</ul> 
+					 
 				</div>
 				</article>
 				{% comment %} {% endfor %} {% endcomment %}

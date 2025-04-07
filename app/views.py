@@ -34,7 +34,7 @@ def blog(request):
 def blog_detail(request, slug):
     blog = Blog.objects.get(slug=slug)
     photo = Photo.objects.all()
-    category = Category.objects.all()
+    category = blog.categories.all()
     context = {
         "blog": blog,
         "photo": photo,
@@ -52,7 +52,9 @@ def photo_detail(request, id):
 
 
 def blog_by_category(request, slug):
-    category = Category.objects.all()
+    category = Category.objects.filter(slug=slug).first()
+    if not category:
+        return render(request, "404.html")
     blog = Blog.objects.get(slug=slug)
     photo = Photo.objects.all()
     context = {
