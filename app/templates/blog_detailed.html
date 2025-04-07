@@ -6,6 +6,22 @@
 	<div class="container">
 	
 		<!-- #masthead -->
+		 	 {% comment %} <nav class="navigation post-navigation" role="navigation">
+					<h1 class="screen-reader-text">Post navigation</h1>
+					<div class="nav-links">
+					<div class="nav-previous">
+					<a href="#" rel="prev"> <span class="meta-nav">←</span> Eliza and John</a>
+					</div>
+					<div class="nav-next">
+					<a href="#" rel="next">Sunset Beach <span class="meta-nav">→</span></a>
+					</div>		
+					</div>
+				</nav>  {% endcomment %}
+				<!-- .navigation -->
+
+				<div class="nav-next">
+					<a href="{% url "blog" %}" rel="next">←<span class="meta-nav">All Blogs </span></a>
+					</div>	
 		
 		<div id="content" class="site-content">
 			<div id="primary" class="content-area column two-thirds single-portfolio">
@@ -29,16 +45,17 @@
 					 <ul>
 						{% for cat in category %}
 							<li>
-								<a href="{% url 'blog_by_category' cat.slug %}">
+								<a href=""></a>
+								{% comment %} <a href="{% url 'blog_by_category' cat.slug %}"> {% endcomment %}
 									{{ cat.month }}/{{ cat.venue }}/{{ cat.race }} KM
-								</a>
+								{% comment %} </a> {% endcomment %}
 							</li>
 						{% endfor %}
 					</ul> 
 					 
 				</div>
 				</article>
-				{% comment %} {% endfor %} {% endcomment %}
+			
 				
 				{% comment %} <nav class="navigation post-navigation" role="navigation">
 					<h1 class="screen-reader-text">Post navigation</h1>

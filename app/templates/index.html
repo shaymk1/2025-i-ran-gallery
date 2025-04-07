@@ -23,10 +23,30 @@
 									<h2 class="entry-title">
 										<a href="{% url 'photo_detail' photos.id %}">{{ photos.title }}</a>
 									</h2>
-									{% if photos.category %}
-									<a class="portfoliotype" href="#">{{ photos.category.month }}</a>
+
+								{% if photos.category %}
+									<ul class="portfoliotype" style="margin-top: 5px; margin-left: 0;"> 
+										<li style="list-style: none; padding-left: 0;;">
+											<a href="{% url 'photo_detail' photos.id %}" style="text-decoration: none; color: #555; margin-right: 10px; ">
+												{{ photos.category.month }}
+											</a>/
+											<a href="{% url 'photo_detail' photos.id %}" style="text-decoration: none; color: #555; margin-right: 10px; ">
+												{{ photos.category.venue }}
+											</a>/
+											<a href="{% url 'photo_detail' photos.id %}" style="text-decoration: none; color: #555;">
+												{{ photos.category.race }} KM
+											</a>
+										</li>
+									</ul>
+									{% comment %} {% if photos.category %}
+									 <ul class="portfoliotype"style="margin-top: 5px; margin-left: 12px;"" > 
+									<li  style="list-style: none;">{{ photos.category.month }} / {{ photos.category.venue }} / {{ photos.category.race }} KM</li> {% endcomment %}
+									{% comment %} <p class="portfoliotype">{{ photos.category.venue }} </p>
+									<p class="portfoliotype">{{ photos.category.race }} KM</p> {% endcomment %}
+									{% comment %} <a class="portfoliotype" href="#">{{ photos.category.month }}</a>
 									<a class="portfoliotype" href="#">{{ photos.category.venue }}</a>
-									<a class="portfoliotype" href="#">{{ photos.category.race }} KM</a>
+									<a class="portfoliotype" href="#">{{ photos.category.race }} KM</a> {% endcomment %}
+                                   {% comment %} </ul> {% endcomment %}
 									 {% endif %} 
 								</header>
 							</article>
