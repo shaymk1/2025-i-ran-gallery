@@ -6,7 +6,7 @@ from core.settings.base import MEDIA_ROOT
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("home/", include("app.urls")),
+    path("", include("app.urls")),
 ]
 
 

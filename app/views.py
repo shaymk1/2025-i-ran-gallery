@@ -31,12 +31,16 @@ def blog(request):
     return render(request, "blog.html", context)
 
 
-def blog_detail(request, id):
-    blog = Blog.objects.get(id=id)
+def blog_detail(request, slug):
+    blog = Blog.objects.get(slug=slug)
+    photo = Photo.objects.all()
+    category = Category.objects.all()
     context = {
         "blog": blog,
+        "photo": photo,
+        "category": category,
     }
-    return render(request, "blog_detail.html", context)
+    return render(request, "blog_detailed.html", context)
 
 
 def photo_detail(request, id):
@@ -44,4 +48,16 @@ def photo_detail(request, id):
     context = {
         "photo": photo,
     }
-    return render(request, "photo_detail.html", context)
+    return render(request, "photo_detailed.html", context)
+
+
+def blog_by_category(request, slug):
+    category = Category.objects.all()
+    blog = Blog.objects.get(slug=slug)
+    photo = Photo.objects.all()
+    context = {
+        "blog": blog,
+        "category": category,
+        "photo": photo,
+    }
+    return render(request, "blog_by_category.html", context)

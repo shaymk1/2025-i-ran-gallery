@@ -38,22 +38,28 @@
                 <li><a href="{% url 'home' %}">Home</a></li>
                 <li><a href="{% url 'about' %}">About</a></li>
                 <li><a href="{% url 'blog' %}">Blog</a></li>
-                {% comment %} <li><a href="shop.html">Shop</a></li> {% endcomment %}
+                 <li><a href="shop.html">Add</a>
+                    <ul class="sub-menu">
+                        <li><a href="#">Add A Photo</a></li> 
+                        <li><a href="#">Add A Blog</a></li>
+                    </ul>
+                </li>
+                <li><a href="#">Update</a></li>
 
                 {% comment %} <li><a href="elements.html">Elements</a></li> {% endcomment %}
-                <li><a href="#">Pages</a>
+                {% comment %} 
                 <ul class="sub-menu">
                     <li><strong>Photos</strong>
                         {% for photo in photo_list %}
-                        <li><a href="{% url "photo_detail" photo.id %}">{{ photo.title }}</a></li>
+                        <li><a href="{% url "photo_detail" photo.id %}">{{ photo.title }}</a></li> {% endcomment %}
                    
-                       {% endfor %}
+                       {% comment %} {% endfor %}
                     </li>
                     <li><strong>Blog</strong>
                     {% for blog in blog_list %}
                        <li><a href="{% url "blog_detail" blog.slug %}">{{ blog.title }}</a></li>
                     </li>
-                   {% endfor %}
+                   {% endfor %} {% endcomment %}
                    {% comment %} {% for blog in blog_list %}
                     <li><a href="{% url "blog_detail" blog.slug %}">{{ blog.title }}</a></li>
                     {% endfor %} {% endcomment %}
@@ -63,8 +69,8 @@
                     {% comment %} <li><a href="portfolio-category.html">Portfolio Category</a></li> {% endcomment %}
                     {% comment %} <li><a href="shop-single.html">Shop Item</a></li>
                     <li><a href="portfolio-category.html">Portfolio Category</a></li> {% endcomment %}
-                </ul>
-                </li>
+                {% comment %} </ul>
+                </li> {% endcomment %}
                 {% comment %} <li><a href="contact.html">Contact</a></li> {% endcomment %}
             </ul>
         </div>

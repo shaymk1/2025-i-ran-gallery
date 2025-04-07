@@ -1,3 +1,4 @@
+from tabnanny import verbose
 from django.db import models
 from django.utils.text import slugify
 
@@ -43,7 +44,13 @@ class Blog(models.Model):
     content = models.TextField()
     image = models.ImageField(upload_to="blog/")
     date_created = models.DateTimeField(auto_now_add=True)
+    last_updated = models.DateTimeField(auto_now=True)
     slug = models.SlugField(unique=True)
+    categories = models.ManyToManyField("Category", related_name="blogs")
+
+    class Meta:
+        ordering = ["-date_created"]
+        verbose_name_plural = "Blogs"
 
     def save(self, *args, **kwargs):
         if not self.slug:
