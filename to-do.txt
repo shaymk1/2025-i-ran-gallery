@@ -9,3 +9,9 @@
 - Pagination
 - enviromental variables
 - final security check 
+
+tomorrow: 08/04/2025
+
+_ add photo templates and corresponding viewa and forms
+- add blog templates and corresponding views and forms
+- delete template
