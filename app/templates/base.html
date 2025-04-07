@@ -46,32 +46,7 @@
                 </li>
                 <li><a href="#">Update</a></li>
 
-                {% comment %} <li><a href="elements.html">Elements</a></li> {% endcomment %}
-                {% comment %} 
-                <ul class="sub-menu">
-                    <li><strong>Photos</strong>
-                        {% for photo in photo_list %}
-                        <li><a href="{% url "photo_detail" photo.id %}">{{ photo.title }}</a></li> {% endcomment %}
-                   
-                       {% comment %} {% endfor %}
-                    </li>
-                    <li><strong>Blog</strong>
-                    {% for blog in blog_list %}
-                       <li><a href="{% url "blog_detail" blog.slug %}">{{ blog.title }}</a></li>
-                    </li>
-                   {% endfor %} {% endcomment %}
-                   {% comment %} {% for blog in blog_list %}
-                    <li><a href="{% url "blog_detail" blog.slug %}">{{ blog.title }}</a></li>
-                    {% endfor %} {% endcomment %}
-                    {% comment %} <li><a href="portfolio-item.html">Portfolio Item</a></li> {% endcomment %}
-                    {% comment %} <li><a href="blog-single.html">Blog Article</a></li> {% endcomment %}
-                    {% comment %} <li><a href="shop-single.html">Shop Item</a></li> {% endcomment %}
-                    {% comment %} <li><a href="portfolio-category.html">Portfolio Category</a></li> {% endcomment %}
-                    {% comment %} <li><a href="shop-single.html">Shop Item</a></li>
-                    <li><a href="portfolio-category.html">Portfolio Category</a></li> {% endcomment %}
-                {% comment %} </ul>
-                </li> {% endcomment %}
-                {% comment %} <li><a href="contact.html">Contact</a></li> {% endcomment %}
+               
             </ul>
         </div>
     </nav>
@@ -86,6 +61,22 @@
 
 
 {% endblock content %}
+<!-- .container -->
+<footer id="colophon" class="site-footer">
+	<div class="container">
+		<div class="site-info">
+			<h1 style="font-family: 'Herr Von Muellerhoff';color: #ccc;font-weight:300;text-align: center;margin-bottom:0;margin-top:0;line-height:1.4;font-size: 46px;">
+                <a href="{% url "home" %}">
+                    <img src="{% static "images/white_logo.svg" %}" alt="logo">
+                 </a>
+            </h1>
+           
+			 <a target="blank" href="{% url "home" %}">&copy;  Shay Kekae</a>
+		</div>
+	</div>	
+	</footer>
+	{% comment %} <a href="#top" class="smoothup" title="Back to top"><span class="genericon genericon-collapse"></span></a> {% endcomment %}
+</div>
 
 </body>
     <script src='{% static "js/jquery.js" %}'></script>

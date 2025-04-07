@@ -17,38 +17,21 @@
 							</div>
 							<h1 class="entry-title">{{ photo.title }}</h1>
 							{% if photo.category %}
-                                  <p><strong>Category:</strong> {{ photo.category.month }} - {{ photo.category.venue }}</p>
+                                  <p style="margin:5px;"><strong>Category:</strong> {{ photo.category.month }} - {{ photo.category.venue }}</p>
                             {% endif %}
 						</header>
-						<div class="entry-content">
-							<p>
-								Beautiful young woman in a green dress with curly long hair.
-							</p>
-							<p>
-								There was no possibility of taking a walk that day. We had been wandering, indeed, in the leafless shrubbery an hour in the morning.
-							</p>
+						{% comment %} <div class="entry-content">
+						
 							<blockquote>
 								<p>
 									I was glad of it: I never liked long walks, especially on chilly afternoons: dreadful to me was the coming home in the raw twilight, with nipped fingers and toes, and a heart saddened by the chidings of Bessie, the nurse, and humbled by the consciousness of my physical inferiority to Eliza, John, and Georgiana Reed.
 								</p>
 							</blockquote>
-							<p>
-								The said Eliza, John, and Georgiana were now clustered round their mama in the drawing-room: she lay reclined on a sofa by the fireside, and with her darlings about her (for the time neither quarrelling nor crying) looked perfectly happy.
-							</p>
-						</div>
+							
+						</div> {% endcomment %}
 					</article>
 					
-					<nav class="navigation post-navigation" role="navigation">
-						<h1 class="screen-reader-text">Post navigation</h1>
-						<div class="nav-links">
-						<div class="nav-previous">
-						<a href="#" rel="prev"> <span class="meta-nav">←</span> Eliza and John</a>
-						</div>
-						<div class="nav-next">
-						<a href="#" rel="next">Sunset Beach <span class="meta-nav">→</span></a>
-						</div>		
-						</div>
-					</nav>
+			
 				<!-- .navigation -->
 				
 				</main>
@@ -56,7 +39,7 @@
 			</div>
 			<!-- #primary -->
 			
-			<div id="secondary" class="column third">
+			{% comment %} <div id="secondary" class="column third">
 				<div class="widget-area">
 					<aside class="widget">
 						<h4 class="widget-title">Request similar project</h4>
@@ -73,7 +56,7 @@
 						</div>
 					</aside>
 				</div>
-			</div>
+			</div> {% endcomment %}
 		</div>
 		<!-- #content -->
 	</div>

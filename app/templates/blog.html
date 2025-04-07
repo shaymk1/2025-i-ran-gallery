@@ -61,7 +61,9 @@
 						<h4 class="widget-title">About Me</h4>
 						<div class="textwidget">
 							<p>
-								<img src="{% static 'images/about.jpg' %}" class="alignleft" style="width:80px;border-radius:50%;margin-bottom:0;" alt="image"> I'm a professional photographer for 10 years. It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.
+								<img src="{% static 'images/about.jpg' %}" class="alignleft" style="width:80px;border-radius:50%;margin-bottom:0;" alt="image">
+								I am just a girl who recently took up running for the fun of it. In my other lifetime, you will find me doing some coding and sometimes doing some art and taking care of my house plants. In my present lifetime, you will not find me, because i will be in stillness. 
+								
 							</p>
 						</div>
 						</aside>
@@ -69,21 +71,12 @@
 						<aside id="recent-posts-2" class="widget widget_recent_entries">
 							<h4 class="widget-title">Recent Posts</h4>
 							<ul>
+					           {% for blog in  blogs%}
 								<li>
-								  <a href="blog-single.html">Somewhere in time</a>
+								  <a href="{% url "blog_detail"  blog.slug%}">{{blog.title}}</a>
 								</li>
-								<li>
-								   <a href="blog-single.html">Thanks for watching!</a>
-								</li>
-								<li>
-								   <a href="blog-single.html/">Who could have thought?</a>
-								</li>
-								<li>
-								   <a href="blog-single.html">Text Alignement</a>
-								</li>
-								<li>
-								   <a href="blog-single.html">HTML Tags and Formatting</a>
-								</li>
+								{% endfor %}
+								
 							</ul>
 						</aside>
 						
