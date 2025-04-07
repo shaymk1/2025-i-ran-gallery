@@ -9,6 +9,10 @@ class Category(models.Model):
     race = models.IntegerField()
     slug = models.SlugField(unique=True)
 
+    class Meta:
+        verbose_name_plural = "Categories"
+        ordering = ["-id"]
+
     # ensures that the slug is autaomatically generated from the month and venue fields
     def save(self, *args, **kwargs):
         if not self.slug:
@@ -26,6 +30,10 @@ class Photo(models.Model):
     title = models.CharField(max_length=100)
     image = models.ImageField(upload_to="photos/")
 
+    class Meta:
+        verbose_name_plural = "Photos"
+        ordering = ["-id"]
+
     def __str__(self):
         return self.title
 
@@ -34,6 +42,9 @@ class About(models.Model):
     title = models.CharField(max_length=100)
     description = models.TextField()
     image = models.ImageField(upload_to="about/")
+
+    class Meta:
+        verbose_name_plural = "About Us"
 
     def __str__(self):
         return self.title
