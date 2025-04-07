@@ -9,7 +9,7 @@ def home(request):
     context = {
         "photo": photos,
         "category": category,
-        "photo_list": photos,
+        # "photo_list": photos,
     }
     return render(request, "index.html", context)
 
@@ -26,7 +26,7 @@ def blog(request):
     blogs = Blog.objects.all()
     context = {
         "blogs": blogs,
-        "blog_list": blogs,
+        # "blog_list": blogs,
     }
     return render(request, "blog.html", context)
 
