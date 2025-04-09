@@ -216,4 +216,185 @@
 								</iframe>
 							</div>
 						</div>
-						</aside>								
+						</aside>	
+
+
+
+
+				************form for add_photo******
+
+				
+			
+			{% comment %} <div class="mb-3">
+										<label for="title" class="form-label">Title</label>
+										<input type="text" name="title" id="title" class="form-control" required>
+									</div> {% endcomment %}
+			{% comment %} {% comment %} <div id="content" class="site-content">
+				<div id="primary" class="content-area column full">
+					<main id="main" class="site-main">
+						<div class="grid portfoliogrid">
+							<h4 class="widget-title">Add a Picture</h4>
+                            <div class="form-container" >
+                                <form class="form" method="post" action="" enctype="multipart/form-data" id="contactform">
+                                    {% csrf_token %}
+                                    <div class="form-group">
+                                        <label for="title" class="form-label">Title</label>
+                                        <input type="text" name="title" placeholder="Title *" required>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="image" class="form-label">Image</label>
+                                        <input type="file" name="image" accept="image/*" required>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="category" class="form-label">Select a Category</label>
+                                        <select name="category" id="category" required>
+                                            {% comment %} <option value="">Select a category</option> {% endcomment %}
+                                            {% comment %} {% for category in categories %} {% endcomment %}
+                                                {% comment %} <option value="{{ category.id }}">{{ category.name }}</option> {% endcomment %}
+                                            {% comment %} {% endfor %} {% endcomment %}
+                                        {% comment %} </select>
+                                    </div>
+
+									<div class="form-group" style="margin-bottom: 20px;">
+                                        <input type="submit" id="submit" class="btn-submit" value="Send">
+                                    </div>
+                                </form> {% endcomment %} 
+
+							{% comment %} <h4 class="widget-title">Add a picture</h4>
+							<div class="form" style="margin-bottom: 20px;">	
+								<form class="wpcf7" method="post" action="" enctype="multipart/form-data" id="contactform" >
+									{% csrf_token %}
+											
+									<label for="title" class="form-label">Title</label>
+									<input type="text" name="title" placeholder="Title *"  required>
+
+									<label for="image" class="form-label">Image</label>
+									<input type="file" name="image" accept="image/*" required>
+
+									<label>Select a category</label>
+									<select name="category" id="category" required>
+										<option value="">Select a category</option>
+										{% for category in categories %}
+											<option value="{{ category.id }}">{{ category.name }}</option>
+										{% endfor %}
+									</select>
+												
+
+												{% comment %} <p><input type="text" name="email" placeholder="E-mail Address *"></p>
+												{% comment %} <p><textarea name="comment" rows="3" placeholder="Message *"></textarea></p> {% endcomment %}
+									{% comment %} <input type="submit" id="submit" class="clearfix btn" value="Send">
+											
+								</form>
+							</div>  {% endcomment %}
+						{% comment %} {% for photos in photo %}
+							<article class="hentry">
+								<header class="entry-header">
+									<div class="entry-thumbnail">
+										<a href="{% url 'photo_detail' photos.id %}">
+											<img src="{{ photos.image.url }}" class="attachment-post-thumbnail size-post-thumbnail wp-post-image" alt="pic"/>
+										</a>
+									</div>
+									<h2 class="entry-title">
+										<a href="{% url 'photo_detail' photos.id %}">{{ photos.title }}</a>
+									</h2>
+									{% if photos.category %}
+									<a class="portfoliotype" href="#">{{ photos.category.month }}</a>
+									<a class="portfoliotype" href="#">{{ photos.category.venue }}</a>
+									<a class="portfoliotype" href="#">{{ photos.category.race }} KM</a>
+									 {% endif %} 
+								</header>
+							</article> {% endcomment %}
+						{% comment %} {% endfor %}	 {% endcomment %}
+							
+						
+							
+						{% comment %} </div> {% endcomment %}
+						<!-- .grid -->	
+
+							{% comment %} <div class="form-group m-3">
+										<label>Create a new category</label>
+										<input name="category_title" type="text" placeholder="Create a new category"
+											class="form-control">
+									</div> {% endcomment %}
+
+
+									{% comment %} <style> {% endcomment %}
+{% comment %} /* Form container styling */ {% endcomment %}
+{% comment %} .form-container {
+    max-width: 600px; /* Limit the width of the form */
+    margin: 0 auto; /* Center the form */
+    padding: 20px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+} {% endcomment %}
+
+{% comment %} /* Form group styling */
+.form-group {
+    margin-bottom: 15px; 
+	padding: 10px;
+}
+
+/* Input and select styling */
+.form-group input[type="text"],
+.form-group input[type="file"],
+.form-group select {
+    width: 100%; 
+    padding: 12px 20px;
+	margin: 8px 0; 
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+/* Submit button styling */
+.btn-submit {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 14px;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    text-align: center;
+    transition: background-color 0.3s ease;
+}
+
+.btn-submit:hover {
+    background-color: #0056b3;
+}
+
+/* Pagination styling */
+.pagination {
+    text-align: center;
+    margin-top: 20px; /* Add space above pagination */
+}
+
+.pagination .page-numbers {
+    display: inline-block;
+    margin: 0 5px;
+    padding: 8px 12px;
+    font-size: 14px;
+    color: #007bff;
+    text-decoration: none;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.pagination .page-numbers.current {
+    background-color: #007bff;
+    color: #fff;
+    border-color: #007bff;
+}
+
+.pagination .page-numbers:hover {
+    background-color: #0056b3;
+    color: #fff;
+}
+</style> {% endcomment %}					
