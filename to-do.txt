@@ -1,11 +1,11 @@
 
 
-- sort out the category so that when clicked they can display only items in that category
+- sort out the category so that when clicked  they can display only items in that category -----done
 - add photos from front end
 - delete photos from front end
 - update from front end
-- about page 
-- blog page
+- about page -----done
+- blog page-----done
 - Pagination
 - enviromental variables
 - final security check 
