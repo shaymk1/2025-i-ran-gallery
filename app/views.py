@@ -30,19 +30,22 @@ def about(request):
 
 
 def blog(request):
-    blogs = Blog.objects.all()
-    show_all = request.GET.get("show_all", "false").lower() == "true"
-    if show_all:
-        blogs = Blog.objects.all().order_by("-date_created")  # Show all blogs
-    else:
-        blogs = Blog.objects.all().order_by("-date_created")[
-            :5
-        ]  # Show the latest 5 blogs
+    # blogs = Blog.objects.all()
+    # show_all = request.GET.get("show_all", "false").lower() == "true"
+    # if show_all:
+    blogs = Blog.objects.all().order_by("-date_created")  # Show all blogs
+    # else:
+    # blogs = Blog.objects.all().order_by("-date_created")[
+    # :5
+    # Show the latest 5 blogs
 
     # Add pagination logic
     paginator = Paginator(blogs, 5)
     page_number = request.GET.get("page")
     page_obj = paginator.get_page(page_number)
+    
+        # Determine if "Show All" button is clicked
+    show_all = request.GET.get("show_all", "false").lower() == "true"
     context = {
         "blogs": page_obj,
         "show_all": show_all,
