@@ -7,108 +7,63 @@
 <body class="blog">
 	<div id="page">
 		<div class="container">
-	
 			<!-- #masthead -->
 			<div id="content" class="site-content">
 				<div id="primary" class="content-area column two-thirds">
 					<main id="main" class="site-main" role="main">
-						<div class="grid bloggrid">
 						
-						{% for blog in blogs %}
-							<article>
-								<header class="entry-header">
-									<h1 class="entry-title">
-										<a href="{% url 'blog_detail' blog.slug %}">{{ blog.title }}</a>
-									</h1>
-									<div class="entry-meta">
-										<span class="posted-on"><time class="entry-date published">{{blog.date_created}}</time></span>						
-										{% comment %} <span class="comments-link"><a href="#">Leave a comment</a></span> {% endcomment %}
-									</div>
-									<div class="entry-thumbnail">						
-										<a href="{% url 'blog_detail' blog.slug %}">
-											<img src="{{ blog.image.url }}" alt="image">
-										</a>
-									</div>
-							</header>
-								<div class="entry-summary">
-									<p>
-										{{ blog.content|truncatewords:30 }}
-										<a class="more-link" href="{% url 'blog_detail' blog.slug %}">Read more</a>
-									</p>
+
+
+							<form method="post" enctype="multipart/form-data">
+								{% csrf_token %}
+								<div class="form-group m-3">
+									<label for="title" class="form-label">Title</label>
+									<input type="text" name="title" id="title" placeholder="Enter blog title" required class="form-control">
 								</div>
-								{% comment %} <footer class="entry-footer">
-								<span class="cat-links">
-								Posted in <a href="#" rel="category tag">audio</a>, <a href="#" rel="category tag">embed</a>, <a href="#" rel="category tag">media</a>
-								</span>
-								</footer> {% endcomment %}
-							</article>
-
-						{% endfor %}
 							
-						</div>
-					<div class="clearfix">
-					</div>
-					<nav class="pagination"></nav>
+								<div class="form-group m-3">
+									<label for="content" class="form-label">Content</label>
+									<textarea name="content" id="content" rows="10" class="form-control"></textarea>
+								</div>
+							
+								<div class="form-group m-3">
+									<label for="image" class="form-label">Upload Image</label>
+									<input type="file" name="image" id="image" class="form-control-file">
+								</div>
+							
+								{% comment %} <div class="form-group m-3">
+									<label for="category" class="form-label">Select a Category</label>
+									<select name="category" id="category" class="form-control">
+										<option value="none">None</option>
+										{% for cat in category %}
+											<option value="{{ cat.id }}">{{ cat.month }} - {{ cat.venue }}</option>
+										{% endfor %}
+									</select>
+								</div> {% endcomment %}
+							
+								<button type="submit" class="btn btn-primary" style = " background-color:black; color:white;">Submit</button>
+							</form>
+							
+							
+
+						
 					</main>
-					<!-- #main -->
-				</div>
-				<!-- #primary -->
-				
-				<div id="secondary" class="column third">
-					<div id="sidebar-1" class="widget-area" role="complementary">
-					
-						<aside id="text-5" class="widget widget_text">
-						<h4 class="widget-title">About Me</h4>
-						<div class="textwidget">
-							<p>
-								<img src="{% static 'images/about.jpg' %}" class="alignleft" style="width:80px;border-radius:50%;margin-bottom:0;" alt="image"> I'm a professional photographer for 10 years. It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.
-							</p>
-						</div>
-						</aside>
-						
-						<aside id="recent-posts-2" class="widget widget_recent_entries">
-							<h4 class="widget-title">Recent Posts</h4>
-							<ul>
-								<li>
-								  <a href="blog-single.html">Somewhere in time</a>
-								</li>
-								<li>
-								   <a href="blog-single.html">Thanks for watching!</a>
-								</li>
-								<li>
-								   <a href="blog-single.html/">Who could have thought?</a>
-								</li>
-								<li>
-								   <a href="blog-single.html">Text Alignement</a>
-								</li>
-								<li>
-								   <a href="blog-single.html">HTML Tags and Formatting</a>
-								</li>
-							</ul>
-						</aside>
-						
-						
-						
-					
-					
-						
-					</div>
-					<!-- .widget-area -->
-				</div>
-				<!-- #secondary -->
-			</div>
-			<!-- #content -->
-		</div>
-		<!-- .container -->
+				</div>			
+			</div>		
+		</div>		
+	</div>			
+
+	{% endblock %}					
 	
-		<a href="#top" class="smoothup" title="Back to top"><span class="genericon genericon-collapse"></span></a>
-	</div>
-	
-	</body>
+	<script>
+		// Initialize CKEditor for the content textarea
+		CKEDITOR.replace('content');
+		height: 300,  // Set the height of the editor
+        width: '100%'  // Ensure it takes the full width of the container
+	</script>
+	<script src="https://cdn.ckeditor.com/4.20.2/standard/ckeditor.js"></script>
 
-
-
-{% endblock %}
+</body>
 
 
 

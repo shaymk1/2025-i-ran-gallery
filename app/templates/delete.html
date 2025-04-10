@@ -24,12 +24,16 @@
     <!-- Display details for a blog -->
     {% if object_type == "blog" %}
         <div>
+            {% if object.image %}
+               <img src="{{ object.image.url }}" alt="{{ object.title }}" style="max-width: 300px; height: auto;">
+           {% endif %}
             <h2>{{ object.title }}</h2>
             <p>{{ object.content|truncatewords:50 }}</p> <!-- Show a snippet of the blog content -->
             {% if object.categories.exists %}
                 <p><strong>Categories:</strong> 
                     {% for category in object.categories.all %}
-                        {{ category.name }}{% if not forloop.last %}, {% endif %}
+                        {{ category.name }}{% if not forloop.last %},
+                         {% endif %}
                     {% endfor %}
                 </p>
             {% endif %}
@@ -40,7 +44,7 @@
              <form method="post">
                  {% csrf_token %}
                  <button type="submit" class="btn btn-danger">Delete</button>
-                 <a href="{% url 'home' %}" class="btn btn-secondary">Cancel</a>
+                 <a href="{% if object_type == 'blog' %}{% url 'blog' %}{% else %}{% url 'home' %}{% endif %}" class="btn btn-secondary" style ="color:white;">Cancel</a>
              </form>
          </div> 
      </div> 

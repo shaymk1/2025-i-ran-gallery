@@ -22,7 +22,7 @@
 									</h1>
 									<div class="entry-meta">
 										<span class="posted-on"><time class="entry-date published">{{blog.date_created}}</time></span>						
-										{% comment %} <span class="comments-link"><a href="#">Leave a comment</a></span> {% endcomment %}
+										
 									</div>
 									<div class="entry-thumbnail">						
 										<a href="{% url 'blog_detail' blog.slug %}">
@@ -36,11 +36,7 @@
 										<a class="more-link" href="{% url 'blog_detail' blog.slug %}">Read more</a>
 									</p>
 								</div>
-								{% comment %} <footer class="entry-footer">
-								<span class="cat-links">
-								Posted in <a href="#" rel="category tag">audio</a>, <a href="#" rel="category tag">embed</a>, <a href="#" rel="category tag">media</a>
-								</span>
-								</footer> {% endcomment %}
+							
 							</article>
 
 						{% endfor %}
@@ -69,36 +65,52 @@
 						</aside>
 						
 						<aside id="recent-posts-2" class="widget widget_recent_entries">
-							<h4 class="widget-title">Recent Posts</h4>
+							{% comment %} <h4 class="widget-title">Recent Posts</h4> {% endcomment %}
+							<h1 class=" widget-title my-4">Recent Posts</h1>
 							<ul>
+									{% for blog in blogs %}
+										<li>
+											<a href="{% url 'blog_detail' blog.slug %}">{{ blog.title }}</a>
+										</li>
+									{% endfor %}
+							</ul>
+
+								<!-- Show "Show All" or "Show Latest" button -->
+							<div class="mt-3">
+									{% if show_all %}
+										<a href="{% url 'blog' %}" class="btn btn-primary" style = "color:white; background-color:black;">Show Latest</a>
+									{% else %}
+										<a href="{% url 'blog' %}?show_all=true" class="btn btn-primary" style = "color:white; background-color:grey;">Show All</a>
+									{% endif %}
+							</div>
+														{% comment %} <ul>
 					           {% for blog in  blogs%}
 								<li>
 								  <a href="{% url "blog_detail"  blog.slug%}">{{blog.title}}</a>
 								</li>
 								{% endfor %}
 								
-							</ul>
+							</ul> {% endcomment %}
 						</aside>
 						
 						
                         <nav class="pagination">
 
 							{% if blog.has_previous %}
-							   <a  class = "page-numbers" href="?blog_page={{blog.previous_page_nuumber}}">« Previous</a>
+							   <a  class = "page-numbers" href="?blog_page={{blogs.previous_page_nuumber}}">« Previous</a>
 							{% endif %}
-							 {% for num  in blog.paginator.page_range  %}
-							    {% if blog.number == num %}
-							      <span class="page-numbers current">{{ num }}</span>
+
+							{% for num in blogs.paginator.page_range %}
+								{% if blogs.number == num %}
+										<span class="page-numbers current">{{ num }}</span>
 								{% else %}
-                                 <a class="page-numbers" href="?blog_page={{ num }}">{{ num }}</a>
-							   {% endif %}
-							 {% endfor %}
+										<a class="page-numbers" href="?page={{ num }}{% if show_all %}&show_all=true{% endif %}">{{ num }}</a>
+								{% endif %}
+							{% endfor %}
 
-							 {% if blog.has_next %}
-							 <a class ="next page-numbers"  href="?blog_page ={{blog.next_page_number}}">Next »</a>
-							 {% endif %}
-
-
+							{% if blogs.has_next %}
+								<a class="next page-numbers" href="?page={{ blogs.next_page_number }}{% if show_all %}&show_all=true{% endif %}">Next »</a>
+							{% endif %}
 						</nav>
 						
 					
