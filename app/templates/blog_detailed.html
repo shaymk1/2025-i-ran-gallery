@@ -23,7 +23,7 @@
 				<a href="{% url "blog" %}" rel="next">←<span class="meta-nav">All Blogs </span></a>
 			</div>
 			<div class="nav-previous">
-				<a href="#" rel="prev"> <span class="meta-nav"></span> Delete</a>
+				<a href="{% url 'delete' 'blog' blog.id %}" rel="prev"> <span class="meta-nav"></span> Delete</a>
 		{% comment %} </nav>	 {% endcomment %}
 		
 		<div id="content" class="site-content">

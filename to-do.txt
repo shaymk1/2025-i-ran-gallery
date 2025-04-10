@@ -1,17 +1,24 @@
 
 
-- sort out the category so that when clicked  they can display only items in that category -----done
-- add photos from front end
-- delete photos from front end
+06/04/2025
+- add photos from front end-----done
+- delete photos from front end-----done
 - update from front end
 - about page -----done
 - blog page-----done
-- Pagination
+- Pagination-----done
 - enviromental variables
 - final security check 
 
 tomorrow: 08/04/2025
 
-_ add photo templates and corresponding viewa and forms
+_ add photo templates and corresponding viewa and forms -----done
 - add blog templates and corresponding views and forms
-- delete template
+- delete template and views  -----done
+
+today: 10/04/2025
+
+- delete button
+- add blog
+- delete blog
+- update blog/photo
