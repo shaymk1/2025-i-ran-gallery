@@ -81,6 +81,25 @@
 						</aside>
 						
 						
+                        <nav class="pagination">
+
+							{% if blog.has_previous %}
+							   <a  class = "page-numbers" href="?blog_page={{blog.previous_page_nuumber}}">« Previous</a>
+							{% endif %}
+							 {% for num  in blog.paginator.page_range  %}
+							    {% if blog.number == num %}
+							      <span class="page-numbers current">{{ num }}</span>
+								{% else %}
+                                 <a class="page-numbers" href="?blog_page={{ num }}">{{ num }}</a>
+							   {% endif %}
+							 {% endfor %}
+
+							 {% if blog.has_next %}
+							 <a class ="next page-numbers"  href="?blog_page ={{blog.next_page_number}}">Next »</a>
+							 {% endif %}
+
+
+						</nav>
 						
 					
 					

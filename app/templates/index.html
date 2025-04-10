@@ -51,10 +51,7 @@
 
 						
                         <nav class="pagination">
-                            {% comment %} <p>Has Previous: {{ photo.has_previous }}</p>
-                            <p>Has Next: {{ photo.has_next }}</p>
-                            <p>Current Page: {{ photo.number }}</p>
-                            <p>Total Pages: {{ photo.paginator.num_pages }}</p> {% endcomment %}
+                            
                             {% if photo.has_previous %}
                             <a class="page-numbers" href="?page={{ photo.previous_page_number }}">« Previous</a>
                             {% endif %}
