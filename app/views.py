@@ -3,6 +3,7 @@ from calendar import c
 from django.shortcuts import render, redirect
 from .models import Photo, Category, About, Blog
 from django.core.paginator import Paginator
+from django.http import Http404
 
 
 def home(request):
@@ -11,17 +12,12 @@ def home(request):
     paginator = Paginator(photos, 6)
     page_number = request.GET.get("page")
     page_obj = paginator.get_page(page_number)
-    print("Page Number:", page_number)
-    print("Has Previous:", page_obj.has_previous())
-    print("Has Next:", page_obj.has_next())
-    print("Current Page:", page_obj.number)
-    print("Total Pages:", page_obj.paginator.num_pages)
+
     context = {
         "photo": page_obj,
         "category": category,
-        # "photo_list": photos,
     }
-   
+
     return render(request, "index.html", context)
 
 
@@ -104,42 +100,30 @@ def add_photo(request):
 
     return render(request, "add_photo.html", context)
 
-    # category = Category.objects.all()
-    # if request.method == "POST":
-    #     data = request.POST
-    #     image = request.FILES.get("image")
-    #     if data[category] != "none":
-    #         category = Category.objects.get(id=data["category"])
-    #     elif data["category_new"] == "":
-    #         data, created = Category.objects.get_or_create(
-    #             name=data["category_new"]
-    #             )
-    #     else:
-    #         category = None
-    #     # save the photo object
-    #     photo = Photo.objects.create(
-    #         title=data["title"],
-    #         image=image,
-    #         category=category,
-    #     )
-    #     return redirect("home")
-    # context = {
-    #     "category": category,
-    #     "photo": photo,
-    # }
 
-    # return render(request, "add_photo.html", context)
+def delete(request, object_type, id):
 
+    # Determine the model based on the object_type
+    if object_type == "photo":
+        model = Photo
+    elif object_type == "blog":
+        model = Blog
+    else:
+        raise Http404("Invalid object type")
 
-# def blog_by_category(request, slug):
-#     category = Category.objects.filter(slug=slug).first()
-#     if not category:
-#         return render(request, "404.html")
-#     blog = Blog.objects.get(slug=slug)
-#     photo = Photo.objects.all()
-#     context = {
-#         "blog": blog,
-#         "category": category,
-#         "photo": photo,
-#     }
-#     return render(request, "blog_by_category.html", context)
+    # Get the object to delete
+    try:
+        obj = model.objects.get(id=id)
+    except model.DoesNotExist:
+        raise Http404(f"{object_type.capitalize()} not found")
+    # Handle POST request to confirm deletion
+    if request.method == "POST":
+        obj.delete()
+        return redirect("home")  # Redirect to home or another page after deletion
+
+    # Render the delete confirmation page
+    context = {
+        "object": obj,
+        "object_type": object_type,
+    }
+    return render(request, "delete.html", context)
