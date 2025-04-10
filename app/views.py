@@ -11,11 +11,17 @@ def home(request):
     paginator = Paginator(photos, 6)
     page_number = request.GET.get("page")
     page_obj = paginator.get_page(page_number)
+    print("Page Number:", page_number)
+    print("Has Previous:", page_obj.has_previous())
+    print("Has Next:", page_obj.has_next())
+    print("Current Page:", page_obj.number)
+    print("Total Pages:", page_obj.paginator.num_pages)
     context = {
         "photo": page_obj,
         "category": category,
         # "photo_list": photos,
     }
+   
     return render(request, "index.html", context)
 
 

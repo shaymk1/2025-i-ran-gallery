@@ -1,10 +1,12 @@
 from .models import Photo, Blog
+from django.core.paginator import Paginator
 
 
 def global_context(request):
-    photo_list = Photo.objects.all()
-    blog_list = Blog.objects.all()
+    photos = Photo.objects.all()
+    paginator = Paginator(photos, 6)
+    page_number = request.GET.get("page")
+    page_obj = paginator.get_page(page_number)
     return {
-        "photo_list": photo_list,
-        "blog_list": blog_list,
+        "photo": page_obj,
     }
