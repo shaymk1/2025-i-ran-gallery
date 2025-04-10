@@ -39,7 +39,7 @@
                  <li><a href="#">Add</a>
                     <ul class="sub-menu">
                         <li><a href="{% url "add_photo" %}">Add A Photo</a></li> 
-                        <li><a href="#">Add A Blog</a></li>
+                        <li><a href="{% url "add_blog" %}">Add A Blog</a></li>
                     </ul>
                 </li>
                 <li><a href="#">Update</a></li>
@@ -66,10 +66,7 @@
 
                         {% if photo %}
                         <nav class="pagination">
-                            <p>Has Previous: {{ photo.has_previous }}</p>
-                            <p>Has Next: {{ photo.has_next }}</p>
-                            <p>Current Page: {{ photo.number }}</p>
-                            <p>Total Pages: {{ photo.paginator.num_pages }}</p>
+                            
                             {% if photo.has_previous %}
                             <a class="page-numbers" href="?page={{ photo.previous_page_number }}">« Previous</a>
                             {% endif %}
@@ -113,7 +110,7 @@
 			 <a target="blank" href="{% url "home" %}">&copy;  Shay Kekae</a>
 		</div>
 	</div>	
-	</footer>
+</footer>
 	{% comment %} <a href="#top" class="smoothup" title="Back to top"><span class="genericon genericon-collapse"></span></a> {% endcomment %}
 </div>
 

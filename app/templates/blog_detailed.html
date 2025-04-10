@@ -19,11 +19,11 @@
 				</nav>  {% endcomment %}
 				<!-- .navigation -->
 		{% comment %} <nav class="navigation post-navigation" role="navigation"> {% endcomment %}
-			<div class="nav-next">
+			{% comment %} <div class="nav-next">
 				<a href="{% url "blog" %}" rel="next">←<span class="meta-nav">All Blogs </span></a>
-			</div>
+			</div> {% endcomment %}
 			<div class="nav-previous">
-				<a href="{% url 'delete' 'blog' blog.id %}" rel="prev"> <span class="meta-nav"></span> Delete</a>
+				<a href="{% url 'delete' 'blog' blog.id %}" rel="prev"> <span class="meta-nav"></span><h1>Delete</h1> </a>
 		{% comment %} </nav>	 {% endcomment %}
 		
 		<div id="content" class="site-content">

@@ -31,9 +31,21 @@ def about(request):
 
 def blog(request):
     blogs = Blog.objects.all()
+    show_all = request.GET.get("show_all", "false").lower() == "true"
+    if show_all:
+        blogs = Blog.objects.all().order_by("-date_created")  # Show all blogs
+    else:
+        blogs = Blog.objects.all().order_by("-date_created")[
+            :5
+        ]  # Show the latest 5 blogs
+
+    # Add pagination logic
+    paginator = Paginator(blogs, 5)
+    page_number = request.GET.get("page")
+    page_obj = paginator.get_page(page_number)
     context = {
-        "blogs": blogs,
-        # "blog_list": blogs,
+        "blogs": page_obj,
+        "show_all": show_all,
     }
     return render(request, "blog.html", context)
 
@@ -48,6 +60,32 @@ def blog_detail(request, slug):
         "category": category,
     }
     return render(request, "blog_detailed.html", context)
+
+
+def add_blog(request):
+
+    if request.method == "POST":
+        data = request.POST
+        image = request.FILES.get("image")
+        title = data.get("title")
+        content = data.get("content")
+
+        if image:
+            Blog.objects.create(
+                title=title,
+                content=content,
+                image=image,
+            )
+
+        else:
+            Blog.objects.create(
+                title=title,
+                content=content,
+            )
+
+        return redirect("blog")
+    context = {}
+    return render(request, "add_blog.html", context)
 
 
 def photo_detail(request, id):
@@ -106,8 +144,10 @@ def delete(request, object_type, id):
     # Determine the model based on the object_type
     if object_type == "photo":
         model = Photo
+        redirect_url = "home"  # Redirect to home for photos
     elif object_type == "blog":
         model = Blog
+        redirect_url = "blog"
     else:
         raise Http404("Invalid object type")
 
@@ -119,7 +159,7 @@ def delete(request, object_type, id):
     # Handle POST request to confirm deletion
     if request.method == "POST":
         obj.delete()
-        return redirect("home")  # Redirect to home or another page after deletion
+        return redirect(redirect_url)  # Redirect to home or another page after deletion
 
     # Render the delete confirmation page
     context = {
