@@ -18,7 +18,7 @@
 
     <title>I Ran in 2025</title>
 </head>
-
+<body>
 <header id="masthead" class="site-header">
     <div class="site-branding">
         <h1 class="site-title">
@@ -54,7 +54,7 @@
 
 
 {% block content %}
-<body>
+
     
 
 <div id="page">
@@ -64,8 +64,12 @@
                 <main id="main" class="site-main">
                     <div class="grid portfoliogrid">
 
-
+                        {% if photo %}
                         <nav class="pagination">
+                            <p>Has Previous: {{ photo.has_previous }}</p>
+                            <p>Has Next: {{ photo.has_next }}</p>
+                            <p>Current Page: {{ photo.number }}</p>
+                            <p>Total Pages: {{ photo.paginator.num_pages }}</p>
                             {% if photo.has_previous %}
                             <a class="page-numbers" href="?page={{ photo.previous_page_number }}">« Previous</a>
                             {% endif %}
@@ -85,6 +89,7 @@
                             <a class="page-numbers" href="#">2</a>
                             <a class="next page-numbers" href="#">Next »</a> {% endcomment %}
                         </nav>
+                        {% endif %}
                         <br/>
 
                     </div>     
