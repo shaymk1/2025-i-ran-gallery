@@ -5,73 +5,48 @@
 <div id="page">
 	<div class="container">
 	
-		<!-- #masthead -->
-		 	 {% comment %} <nav class="navigation post-navigation" role="navigation">
-					<h1 class="screen-reader-text">Post navigation</h1>
-					<div class="nav-links">
-					<div class="nav-previous">
-					<a href="#" rel="prev"> <span class="meta-nav">←</span> Eliza and John</a>
-					</div>
-					<div class="nav-next">
-					<a href="#" rel="next">Sunset Beach <span class="meta-nav">→</span></a>
-					</div>		
-					</div>
-				</nav>  {% endcomment %}
-				<!-- .navigation -->
-		{% comment %} <nav class="navigation post-navigation" role="navigation"> {% endcomment %}
-			{% comment %} <div class="nav-next">
-				<a href="{% url "blog" %}" rel="next">←<span class="meta-nav">All Blogs </span></a>
-			</div> {% endcomment %}
-			<div class="nav-previous">
-				<a href="{% url 'delete' 'blog' blog.id %}" rel="prev"> <span class="meta-nav"></span><h1>Delete</h1> </a>
-		{% comment %} </nav>	 {% endcomment %}
+		
 		
 		<div id="content" class="site-content">
 			<div id="primary" class="content-area column two-thirds single-portfolio">
 				<main id="main" class="site-main">
+					<div class="nav-buttons" style="margin: 6px; padding: 3px; display: flex; gap: 10px;">
+						<!-- Delete Button -->
+						<a href="{% url 'delete' 'blog' blog.id %}" class="btn btn-danger" style="color: white;">Delete</a>
 					
-				<article class="portfolio hentry">
-				<header class="entry-header">
-				<div class="entry-thumbnail">
-					<img width="800" height="533" src="{{ blog.image.url }}" class="attachment-post-thumbnail size-post-thumbnail wp-post-image" alt="pic"/>
-				</div>
-				<h1 class="entry-title">{{blog.title}}</h1>
-				
-				</header>
-				<div class="entry-content">
-					
-					<blockquote>
-						<p>
-							{{blog.content}}
-						</p>
-					</blockquote>
-					 <ul>
-						{% for cat in category %}
-							<li>
-								<a href=""></a>
-								{% comment %} <a href="{% url 'blog_by_category' cat.slug %}"> {% endcomment %}
-									{{ cat.month }}/{{ cat.venue }}/{{ cat.race }} KM
-								{% comment %} </a> {% endcomment %}
-							</li>
-						{% endfor %}
-					</ul> 
-					 
-				</div>
-				</article>
-			
-				
-				{% comment %} <nav class="navigation post-navigation" role="navigation">
-					<h1 class="screen-reader-text">Post navigation</h1>
-					<div class="nav-links">
-					<div class="nav-previous">
-					<a href="#" rel="prev"> <span class="meta-nav">←</span> Eliza and John</a>
+						<!-- Update Button -->
+						<a href="{% url 'update' 'blog' blog.id %}" class="btn btn-primary" style="color: white;">Update</a>
 					</div>
-					<div class="nav-next">
-					<a href="#" rel="next">Sunset Beach <span class="meta-nav">→</span></a>
-					</div>		
-					</div>
-				</nav> {% endcomment %}
-				<!-- .navigation -->
+					<article class="portfolio hentry">
+						<header class="entry-header">
+							<div class="entry-thumbnail">
+								<img width="800" height="533" src="{{ blog.image.url }}" class="attachment-post-thumbnail size-post-thumbnail wp-post-image" alt="pic"/>
+							</div>
+						<h1 class="entry-title">{{blog.title}}</h1>
+						
+						</header>
+						<div class="entry-content">
+							
+							<blockquote>
+								<p>
+									{{blog.content}}
+								</p>
+							</blockquote>
+							<ul>
+								{% for cat in category %}
+									<li>
+										<a href=""></a>
+										{% comment %} <a href="{% url 'blog_by_category' cat.slug %}"> {% endcomment %}
+											{{ cat.month }}/{{ cat.venue }}/{{ cat.race }} KM
+										{% comment %} </a> {% endcomment %}
+									</li>
+								{% endfor %}
+							</ul> 
+							
+						</div>
+					</article>
+				
+				
 				
 				</main>
 				<!-- #main -->

@@ -9,8 +9,15 @@
 		<div id="content" class="site-content">
 			<div id="primary" class="content-area column two-thirds single-portfolio">
 				<main id="main" class="site-main">
-					<div class="nav-next" style="margin: 2px; padding : 3px;">
+					{% comment %} <div class="nav-next" style="margin: 2px; padding : 3px;">
 						<a href="{% url 'delete' 'photo' photo.id %}" rel="next" ><span class="meta-nav">Delete </span></a>
+					</div> {% endcomment %}
+					<div class="nav-buttons" style="margin: 6px; padding: 3px; display: flex; gap: 10px;">
+						<!-- Delete Button -->
+						<a href="{% url 'delete' 'photo' photo.id %}" class="btn btn-danger" style="color: white;">Delete</a>
+					
+						<!-- Update Button -->
+						<a href="{% url 'update' 'photo' photo.id %}" class="btn btn-primary" style="color: white;">Update</a>
 					</div>
 					<article class="portfolio hentry">
 						<header class="entry-header">
