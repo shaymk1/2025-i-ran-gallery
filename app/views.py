@@ -1,5 +1,6 @@
 # from re import A
 from calendar import c
+import re
 from django.shortcuts import render, redirect
 from .models import Photo, Category, About, Blog
 from django.core.paginator import Paginator
@@ -30,25 +31,27 @@ def about(request):
 
 
 def blog(request):
-    # blogs = Blog.objects.all()
-    # show_all = request.GET.get("show_all", "false").lower() == "true"
-    # if show_all:
-    blogs = Blog.objects.all().order_by("-date_created")  # Show all blogs
-    # else:
-    # blogs = Blog.objects.all().order_by("-date_created")[
-    # :5
-    # Show the latest 5 blogs
+    # Fetch all blog posts for the main blog content
+    blogs = Blog.objects.all().order_by("-date_created")
 
     # Add pagination logic
-    paginator = Paginator(blogs, 5)
+    paginator = Paginator(blogs, 6)
     page_number = request.GET.get("page")
     page_obj = paginator.get_page(page_number)
-    
-        # Determine if "Show All" button is clicked
-    show_all = request.GET.get("show_all", "false").lower() == "true"
+
+    # Handle "Show All" logic for the blog titles list
+    show_all_titles = request.GET.get("show_all_titles", "false").lower() == "true"
+    if show_all_titles:
+        blog_titles = Blog.objects.all().order_by("-date_created")
+        # Show all blog titles
+    else:
+        blog_titles = Blog.objects.all().order_by("-date_created")[:5]
+    # Show only the latest 5 titles # Show only the latest 5 titles
+
     context = {
         "blogs": page_obj,
-        "show_all": show_all,
+        "blog_titles": blog_titles,  # Blog titles list
+        "show_all_titles": show_all_titles,  # State for the "Show All" button
     }
     return render(request, "blog.html", context)
 
@@ -170,3 +173,7 @@ def delete(request, object_type, id):
         "object_type": object_type,
     }
     return render(request, "delete.html", context)
+
+
+def update(request):
+    return render(request, "update.html")
