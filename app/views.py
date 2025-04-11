@@ -23,12 +23,55 @@ def home(request):
     return render(request, "index.html", context)
 
 
-def about(request):
-    about = About.objects.all()
+def photo_detail(request, id):
+    photo = Photo.objects.get(id=id)
     context = {
-        "about": about,
+        "photo": photo,
     }
-    return render(request, "about.html", context)
+    return render(request, "photo_detailed.html", context)
+
+
+def add_photo(request):
+    category = Category.objects.all()
+    photo = None
+    if request.method == "POST":
+        data = request.POST
+        image = request.FILES.get("image")
+        # category_title = data.get("category_title", "")
+        category_month = data.get("category_month", "")
+        category_venue = data.get("category_venue", "")
+        category_race = data.get("category_race", "")
+        # check if an existing category is selected
+        if data.get("category") != "none":
+            category = Category.objects.get(id=data.get("category"))
+            # otherwise create a new category
+        elif category_month and category_venue and category_race:
+            category, created = Category.objects.get_or_create(
+                # title=data["category_title"],
+                month=category_month,
+                venue=category_venue,
+                race=category_race,
+                defaults={
+                    "slug": f"{category_month} -{category_venue}-{category_race}"
+                },
+            )
+        else:
+            category = None
+            # save the Photo object if image is provided
+        if image:
+            photo = Photo.objects.create(
+                title=data.get("title"),
+                image=image,
+                category=category,
+            )
+
+        return redirect("home")
+    context = {
+        "category": category,
+        "photo": photo,
+    }
+
+    return render(request, "add_photo.html", context)
 
 
 def blog(request):
@@ -95,63 +138,13 @@ def add_blog(request):
     return render(request, "add_blog.html", context)
 
 
-def photo_detail(request, id):
-    photo = Photo.objects.get(id=id)
-    context = {
-        "photo": photo,
-    }
-    return render(request, "photo_detailed.html", context)
-
-
-def add_photo(request):
-    category = Category.objects.all()
-    photo = None
-    if request.method == "POST":
-        data = request.POST
-        image = request.FILES.get("image")
-        # category_title = data.get("category_title", "")
-        category_month = data.get("category_month", "")
-        category_venue = data.get("category_venue", "")
-        category_race = data.get("category_race", "")
-        # check if an existing category is selected
-        if data.get("category") != "none":
-            category = Category.objects.get(id=data.get("category"))
-            # otherwise create a new category
-        elif category_month and category_venue and category_race:
-            category, created = Category.objects.get_or_create(
-                # title=data["category_title"],
-                month=category_month,
-                venue=category_venue,
-                race=category_race,
-                defaults={
-                    "slug": f"{category_month} -{category_venue}-{category_race}"
-                },
-            )
-        else:
-            category = None
-            # save the Photo object if image is provided
-        if image:
-            photo = Photo.objects.create(
-                title=data.get("title"),
-                image=image,
-                category=category,
-            )
-
-        return redirect("home")
-    context = {
-        "category": category,
-        "photo": photo,
-    }
-
-    return render(request, "add_photo.html", context)
-
-
+# delete both blog and photo objects dynamically
 def delete(request, object_type, id):
 
     # Determine the model based on the object_type
     if object_type == "photo":
         model = Photo
-        redirect_url = "home"  # Redirect to home for photos
+        redirect_url = "home"
     elif object_type == "blog":
         model = Blog
         redirect_url = "blog"
@@ -176,6 +169,7 @@ def delete(request, object_type, id):
     return render(request, "delete.html", context)
 
 
+# Update both blog and photo objects dynamically
 def update(request, object_type, id):
     # Determine the model based on the object_type
     if object_type == "photo":
@@ -204,7 +198,7 @@ def update(request, object_type, id):
             obj.image = image
         if object_type == "blog":
             obj.content = content
-            if image:  
+            if image:
                 obj.image = image
         if object_type == "photo" and category_id != "none":
             obj.category = Category.objects.get(id=category_id)
@@ -222,6 +216,7 @@ def update(request, object_type, id):
     return render(request, template_name, context)
 
 
+# edit category for photo object
 def edit_category(request, id):
     category = get_object_or_404(Category, id=id)
 
@@ -237,3 +232,11 @@ def edit_category(request, id):
         "category": category,
     }
     return render(request, "edit_category.html", context)
+
+
+def about(request):
+    about = About.objects.all()
+    context = {
+        "about": about,
+    }
+    return render(request, "about.html", context)
