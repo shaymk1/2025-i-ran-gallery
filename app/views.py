@@ -5,6 +5,7 @@ from django.shortcuts import render, redirect
 from .models import Photo, Category, About, Blog
 from django.core.paginator import Paginator
 from django.http import Http404
+from django.shortcuts import get_object_or_404
 
 
 def home(request):
@@ -175,5 +176,64 @@ def delete(request, object_type, id):
     return render(request, "delete.html", context)
 
 
-def update(request):
-    return render(request, "update.html")
+def update(request, object_type, id):
+    # Determine the model based on the object_type
+    if object_type == "photo":
+        model = Photo
+        template_name = "update_photo.html"
+        categories = Category.objects.all()
+    elif object_type == "blog":
+        model = Blog
+        template_name = "update_blog.html"
+        categories = None
+    else:
+        raise Http404("Invalid object type")
+
+    obj = get_object_or_404(model, id=id)
+    if request.method == "POST":
+        data = request.POST
+        image = request.FILES.get("image")
+        title = data.get("title")
+        content = data.get("content")
+        content = data.get("content") if object_type == "blog" else None
+        category_id = data.get("category") if object_type == "photo" else None
+
+        # Update the object fields
+        obj.title = title
+        if object_type == "photo" and image:
+            obj.image = image
+        if object_type == "blog":
+            obj.content = content
+            if image:  
+                obj.image = image
+        if object_type == "photo" and category_id != "none":
+            obj.category = Category.objects.get(id=category_id)
+        elif object_type == "photo":
+            obj.category = None
+
+        obj.save()
+        return redirect("home" if object_type == "photo" else "blog")
+
+    context = {
+        "object": obj,
+        "object_type": object_type,
+        "categories": categories,
+    }
+    return render(request, template_name, context)
+
+
+def edit_category(request, id):
+    category = get_object_or_404(Category, id=id)
+
+    if request.method == "POST":
+        data = request.POST
+        category.month = data.get("month")
+        category.venue = data.get("venue")
+        category.race = data.get("race")
+        category.save()
+        return redirect("home")  # Redirect to the home page or another relevant page
+
+    context = {
+        "category": category,
+    }
+    return render(request, "edit_category.html", context)

@@ -10,5 +10,6 @@ urlpatterns = [
     path("add_photo/", views.add_photo, name="add_photo"),
     path("delete/<str:object_type>/<int:id>/", views.delete, name="delete"),
     path("add_blog/", views.add_blog, name="add_blog"),
-    path("update/<slug:slug>/", views.update, name="update"),
+    path("update/<str:object_type>/<int:id>/", views.update, name="update"),
+    path("edit_category/<int:id>/", views.edit_category, name="edit_category"),
 ]

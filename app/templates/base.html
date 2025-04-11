@@ -42,7 +42,15 @@
                         <li><a href="{% url "add_blog" %}">Add A Blog</a></li>
                     </ul>
                 </li>
-                <li><a href="#">Update</a></li>
+                <li><a href="#">Update</a>
+                    <ul class="sub-menu">
+                        <!-- Update a Photo -->
+        <li><a href="{% url 'update' 'photo' 1 %}">Update A Photo</a></li> 
+        <!-- Update a Blog -->
+        <li><a href="{% url 'update' 'blog' 1 %}">Update A Blog</a></li>
+                    </ul>
+
+                </li>
 
                
             </ul>
