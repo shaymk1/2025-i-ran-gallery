@@ -3,7 +3,7 @@
 06/04/2025
 - add photos from front end-----done
 - delete photos from front end-----done
-- update from front end
+- update from front end-----done
 - about page -----done
 - blog page-----done
 - Pagination-----done
@@ -13,12 +13,12 @@
 tomorrow: 08/04/2025
 
 _ add photo templates and corresponding viewa and forms -----done
-- add blog templates and corresponding views and forms
+- add blog templates and corresponding views and forms-----done
 - delete template and views  -----done
 
 today: 10/04/2025
 
-- delete button
-- add blog
-- delete blog
-- update blog/photo
+- delete button -----done
+- add blog-----done
+- delete blog-----done
+- update blog/photo-----done
