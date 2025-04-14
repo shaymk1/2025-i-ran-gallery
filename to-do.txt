@@ -22,3 +22,13 @@ today: 10/04/2025
 - add blog-----done
 - delete blog-----done
 - update blog/photo-----done
+
+ 14/04/2025
+
+ - Tags and categories for posts with their own pages listing posts for that category or tag
+ - search
+ - social media sharing integration
+ - RSS Feed
+ - Caching but expire the cache for post and related pages ehen it'd updsted/published
+ - Google sitemap
+
