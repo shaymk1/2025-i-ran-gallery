@@ -26,7 +26,7 @@
 
 ### 11/04/2025
 
-- [x] Environmental variables — **Done**
-- [x] security check — **Done**
-- [x] Deployment — **Done**
+- [x] Environmental variables — 
+- [x] security check — 
+- [x] Deployment — 
 
