@@ -1,6 +1,6 @@
 
 databases:
-  - name: 
+  - name: gallerydb
     plan: free
     databaseName: gallery
     user: galleryuser
