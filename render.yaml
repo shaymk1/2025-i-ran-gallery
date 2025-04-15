@@ -1,6 +1,6 @@
 
 databases:
-  - name: gallerydb
+  - name: gallery
     plan: free
     databaseName: gallery
     user: galleryuser
@@ -8,14 +8,14 @@ databases:
 services:
   - type: web
     plan: free
-    name: gallery-service
+    name: gallery
     runtime: python
     buildCommand: "./build.sh"
     startCommand: "python -m gunicorn core.asgi:application -k uvicorn.workers.UvicornWorker"
     envVars:
       - key: DATABASE_URL
         fromDatabase:
-          name: gallerydb
+          name: gallery
           property: connectionString
       - key: SECRET_KEY
         generateValue: true
