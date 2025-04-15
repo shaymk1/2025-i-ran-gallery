@@ -29,4 +29,14 @@
 - [x] Environmental variables — 
 - [x] security check — 
 - [x] Deployment — 
+  
+### Future expansion
+
+- [x] Tags and categories for posts with their own pages listing posts for that category or tag
+- [x] search
+- [x] social media sharing integration
+- [x] RSS Feed
+- [x] Caching but expire the cache for post and related pages ehen it'd updsted/published
+- [x] Google sitemap
+
 
