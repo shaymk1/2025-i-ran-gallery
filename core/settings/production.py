@@ -2,6 +2,8 @@ from .base import *
 
 ALLOWED_HOSTS = ["in 2025 i ran.onrender.com"]
 
+ROOT_URLCONF = "core.urls"
+
 # Security settings
 CSRF_COOKIE_SECURE = True
 SESSION_COOKIE_SECURE = True
