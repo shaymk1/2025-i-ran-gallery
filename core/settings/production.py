@@ -1,6 +1,6 @@
 from .base import *
 
-ALLOWED_HOSTS = ["in 2025 i ran.onrender.com"]
+ALLOWED_HOSTS = ["gallery-j8wd.onrender.com"]
 
 ROOT_URLCONF = "core.urls"
 
