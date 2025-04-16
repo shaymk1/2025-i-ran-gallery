@@ -11,7 +11,7 @@ services:
     name: gallery
     runtime: python
     buildCommand: "./build.sh"
-    startCommand: "python -m gunicorn core.asgi:application -k uvicorn.workers.UvicornWorker --bind 0.0.0.0:8000"
+    startCommand: "gunicorn core.asgi:application -k uvicorn.workers.UvicornWorker --bind 0.0.0.0:8000"
     envVars:
       - key: DATABASE_URL
         fromDatabase:
