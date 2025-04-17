@@ -2,6 +2,8 @@ from pathlib import Path
 from dotenv import load_dotenv
 import os
 import dj_database_url  # for render deployment
+import cloudinary
+from decouple import config 
 
 
 # Load environment variables from .env file
@@ -16,9 +18,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ.get("SECRET_KEY")
 # cloudinary:
-CLOUD_NAME = os.environ.get("CLOUD_NAME")
-CLOUDINARY_API_KEY = os.environ.get("CLOUDINARY_API_KEY")
-CLOUDINARY_API_SECRET = os.environ.get("CLOUDINARY_API_SECRET")
+cloudinary.config(
+    secure=True,  # Optional but good to have
+    cloudinary_url=config("CLOUDINARY_URL")
+)
+# CLOUDINARY_URL = os.environ.get("CLOUDINARY_URL")
+# CLOUD_NAME = os.environ.get("CLOUD_NAME")
+# CLOUDINARY_API_KEY = os.environ.get("CLOUDINARY_API_KEY")
+# CLOUDINARY_API_SECRET = os.environ.get("CLOUDINARY_API_SECRET")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get("DEBUG", "True") == "True"
