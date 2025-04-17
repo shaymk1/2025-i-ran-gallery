@@ -1,6 +1,8 @@
 asgiref==3.8.1
 Brotli==1.1.0
+certifi==2025.1.31
 click==8.1.8
+cloudinary==1.44.0
 colorama==0.4.6
 dj-database-url==2.3.0
 Django==5.2
@@ -10,8 +12,10 @@ packaging==24.2
 pillow==11.1.0
 psycopg2-binary==2.9.10
 python-dotenv==1.1.0
+six==1.17.0
 sqlparse==0.5.3
 typing_extensions==4.13.2
 tzdata==2025.2
+urllib3==2.4.0
 uvicorn==0.34.1
 whitenoise==6.9.0
