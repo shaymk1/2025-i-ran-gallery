@@ -1,6 +1,6 @@
 from .base import *
 
-ALLOWED_HOSTS = ["gallery-u7u9.onrender.com"]
+# ALLOWED_HOSTS = ["gallery-u7u9.onrender.com"]
 
 ROOT_URLCONF = "core.urls"
 
