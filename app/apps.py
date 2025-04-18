@@ -1,6 +1,6 @@
 from django.apps import AppConfig
-import cloudinary
-from decouple import config
+# import cloudinary
+# from decouple import config
 
 
 class AppConfig(AppConfig):
@@ -8,5 +8,5 @@ class AppConfig(AppConfig):
     name = "app"
 
     # to delay cloudinary config until the app is ready
-    def ready(self):
-        cloudinary.config(secure=True, cloudinary_url=config("CLOUDINARY_URL"))
+    # def ready(self):
+    #     cloudinary.config(secure=True, cloudinary_url=config("CLOUDINARY_URL"))
