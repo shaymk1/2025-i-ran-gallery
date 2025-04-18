@@ -73,6 +73,7 @@ AWS_SECRET_ACCESS_KEY = os.getenv("AWS_SECRET_ACCESS_KEY")
 AWS_STORAGE_BUCKET_NAME = "kitima-bucket"
 AWS_S3_REGION_NAME = "Europe (Stockholm) eu-north-1"
 AWS_QUERYSTRING_AUTH = False
+USE_S3_MEDIA = True
 
 TEMPLATES = [
     {
@@ -156,7 +157,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
 STATIC_URL = "static/"
-#MEDIA_URL = "media/"
+# MEDIA_URL = "media/"
 
 if not DEBUG:
     # Tell Django to copy static assets into a path called `staticfiles` (this is specific to Render)
@@ -173,7 +174,7 @@ STATICFILES_DIRS = [
     BASE_DIR / "static",
 ]
 
-#MEDIA_ROOT = BASE_DIR / "media"
+# MEDIA_ROOT = BASE_DIR / "media"
 STATIC_ROOT = BASE_DIR / "staticfiles"
 
 
