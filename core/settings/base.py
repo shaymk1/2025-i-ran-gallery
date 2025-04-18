@@ -1,7 +1,8 @@
 from pathlib import Path
 from dotenv import load_dotenv
 import os
-#import dj_database_url  # for render deployment
+
+# import dj_database_url  # for render deployment
 
 
 # Load environment variables from .env file
@@ -38,6 +39,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "app",
+    "storages",  # aws s3
 ]
 
 MIDDLEWARE = [
@@ -62,6 +64,15 @@ if not DEBUG:
 #   SECURE_CONTENT_TYPE_NOSNIFF = True
 
 ROOT_URLCONF = "core.urls"
+
+# aws s3 settings
+DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
+
+AWS_ACCESS_KEY_ID = os.getenv("AWS_ACCESS_KEY_ID")
+AWS_SECRET_ACCESS_KEY = os.getenv("AWS_SECRET_ACCESS_KEY")
+AWS_STORAGE_BUCKET_NAME = "kitima-bucket"
+AWS_S3_REGION_NAME = "Europe (Stockholm) eu-north-1"
+AWS_QUERYSTRING_AUTH = False
 
 TEMPLATES = [
     {
@@ -93,7 +104,7 @@ DATABASES = {
 }
 
 # if os.environ.get("DATABASE_URL"):
-    # Use PostgreSQL on Render
+# Use PostgreSQL on Render
 #     DATABASES = {
 #         "default": dj_database_url.config(
 #             default=os.environ.get("DATABASE_URL"),
@@ -101,13 +112,13 @@ DATABASES = {
 #         )
 #     }
 # else:
-    # Use SQLite locally
-    # DATABASES = {
-    #     "default": {
-    #         "ENGINE": "django.db.backends.sqlite3",
-    #         "NAME": BASE_DIR / "db.sqlite3",
-    #     }
-    # }
+# Use SQLite locally
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.sqlite3",
+#         "NAME": BASE_DIR / "db.sqlite3",
+#     }
+# }
 
 
 # Password validation
@@ -145,7 +156,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
 STATIC_URL = "static/"
-MEDIA_URL = "media/"
+#MEDIA_URL = "media/"
 
 if not DEBUG:
     # Tell Django to copy static assets into a path called `staticfiles` (this is specific to Render)
@@ -162,7 +173,7 @@ STATICFILES_DIRS = [
     BASE_DIR / "static",
 ]
 
-MEDIA_ROOT = BASE_DIR / "media"
+#MEDIA_ROOT = BASE_DIR / "media"
 STATIC_ROOT = BASE_DIR / "staticfiles"
 
 
