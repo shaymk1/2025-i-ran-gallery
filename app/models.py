@@ -29,7 +29,7 @@ class Photo(models.Model):
         Category, on_delete=models.SET_NULL, null=True, related_name="photos"
     )
     title = models.CharField(max_length=100)
-    image = models.ImageField(upload_to="media/photos/")  # using s3
+    image = models.ImageField(upload_to="photos/")  # using s3
 
     class Meta:
         verbose_name_plural = "Photos"
@@ -42,7 +42,7 @@ class Photo(models.Model):
 class About(models.Model):
     title = models.CharField(max_length=100)
     description = models.TextField()
-    image = models.ImageField(upload_to="media/photos/")  # using s3
+    image = models.ImageField(upload_to="photos/")  # using s3
 
     class Meta:
         verbose_name_plural = "About Us"
@@ -55,7 +55,7 @@ class Blog(models.Model):
     title = models.CharField(max_length=100)
     content = models.TextField()
     # image = CloudinaryField("image")#using cloudinary for image upload
-    image = models.ImageField(upload_to="media/photos/")  # using s3
+    image = models.ImageField(upload_to="photos/")  # using s3
     date_created = models.DateTimeField(auto_now_add=True)
     last_updated = models.DateTimeField(auto_now=True)
     slug = models.SlugField(unique=True)
