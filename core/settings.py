@@ -106,19 +106,7 @@ AWS_S3_OBJECT_PARAMETERS = {
 # Storage Configuration (Django 4.2+)
 STORAGES = {
     "default": {
-        "BACKEND": "storages.backends.s3boto3.S3Boto3Storage",
-        "OPTIONS": {
-            "access_key": AWS_ACCESS_KEY_ID,
-            "secret_key": AWS_SECRET_ACCESS_KEY,
-            "bucket_name": AWS_STORAGE_BUCKET_NAME,
-            "region_name": AWS_S3_REGION_NAME,
-            "custom_domain": AWS_S3_CUSTOM_DOMAIN,
-            "querystring_auth": AWS_QUERYSTRING_AUTH,
-            "file_overwrite": AWS_S3_FILE_OVERWRITE,
-            "default_acl": AWS_DEFAULT_ACL,
-            "verify": AWS_S3_VERIFY,
-            "object_parameters": AWS_S3_OBJECT_PARAMETERS,
-        },
+        "BACKEND": "core.custom_storage.MediaStorage",
     },
     "staticfiles": {
         "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
@@ -128,7 +116,7 @@ STORAGES = {
 # Static files (CSS, JavaScript, Images)
 STATIC_URL = "static/"
 STATIC_ROOT = BASE_DIR / "staticfiles"
-STATICFILES_DIRS = [BASE_DIR / "static"]
+STATICFILES_DIRS = [BASE_DIR / "static",]
 
 # Media files (User uploads)
 MEDIA_URL = f"https://{AWS_S3_CUSTOM_DOMAIN}/media/"
