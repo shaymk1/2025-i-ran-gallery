@@ -1,6 +1,7 @@
 from pathlib import Path
 from dotenv import load_dotenv
 import os
+from django.urls import reverse_lazy
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -15,7 +16,8 @@ SECRET_KEY = os.environ.get("SECRET_KEY")
 DEBUG = os.environ.get("DEBUG", "True") == "True"
 
 ALLOWED_HOSTS = os.environ.get(
-    "ALLOWED_HOSTS", "localhost,127.0.0.1,.elasticbeanstalk.com").split(",")
+    "ALLOWED_HOSTS", "localhost,127.0.0.1,.elasticbeanstalk.com"
+).split(",")
 # Application definition
 INSTALLED_APPS = [
     "django.contrib.admin",
@@ -40,6 +42,9 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = "core.urls"
+
+LOGIN_URL = reverse_lazy("login")
+LOGIN_REDIRECT_URL = reverse_lazy("home")
 
 TEMPLATES = [
     {
@@ -116,7 +121,9 @@ STORAGES = {
 # Static files (CSS, JavaScript, Images)
 STATIC_URL = "static/"
 STATIC_ROOT = BASE_DIR / "staticfiles"
-STATICFILES_DIRS = [BASE_DIR / "static",]
+STATICFILES_DIRS = [
+    BASE_DIR / "static",
+]
 
 # Media files (User uploads)
 MEDIA_URL = f"https://{AWS_S3_CUSTOM_DOMAIN}/media/"

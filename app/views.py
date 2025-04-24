@@ -1,14 +1,15 @@
 # from re import A
 # from calendar import c
 # import re
-import re
+# from .forms import AboutForm
+# import re
 from django.shortcuts import render, redirect
 from .models import Photo, Category, About, Blog
 from django.core.paginator import Paginator
 from django.http import Http404
 from django.shortcuts import get_object_or_404
 from django.db.models import Q
-from .forms import AboutForm
+from django.contrib.auth.decorators import login_required
 
 
 def home(request):
@@ -34,6 +35,7 @@ def photo_detail(request, id):
     return render(request, "photo_detailed.html", context)
 
 
+@login_required
 def add_photo(request):
     category = Category.objects.all()
     photo = None
@@ -115,6 +117,7 @@ def blog_detail(request, slug):
     return render(request, "blog_detailed.html", context)
 
 
+@login_required
 def add_blog(request):
 
     if request.method == "POST":
@@ -243,9 +246,6 @@ def about(request):
         "about": about,
     }
     return render(request, "about.html", context)
-
-
-
 
 
 def search(request):
