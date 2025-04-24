@@ -13,4 +13,5 @@ urlpatterns = [
     path("update/<str:object_type>/<int:id>/", views.update, name="update"),
     path("edit_category/<int:id>/", views.edit_category, name="edit_category"),
     path("search/", views.search, name="search"),
+    #path("add_about/", views.add_about, name="add_about"),
 ]

@@ -1,12 +1,14 @@
 # from re import A
 # from calendar import c
 # import re
+import re
 from django.shortcuts import render, redirect
 from .models import Photo, Category, About, Blog
 from django.core.paginator import Paginator
 from django.http import Http404
 from django.shortcuts import get_object_or_404
 from django.db.models import Q
+from .forms import AboutForm
 
 
 def home(request):
@@ -243,6 +245,9 @@ def about(request):
     return render(request, "about.html", context)
 
 
+
+
+
 def search(request):
     query = request.GET.get("q", "")
     results = []
@@ -255,8 +260,8 @@ def search(request):
     )
     # for blogs
     blog_results = Blog.objects.filter(
-        Q(title__icontains=query)
-        | Q(content__icontains=query))
+        Q(title__icontains=query) | Q(content__icontains=query)
+    )
     # Combine results
     results = list(photo_results) + list(blog_results)
 
@@ -267,3 +272,19 @@ def search(request):
         "results": results,
     }
     return render(request, "search.html", context)
+
+
+# # incase my about data is not in the database, i can add it manually in the front end
+# def add_about(request):
+#     if request.method == "POST":
+#         form = AboutForm(request.POST, request.FILES)
+#         if form.is_valid():
+#             form.save()
+#             return redirect("about")
+#     else:
+#         form = AboutForm()
+
+#     context = {
+#         "form": form,
+#     }
+#     return render(request, "add_about.html", context)

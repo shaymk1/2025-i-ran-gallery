@@ -1,0 +1,299 @@
+[
+{
+  "model": "admin.logentry",
+  "pk": 1,
+  "fields": {
+    "action_time": "2025-04-24T11:02:58.713Z",
+    "user": 1,
+    "content_type": 7,
+    "object_id": "2",
+    "object_repr": "January - Wonderpark Mall",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 2,
+  "fields": {
+    "action_time": "2025-04-24T11:03:33.596Z",
+    "user": 1,
+    "content_type": 7,
+    "object_id": "3",
+    "object_repr": "February - Westgate Mall",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 3,
+  "fields": {
+    "action_time": "2025-04-24T11:04:15.941Z",
+    "user": 1,
+    "content_type": 7,
+    "object_id": "4",
+    "object_repr": "March - Muldersdrift",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 4,
+  "fields": {
+    "action_time": "2025-04-24T11:04:53.011Z",
+    "user": 1,
+    "content_type": 7,
+    "object_id": "5",
+    "object_repr": "April - Lyttelton",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 5,
+  "fields": {
+    "action_time": "2025-04-24T11:05:06.458Z",
+    "user": 1,
+    "content_type": 7,
+    "object_id": "6",
+    "object_repr": "August - Clearwater Mall",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 6,
+  "fields": {
+    "action_time": "2025-04-24T11:06:25.105Z",
+    "user": 1,
+    "content_type": 8,
+    "object_id": "2",
+    "object_repr": "Aunty, Rati and ME",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 7,
+  "fields": {
+    "action_time": "2025-04-24T11:11:19.323Z",
+    "user": 1,
+    "content_type": 8,
+    "object_id": "4",
+    "object_repr": "Aunty, Cassandra, Rati and ME",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 8,
+  "fields": {
+    "action_time": "2025-04-24T12:11:58.346Z",
+    "user": 1,
+    "content_type": 9,
+    "object_id": "1",
+    "object_repr": "About Me",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 9,
+  "fields": {
+    "action_time": "2025-04-24T12:45:00.391Z",
+    "user": 1,
+    "content_type": 9,
+    "object_id": "1",
+    "object_repr": "About Me",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 1,
+  "fields": {
+    "password": "pbkdf2_sha256$1000000$ID87RDacXiI8lghMCMoGL0$Lb0eYY7F/vTnxmbfryJWSz2OMV2vB0p//5Nv38Khls8=",
+    "last_login": "2025-04-24T11:02:21.676Z",
+    "is_superuser": true,
+    "username": "admin",
+    "first_name": "",
+    "last_name": "",
+    "email": "",
+    "is_staff": true,
+    "is_active": true,
+    "date_joined": "2025-04-24T11:01:21.789Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "ckaobmbvtvbntqr09meqldfrfy00ro9k",
+  "fields": {
+    "session_data": ".eJxVjEEOgjAQRe_StWlmplCpS_ecgUxniqCmTSisjHdXEha6_e-9_zIDb-s0bDUtw6zmYtCcfrfI8kh5B3rnfCtWSl6XOdpdsQetti-antfD_TuYuE7fGlpqfMJmHAXVCQFK13kKXjsniNyqYFRoA0QJDNB4ByRCjilEPjvz_gDLqDdH:1u7uLV:vbzU0VpMw7UIs3Oxl86jpjmnjUHH2vPoylVrrvpmm-Q",
+    "expire_date": "2025-05-08T11:02:21.679Z"
+  }
+},
+{
+  "model": "app.category",
+  "pk": 1,
+  "fields": {
+    "month": "January",
+    "venue": "Lyttelton",
+    "race": 6,
+    "slug": "January -Lyttelton-6"
+  }
+},
+{
+  "model": "app.category",
+  "pk": 2,
+  "fields": {
+    "month": "January",
+    "venue": "Wonderpark Mall",
+    "race": 5,
+    "slug": "january-wonderpark-mall"
+  }
+},
+{
+  "model": "app.category",
+  "pk": 3,
+  "fields": {
+    "month": "February",
+    "venue": "Westgate Mall",
+    "race": 5,
+    "slug": "westgate-5km-race"
+  }
+},
+{
+  "model": "app.category",
+  "pk": 4,
+  "fields": {
+    "month": "March",
+    "venue": "Muldersdrift",
+    "race": 5,
+    "slug": "Urithi-muldersdrift-5km-race"
+  }
+},
+{
+  "model": "app.category",
+  "pk": 5,
+  "fields": {
+    "month": "April",
+    "venue": "Lyttelton",
+    "race": 6,
+    "slug": "Lyttelton-6km-race"
+  }
+},
+{
+  "model": "app.category",
+  "pk": 6,
+  "fields": {
+    "month": "August",
+    "venue": "Clearwater Mall",
+    "race": 5,
+    "slug": "my-first-5km-race-ever"
+  }
+},
+{
+  "model": "app.photo",
+  "pk": 1,
+  "fields": {
+    "category": 1,
+    "title": "Cassandra, Aunty, Itu, RAti and Me",
+    "image": "photos/all-of-us-lyttelton.jpg"
+  }
+},
+{
+  "model": "app.photo",
+  "pk": 2,
+  "fields": {
+    "category": 2,
+    "title": "Aunty, Rati and ME",
+    "image": "photos/me-aunty-boy-3.jpg"
+  }
+},
+{
+  "model": "app.photo",
+  "pk": 3,
+  "fields": {
+    "category": 4,
+    "title": "Urithi Race",
+    "image": "photos/Urithi-March-1.jpg"
+  }
+},
+{
+  "model": "app.photo",
+  "pk": 4,
+  "fields": {
+    "category": 5,
+    "title": "Aunty, Cassandra, Rati and ME",
+    "image": "photos/me-aunty-boy-cassandra-lyttelton.jpg"
+  }
+},
+{
+  "model": "app.photo",
+  "pk": 5,
+  "fields": {
+    "category": 6,
+    "title": "My First Race",
+    "image": "photos/clearwater-3.jpg"
+  }
+},
+{
+  "model": "app.photo",
+  "pk": 6,
+  "fields": {
+    "category": 3,
+    "title": "Westgate Race",
+    "image": "photos/wesgate-feb-1.jpg"
+  }
+},
+{
+  "model": "app.photo",
+  "pk": 7,
+  "fields": {
+    "category": 2,
+    "title": "Boy and Aunty",
+    "image": "photos/aunty-boy-2.jpg"
+  }
+},
+{
+  "model": "app.photo",
+  "pk": 8,
+  "fields": {
+    "category": 5,
+    "title": "Itu, Cassandra and Me",
+    "image": "photos/me-itu-cassandra-lyttelton.jpg"
+  }
+},
+{
+  "model": "app.about",
+  "pk": 2,
+  "fields": {
+    "title": "About Me",
+    "description": "If you asked my younger self if they will ever be caught running , and the answer would have always been a staunch NOOOO! And yet here we are­ƒñ¬­ƒñ¬. People really change hey. ­ƒñ¬­ƒÿå­ƒñú­ƒÿÇ­ƒÿü­ƒÿä. I just started walking, and then one day i saw this guy running, and i also thought why not.­ƒÿü­ƒÿä . I was so tired after few seconds but something else kicked in as well, the joy of running. I do not think i will ever stop running if i am still able to..­ƒñ¬­ƒÿä­ƒÿüÔØñ´©Å­ƒñù. I just love it! It has became a lifestyle.",
+    "image": "photos/clearwater-1_X5qxo37.jpg"
+  }
+},
+{
+  "model": "app.blog",
+  "pk": 1,
+  "fields": {
+    "title": "About Me",
+    "content": "I am just a girl who happened to enjoy road running. I did my first 5KM race in August 2024 hosted by Clearwater Mall, and i never looked back.",
+    "image": "photos/clearwater-2.jpg",
+    "date_created": "2025-04-24T11:22:14.283Z",
+    "last_updated": "2025-04-24T11:22:14.283Z",
+    "slug": "about-me",
+    "categories": []
+  }
+}
+]
