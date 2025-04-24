@@ -1,11 +1,12 @@
 # from re import A
-from calendar import c
-import re
+# from calendar import c
+# import re
 from django.shortcuts import render, redirect
 from .models import Photo, Category, About, Blog
 from django.core.paginator import Paginator
 from django.http import Http404
 from django.shortcuts import get_object_or_404
+from django.db.models import Q
 
 
 def home(request):
@@ -240,3 +241,29 @@ def about(request):
         "about": about,
     }
     return render(request, "about.html", context)
+
+
+def search(request):
+    query = request.GET.get("q", "")
+    results = []
+    # for photos
+    photo_results = Photo.objects.filter(
+        Q(title__icontains=query)
+        | Q(category__month__icontains=query)
+        | Q(category__venue__icontains=query)
+        | Q(category__race__icontains=query)
+    )
+    # for blogs
+    blog_results = Blog.objects.filter(
+        Q(title__icontains=query)
+        | Q(content__icontains=query))
+    # Combine results
+    results = list(photo_results) + list(blog_results)
+
+    context = {
+        "photo_results": photo_results,
+        "blog_results": blog_results,
+        "query": query,
+        "results": results,
+    }
+    return render(request, "search.html", context)
