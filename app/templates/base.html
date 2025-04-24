@@ -45,6 +45,13 @@
                         {% comment %} <li><a href="{% url "add_about" %}">Add About You</a></li> {% endcomment %}
                     </ul>
                 </li>
+                <li>
+                    <form action="{% url 'logout' %}" method="post" style="display: inline;">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-dark btn-sm px-3">Logout</button>
+                    </form>
+                </li>
+             
             </ul>
        
         </div>

@@ -35,7 +35,7 @@ def photo_detail(request, id):
     return render(request, "photo_detailed.html", context)
 
 
-@login_required
+@login_required(login_url="login")
 def add_photo(request):
     category = Category.objects.all()
     photo = None
@@ -117,7 +117,7 @@ def blog_detail(request, slug):
     return render(request, "blog_detailed.html", context)
 
 
-@login_required
+@login_required(login_url="login")
 def add_blog(request):
 
     if request.method == "POST":
