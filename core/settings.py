@@ -2,8 +2,10 @@ from pathlib import Path
 from dotenv import load_dotenv
 import os
 from django.urls import reverse_lazy
+import shutil
+from django.conf import settings
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
+# Build paths inside the project
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Load environment variables
@@ -26,13 +28,13 @@ ALLOWED_HOSTS = os.environ.get(
 ).split(",")
 # Application definition
 INSTALLED_APPS = [
+    "app",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "app",
     "storages",  # aws s3
 ]
 
@@ -61,18 +63,30 @@ LOGIN_REDIRECT_URL = reverse_lazy("home")
 """
 Session Configuration
 - Logs out when browser is closed
+- Session cookie age (in seconds) if browser stays open
+- Resets timeout on activity
+- Path to store session files
+- Clears all sessions on server restart (optional)
 """
 # Logs out when browser is closed
-SESSION_EXPIRE_AT_BROWSER_CLOSE = True  
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 #  Session cookie age (in seconds) if browser stays open
 SESSION_COOKIE_AGE = 3600
+# Resets timeout on activity
+SESSION_SAVE_EVERY_REQUEST = True
+SESSION_FILE_PATH = "C:\\tmp\\django_sessions"
+# Path to store session files
+SESSION_FILE_PATH = os.path.join(BASE_DIR, "sessions")
 # Clears all sessions on server restart (optional)
-SESSION_ENGINE = "django.contrib.sessions.backends.file"
+SESSION_ENGINE = "django.contrib.sessions.backends.cached_db"
+
 
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [BASE_DIR / "templates"],
+        "DIRS": [
+            os.path.join(BASE_DIR, "app", "templates"),
+        ],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -94,6 +108,15 @@ DATABASES = {
         "NAME": BASE_DIR / "db.sqlite3",
     }
 }
+
+# Email Configuration (Gmail example)
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST = "smtp.gmail.com"
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER")
+EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")
+DEFAULT_FROM_EMAIL = os.getenv("DEFAULT_FROM_EMAIL")
 
 # Password validation
 AUTH_PASSWORD_VALIDATORS = [
@@ -202,3 +225,24 @@ LOGGING = {
         },
     },
 }
+
+"""
+# Clear session files on server startup
+# if hasattr(settings, "SESSION_FILE_PATH"):  # Check if using file-based sessions
+#     session_dir = settings.SESSION_FILE_PATH
+ """
+if getattr(settings, "SESSION_ENGINE", "").endswith("file"):
+    session_dir = getattr(settings, "SESSION_FILE_PATH", None)
+    if session_dir and os.path.exists(session_dir):
+        try:
+            shutil.rmtree(session_dir)
+            os.makedirs(session_dir, exist_ok=True)
+        except Exception as e:
+            print(f"Couldn't clear session dir: {e}")
+
+# Clear session files on server startup
+# if hasattr(settings, "SESSION_FILE_PATH"):  # Check if using file-based sessions
+#     session_dir = settings.SESSION_FILE_PATH
+#     if os.path.exists(session_dir):  # If session folder exists
+#         shutil.rmtree(session_dir)  # Delete it and all session files inside
+#     os.makedirs(session_dir, exist_ok=True)  # Recreate the folder
