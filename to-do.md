@@ -34,6 +34,8 @@
 
 - [x] Tags and categories for posts with their own pages listing posts for that category or tag
 - [x] search...done
+- [x] password reset...done
+- [x] sessions
 - [x] social media sharing integration
 - [x] RSS Feed
 - [x] Caching but expire the cache for post and related pages ehen it'd updsted/published
