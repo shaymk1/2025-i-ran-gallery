@@ -85,7 +85,7 @@ TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
         "DIRS": [
-            os.path.join(BASE_DIR, "app", "templates"),
+            os.path.join(BASE_DIR / "app" / "templates"),
         ],
         "APP_DIRS": True,
         "OPTIONS": {
@@ -109,14 +109,20 @@ DATABASES = {
     }
 }
 
-# Email Configuration (Gmail example)
-EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
-EMAIL_HOST = "smtp.gmail.com"
+# Email Configuration (Gmail example)smtp
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER")
 EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")
 DEFAULT_FROM_EMAIL = os.getenv("DEFAULT_FROM_EMAIL")
+
+if not settings.DEBUG:
+    DOMAIN = 'yourdomain.com'  # For production
+else:
+    DOMAIN = 'localhost:8000'  # For local testing
+    PROTOCOL = 'http'
 
 # Password validation
 AUTH_PASSWORD_VALIDATORS = [
