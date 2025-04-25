@@ -9,6 +9,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Load environment variables
 load_dotenv(dotenv_path=BASE_DIR / ".env")
 
+"""
+secret key
+debug mode
+- True for development
+- False for production
+"""
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ.get("SECRET_KEY")
 
@@ -43,8 +49,25 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = "core.urls"
 
+"""
+Login Configuration
+- Redirects to login page if not authenticated
+- Redirects to home page after login
+- Uses reverse_lazy to avoid circular imports
+"""
 LOGIN_URL = reverse_lazy("login")
 LOGIN_REDIRECT_URL = reverse_lazy("home")
+
+"""
+Session Configuration
+- Logs out when browser is closed
+"""
+# Logs out when browser is closed
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True  
+#  Session cookie age (in seconds) if browser stays open
+SESSION_COOKIE_AGE = 3600
+# Clears all sessions on server restart (optional)
+SESSION_ENGINE = "django.contrib.sessions.backends.file"
 
 TEMPLATES = [
     {
@@ -94,6 +117,13 @@ TIME_ZONE = "UTC"
 USE_I18N = True
 USE_TZ = True
 
+
+"""
+aws s3 configuration
+- AWS_ACCESS_KEY_ID
+- AWS_SECRET_ACCESS_KEY 
+- AWS_STORAGE_BUCKET_NAME
+"""
 # AWS S3 Configuration
 AWS_ACCESS_KEY_ID = os.environ.get("AWS_ACCESS_KEY_ID")
 AWS_SECRET_ACCESS_KEY = os.environ.get("AWS_SECRET_ACCESS_KEY")
@@ -108,7 +138,14 @@ AWS_S3_OBJECT_PARAMETERS = {
     "CacheControl": "max-age=86400",
 }
 
-# Storage Configuration (Django 4.2+)
+
+"""
+storage configuration
+- Default storage backend for media files
+- Static files storage backend
+- Custom storage backend for media files
+"""
+# Storage Configuration s3
 STORAGES = {
     "default": {
         "BACKEND": "core.custom_storage.MediaStorage",
@@ -141,7 +178,7 @@ if not DEBUG:
     SECURE_CONTENT_TYPE_NOSNIFF = True
     STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
-# Logging Configuration
+# Logging Configuration for s3
 LOGGING = {
     "version": 1,
     "disable_existing_loggers": False,

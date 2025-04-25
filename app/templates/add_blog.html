@@ -31,17 +31,10 @@
 									<input type="file" name="image" id="image" class="form-control-file">
 								</div>
 							
-								{% comment %} <div class="form-group m-3">
-									<label for="category" class="form-label">Select a Category</label>
-									<select name="category" id="category" class="form-control">
-										<option value="none">None</option>
-										{% for cat in category %}
-											<option value="{{ cat.id }}">{{ cat.month }} - {{ cat.venue }}</option>
-										{% endfor %}
-									</select>
-								</div> {% endcomment %}
+						
 							
 								<button type="submit" class="btn btn-primary" style = " background-color:black; color:white;">Submit</button>
+								<a href="{% url "blog" %}" class="btn btn-primary text-white">Cancel</a>
 							</form>
 							
 							
