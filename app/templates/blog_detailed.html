@@ -1,12 +1,38 @@
 {% extends "base.html" %}
 {% load static %}
 {% block content %}
+
+
+<style>
+
+	.tag {
+		display: inline-block;
+		background:rgb(241, 234, 230);
+		padding: 2px 8px;
+		margin: 2px;
+		border-radius: 4px;
+		font-size: 0.9em;
+		color: white;
+		text-decoration: none;
+	}
+	
+	.tag:hover {
+		background: #e0e0e0;
+		color:black;
+	}
+	
+	.tag-cloud {
+		margin: 20px 0;
+	}
+	a{
+		text-decoration: none;
+		color: black;
+	}
+</style>
+
 <body class="home page page-template page-template-template-portfolio page-template-template-portfolio-php">
 <div id="page">
 	<div class="container">
-	
-		
-		
 		<div id="content" class="site-content">
 			<div id="primary" class="content-area column two-thirds single-portfolio">
 				<main id="main" class="site-main">
@@ -48,7 +74,11 @@
 						</div>
 					</article>
 				
-				
+					<div class="tags">
+						{% for tag in blog.tags.all %}
+							<a href="{% url 'blog_by_tag' tag.slug %}" class="tag">#{{ tag.name }}</a>
+						{% endfor %}
+					</div>
 				
 				</main>
 				<!-- #main -->

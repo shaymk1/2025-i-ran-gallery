@@ -2,7 +2,32 @@
 {% load static %}
 {% block content %}
 
+<style>
 
+	.tag {
+		display: inline-block;
+		background:rgb(241, 234, 230);
+		padding: 2px 8px;
+		margin: 2px;
+		border-radius: 4px;
+		font-size: 0.9em;
+		color: white;
+		text-decoration: none;
+	}
+	
+	.tag:hover {
+		background: #e0e0e0;
+		color:black;
+	}
+	
+	.tag-cloud {
+		margin: 20px 0;
+	}
+	a{
+		text-decoration: none;
+		color: black;
+	}
+</style>
 
 <body class="blog">
 	<div id="page">
@@ -36,6 +61,22 @@
 										<a class="more-link" href="{% url 'blog_detail' blog.slug %}">Read more</a>
 									</p>
 								</div>
+								<footer class="entry-footer">	
+									<div class="tag-cloud">
+										<h3>Tags</h3>
+										{% for tag in tags %}
+											<a href="{% url 'blog_by_tag' tag.slug %}" class="tag">{{ tag.name }}</a>
+										{% endfor %}
+									</div>			
+									<div class="tags">
+										{% for tag in blog.tags.all %}
+										<span class="cat-links">
+											<a href="{% url 'blog_by_tag' tag.slug %}" rel="category tag" class="tag">#{{ tag.name }}</a>
+										</span>
+										{% endfor %}
+									</div>
+								
+									</footer>
 							
 							</article>
 

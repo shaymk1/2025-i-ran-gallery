@@ -1,7 +1,8 @@
-from tabnanny import verbose
+# from tabnanny import verbose
 from django.db import models
 from django.utils.text import slugify
-from cloudinary.models import CloudinaryField
+
+from taggit.managers import TaggableManager  # using taggit for tags
 
 
 class Category(models.Model):
@@ -54,12 +55,13 @@ class About(models.Model):
 class Blog(models.Model):
     title = models.CharField(max_length=100)
     content = models.TextField()
-    # image = CloudinaryField("image")#using cloudinary for image upload
     image = models.ImageField(upload_to="photos/")  # using s3
     date_created = models.DateTimeField(auto_now_add=True)
     last_updated = models.DateTimeField(auto_now=True)
     slug = models.SlugField(unique=True)
     categories = models.ManyToManyField("Category", related_name="blogs")
+    tags = models.ManyToManyField("Tag", blank=True)
+    old_tags = TaggableManager(blank=True)
 
     class Meta:
         ordering = ["-date_created"]
@@ -72,3 +74,27 @@ class Blog(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class Tag(models.Model):
+    name = models.CharField(max_length=50, unique=True)
+    slug = models.SlugField(null=True, blank=True)
+    category = models.ForeignKey(
+        Category, on_delete=models.CASCADE, related_name="tags", null=True, blank=True
+    )
+
+    def save(self, *args, **kwargs):
+        if not self.slug or self.slug == "temp-slug":
+            self.slug = slugify(self.name)  # Generate from name
+        super().save(*args, **kwargs)
+
+
+# class Tag(models.Model):
+#     name = models.CharField(max_length=50, unique=True)
+#     slug = models.SlugField(unique=True)
+#     category = models.ForeignKey(
+#         Category, on_delete=models.CASCADE, related_name="tags", null=True, blank=True
+#     )
+
+#     def __str__(self):
+#         return self.name

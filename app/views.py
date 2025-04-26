@@ -10,6 +10,7 @@ from django.http import Http404
 from django.shortcuts import get_object_or_404
 from django.db.models import Q
 from django.contrib.auth.decorators import login_required
+from taggit.models import Tag
 
 
 def home(request):
@@ -82,7 +83,10 @@ def add_photo(request):
 def blog(request):
     # Fetch all blog posts for the main blog content
     blogs = Blog.objects.all().order_by("-date_created")
-
+    # Fetch tags by name
+    tags = Blog.objects.filter(tags__name__in=["name"]).distinct()
+    # Fetch all tags
+    all_tags = Tag.objects.all()
     # Add pagination logic
     paginator = Paginator(blogs, 6)
     page_number = request.GET.get("page")
@@ -100,7 +104,9 @@ def blog(request):
     context = {
         "blogs": page_obj,
         "blog_titles": blog_titles,  # Blog titles list
-        "show_all_titles": show_all_titles,  # State for the "Show All" button
+        "show_all_titles": show_all_titles,
+        "tags": tags,  # Tags by name
+        "all_tags": all_tags,  # All tags
     }
     return render(request, "blog.html", context)
 
@@ -142,6 +148,13 @@ def add_blog(request):
         return redirect("blog")
     context = {}
     return render(request, "add_blog.html", context)
+
+
+# tags for blogs
+def blog_by_tag(request, tag_slug):
+    tag = get_object_or_404(Tag, slug=tag_slug)
+    blogs = Blog.objects.filter(tags__in=[tag])
+    return render(request, "blog.html", {"blogs": blogs})
 
 
 # delete both blog and photo objects dynamically

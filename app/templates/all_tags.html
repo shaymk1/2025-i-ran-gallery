@@ -1,0 +1,29 @@
+{% extends "base.html" %} {% load static %} {% block content %}
+
+<body class="blog">
+	<div id="page">
+		<div class="container">
+			<!-- #masthead -->
+			<div
+				id="content"
+				class="site-content">
+				<div
+					id="primary"
+					class="content-area column two-thirds">
+					<main
+						id="main"
+						class="site-main"
+						role="main">
+						<div class="grid bloggrid">
+							{% for tag in tags %}
+							<a href="{% url 'tag_detail' tag.slug %}">#{{ tag.name }}</a>
+							{% endfor %}
+						</div>
+					</main>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+
+{% endblock %}

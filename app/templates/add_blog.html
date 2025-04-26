@@ -35,9 +35,20 @@
 							
 								<button type="submit" class="btn btn-primary" style = " background-color:black; color:white;">Submit</button>
 								<a href="{% url "blog" %}" class="btn btn-primary text-white">Cancel</a>
+								<div class="form-group">
+									<label for="id_tags">Tags</label>
+									{{ form.tags }}
+									<small class="form-text text-muted">
+										Add comma-separated tags (e.g., "django, webdev, tutorial")
+									</small>
+								</div>
 							</form>
 							
-							
+							{% comment %} <div class="form-group">
+								<label for="tags">Tags:</label>
+								{{ form.tags }}
+								<small class="form-text text-muted">Add comma-separated tags</small>
+							</div> {% endcomment %}
 
 						
 					</main>
