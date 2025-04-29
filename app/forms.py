@@ -1,5 +1,6 @@
 from django import forms
-from .models import About, Blog
+from .models import About, Blog, Photo
+
 # from taggit.forms import TagField
 from taggit.models import Tag
 
@@ -46,3 +47,29 @@ class BlogForm(forms.ModelForm):
                 "data-role": "tagsinput",
             }
         )
+
+
+class UpdateBlogForm(forms.ModelForm):
+    tags = forms.ModelMultipleChoiceField(
+        queryset=Tag.objects.all(),
+        widget=forms.SelectMultiple(
+            attrs={
+                "class": "form-control",
+            }
+        ),
+        required=False,
+        help_text="Hold Ctrl (Windows) or Cmd (Mac) to select multiple tags.",
+    )
+
+    class Meta:
+        model = Blog
+        fields = ["title", "content", "image", "tags"]
+
+
+class UpdatePhotoForm(forms.ModelForm):
+    class Meta:
+        model = Photo
+        fields = ["title", "image",  "category"]
+        widgets = {
+            "image": forms.FileInput(attrs={"class": "form-control"}),
+        }

@@ -3,6 +3,8 @@
 # import re
 # from .forms import AboutForm
 # import re
+# from multiprocessing import context
+# from re import U
 from django.shortcuts import render, redirect
 from .models import Photo, Category, About, Blog
 from django.core.paginator import Paginator
@@ -11,7 +13,9 @@ from django.shortcuts import get_object_or_404
 from django.db.models import Q
 from django.contrib.auth.decorators import login_required
 from taggit.models import Tag
-from .forms import BlogForm
+from .forms import BlogForm, UpdateBlogForm, UpdatePhotoForm
+
+#####################photo views#######################
 
 
 def home(request):
@@ -83,6 +87,29 @@ def add_photo(request):
     return render(request, "add_photo.html", context)
 
 
+# update jsut the photo object
+@login_required(login_url="login")
+def update_photo(request, id):
+    photo = get_object_or_404(Photo, id=id)
+    category = Category.objects.all()
+    if request.method == "POST":
+        form = UpdatePhotoForm(request.POST, request.FILES, instance=photo)
+        if form.is_valid():
+            form.save()
+            return redirect("home")
+    else:
+        form = UpdatePhotoForm(instance=photo)
+    context = {
+        "form": form,
+        "category": category,
+        "photo": photo,
+    }
+    return render(request, "update_photo.html", context)
+
+
+#####################blog views#######################
+
+
 def blog(request):
     # Fetch all blog posts for the main blog content
     blogs = Blog.objects.all().order_by("-date_created")
@@ -117,11 +144,11 @@ def blog(request):
 def blog_detail(request, slug):
     blog = Blog.objects.get(slug=slug)
     photo = Photo.objects.all()
-    category = blog.categories.all()
+    # category = blog.categories.all()
     context = {
         "blog": blog,
         "photo": photo,
-        "category": category,
+        # "category": category,
     }
     return render(request, "blog_detailed.html", context)
 
@@ -135,28 +162,29 @@ def add_blog(request):
             return redirect("blog")
     else:
         form = BlogForm()
-        # if request.method == "POST":
-        #     data = request.POST
-        #     image = request.FILES.get("image")
-        #     title = data.get("title")
-        #     content = data.get("content")
 
-        #     if image:
-        #         Blog.objects.create(
-        #             title=title,
-        #             content=content,
-        #             image=image,
-        #         )
-
-        #     else:
-        #         Blog.objects.create(
-        #             title=title,
-        #             content=content,
-        #         )
-
-        # return redirect("blog")
     context = {"form": form}
     return render(request, "add_blog.html", context)
+
+
+# update just the blog
+@login_required(login_url="login")
+def update_blog(request, id):
+    blog = get_object_or_404(Blog, id=id)
+    if request.method == "POST":
+        form = UpdateBlogForm(request.POST, request.FILES, instance=blog)
+        if form.is_valid():
+            form.save()
+            return redirect("blog")
+
+    else:
+        form = UpdateBlogForm(instance=blog)
+
+    context = {
+        "object": blog,
+        "form": form,
+    }
+    return render(request, "update_blog.html", context)
 
 
 # tags for blogs
@@ -166,9 +194,12 @@ def blog_by_tag(request, tag_slug):
     return render(request, "blog.html", {"blogs": blogs})
 
 
-# delete both blog and photo objects dynamically
-def delete(request, object_type, id):
+#####################Delete views#######################
 
+
+# delete both blog and photo objects dynamically
+@login_required(login_url="login")
+def delete(request, object_type, id):
     # Determine the model based on the object_type
     if object_type == "photo":
         model = Photo
@@ -198,50 +229,50 @@ def delete(request, object_type, id):
 
 
 # Update both blog and photo objects dynamically
-def update(request, object_type, id):
-    # Determine the model based on the object_type
-    if object_type == "photo":
-        model = Photo
-        template_name = "update_photo.html"
-        categories = Category.objects.all()
-    elif object_type == "blog":
-        model = Blog
-        template_name = "update_blog.html"
-        categories = None
-    else:
-        raise Http404("Invalid object type")
+# def update(request, object_type, id):
+#     # Determine the model based on the object_type
+#     if object_type == "photo":
+#         model = Photo
+#         template_name = "update_photo.html"
+#         categories = Category.objects.all()
+#     elif object_type == "blog":
+#         model = Blog
+#         template_name = "update_blog.html"
+#         categories = None
+#     else:
+#         raise Http404("Invalid object type")
 
-    obj = get_object_or_404(model, id=id)
-    if request.method == "POST":
-        data = request.POST
-        image = request.FILES.get("image")
-        title = data.get("title")
-        content = data.get("content")
-        content = data.get("content") if object_type == "blog" else None
-        category_id = data.get("category") if object_type == "photo" else None
+#     obj = get_object_or_404(model, id=id)
+#     if request.method == "POST":
+#         data = request.POST
+#         image = request.FILES.get("image")
+#         title = data.get("title")
+#         content = data.get("content")
+#         content = data.get("content") if object_type == "blog" else None
+#         category_id = data.get("category") if object_type == "photo" else None
 
-        # Update the object fields
-        obj.title = title
-        if object_type == "photo" and image:
-            obj.image = image
-        if object_type == "blog":
-            obj.content = content
-            if image:
-                obj.image = image
-        if object_type == "photo" and category_id != "none":
-            obj.category = Category.objects.get(id=category_id)
-        elif object_type == "photo":
-            obj.category = None
+#         # Update the object fields
+#         obj.title = title
+#         if object_type == "photo" and image:
+#             obj.image = image
+#         if object_type == "blog":
+#             obj.content = content
+#             if image:
+#                 obj.image = image
+#         if object_type == "photo" and category_id != "none":
+#             obj.category = Category.objects.get(id=category_id)
+#         elif object_type == "photo":
+#             obj.category = None
 
-        obj.save()
-        return redirect("home" if object_type == "photo" else "blog")
+#         obj.save()
+#         return redirect("home" if object_type == "photo" else "blog")
 
-    context = {
-        "object": obj,
-        "object_type": object_type,
-        "categories": categories,
-    }
-    return render(request, template_name, context)
+#     context = {
+#         "object": obj,
+#         "object_type": object_type,
+#         "categories": categories,
+#     }
+#     return render(request, template_name, context)
 
 
 # edit category for photo object
@@ -310,3 +341,26 @@ def search(request):
 #         "form": form,
 #     }
 #     return render(request, "add_about.html", context)
+
+
+# another way of adding a blog in the front end
+# if request.method == "POST":
+#     data = request.POST
+#     image = request.FILES.get("image")
+#     title = data.get("title")
+#     content = data.get("content")
+
+#     if image:
+#         Blog.objects.create(
+#             title=title,
+#             content=content,
+#             image=image,
+#         )
+
+#     else:
+#         Blog.objects.create(
+#             title=title,
+#             content=content,
+#         )
+
+# return redirect("blog")
