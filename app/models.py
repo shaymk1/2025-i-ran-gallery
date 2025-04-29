@@ -31,7 +31,7 @@ class Photo(models.Model):
     )
     title = models.CharField(max_length=100)
     image = models.ImageField(upload_to="photos/")  # using s3
-    tags = TaggableManager()
+  
 
     class Meta:
         verbose_name_plural = "Photos"
@@ -60,7 +60,6 @@ class Blog(models.Model):
     date_created = models.DateTimeField(auto_now_add=True)
     last_updated = models.DateTimeField(auto_now=True)
     slug = models.SlugField(unique=True)
-    categories = models.ManyToManyField("Category", related_name="blogs")
     tags = TaggableManager()
 
     class Meta:

@@ -11,6 +11,7 @@ from django.shortcuts import get_object_or_404
 from django.db.models import Q
 from django.contrib.auth.decorators import login_required
 from taggit.models import Tag
+from .forms import BlogForm
 
 
 def home(request):
@@ -127,28 +128,34 @@ def blog_detail(request, slug):
 
 @login_required(login_url="login")
 def add_blog(request):
-
     if request.method == "POST":
-        data = request.POST
-        image = request.FILES.get("image")
-        title = data.get("title")
-        content = data.get("content")
+        form = BlogForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect("blog")
+    else:
+        form = BlogForm()
+        # if request.method == "POST":
+        #     data = request.POST
+        #     image = request.FILES.get("image")
+        #     title = data.get("title")
+        #     content = data.get("content")
 
-        if image:
-            Blog.objects.create(
-                title=title,
-                content=content,
-                image=image,
-            )
+        #     if image:
+        #         Blog.objects.create(
+        #             title=title,
+        #             content=content,
+        #             image=image,
+        #         )
 
-        else:
-            Blog.objects.create(
-                title=title,
-                content=content,
-            )
+        #     else:
+        #         Blog.objects.create(
+        #             title=title,
+        #             content=content,
+        #         )
 
-        return redirect("blog")
-    context = {}
+        # return redirect("blog")
+    context = {"form": form}
     return render(request, "add_blog.html", context)
 
 
