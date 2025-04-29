@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "storages",  # aws s3
     "taggit",  # for tags
+    'imagekit',  # for image optimization
 ]
 
 MIDDLEWARE = [

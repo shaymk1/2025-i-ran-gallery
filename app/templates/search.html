@@ -15,7 +15,7 @@
                 <div class="col-md-4 mb-3">
                     <div class="card h-100">
                         {% if item.image %}
-                            <img src="{{ item.image.url }}" class="card-img-top" alt="{{ item.title }}">
+                            <img src="{{ item.optimized_image.url }}" class="card-img-top" alt="{{ item.title }}">
                         {% endif %}
                         <div class="card-body">
                             <h5 class="card-title">{{ item.title }}</h5>

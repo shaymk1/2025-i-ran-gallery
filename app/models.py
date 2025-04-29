@@ -1,8 +1,9 @@
 # from tabnanny import verbose
 from django.db import models
 from django.utils.text import slugify
-
 from taggit.managers import TaggableManager  # using taggit for tags
+from imagekit.models import ImageSpecField
+from imagekit.processors import ResizeToFill
 
 
 class Category(models.Model):
@@ -31,6 +32,11 @@ class Photo(models.Model):
     )
     title = models.CharField(max_length=100)
     image = models.ImageField(upload_to="photos/")  # using s3
+    optimized_image = ImageSpecField(
+        source='image',
+        processors=[ResizeToFill(800, 600)],
+        format='JPG',
+        options={'quality': 60})
 
     class Meta:
         verbose_name_plural = "Photos"
@@ -44,6 +50,11 @@ class About(models.Model):
     title = models.CharField(max_length=100)
     description = models.TextField()
     image = models.ImageField(upload_to="photos/")  # using s3
+    optimized_image = ImageSpecField(
+        source='image',
+        processors=[ResizeToFill(800, 600)],
+        format='JPG',
+        options={'quality': 60})
 
     class Meta:
         verbose_name_plural = "About Us"
@@ -56,6 +67,11 @@ class Blog(models.Model):
     title = models.CharField(max_length=100)
     content = models.TextField()
     image = models.ImageField(upload_to="photos/")  # using s3
+    optimized_image = ImageSpecField(
+        source='image',
+        processors=[ResizeToFill(800, 600)],
+        format='JPG',
+        options={'quality': 60})
     date_created = models.DateTimeField(auto_now_add=True)
     last_updated = models.DateTimeField(auto_now=True)
     slug = models.SlugField(unique=True)

@@ -13,7 +13,7 @@
          <!-- Display details for a photo -->
     {% if object_type == "photo" %}
     <div>
-        <img src="{{ object.image.url }}" alt="{{ object.title }}" style="max-width: 300px; height: auto;">
+        <img src="{{ object.optimized_image.url }}" alt="{{ object.title }}" style="max-width: 300px; height: auto;">
         <h2>{{ object.title }}</h2>
         {% if object.category %}
             <p><strong>Category:</strong> {{ object.category.month }} - {{ object.category.venue }}</p>
@@ -25,7 +25,7 @@
     {% if object_type == "blog" %}
         <div>
             {% if object.image %}
-               <img src="{{ object.image.url }}" alt="{{ object.title }}" style="max-width: 300px; height: auto;">
+               <img src="{{ object.optimized_image.url }}" alt="{{ object.title }}" style="max-width: 300px; height: auto;">
            {% endif %}
             <h2>{{ object.title }}</h2>
             <p>{{ object.content|truncatewords:50 }}</p> <!-- Show a snippet of the blog content -->

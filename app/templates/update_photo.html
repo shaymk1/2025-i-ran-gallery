@@ -23,7 +23,7 @@
 								{{ form.image }}
 								{{ form.image.errors }}
 								{% if object.image %}
-									<img src="{{ object.image.url }}" alt="{{ object.title }}" style="max-width: 200px; margin-top: 10px;">
+									<img src="{{ object.optimized_image.url }}" alt="{{ object.title }}" style="max-width: 200px; margin-top: 10px;">
 								{% endif %}
 							</div>
 							<div class="form-group">

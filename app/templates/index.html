@@ -17,7 +17,7 @@
 								<header class="entry-header">
 									<div class="entry-thumbnail">
 										<a href="{% url 'photo_detail' photos.id %}">
-											<img src="{{ photos.image.url }}" class="attachment-post-thumbnail size-post-thumbnail wp-post-image" alt="pic"/>
+											<img src="{{ photos.optimized_image.url }}" class="attachment-post-thumbnail size-post-thumbnail wp-post-image" alt="pic"/>
 										</a>
 									</div>
 									<h2 class="entry-title" style="margin-top: 6px; ">
