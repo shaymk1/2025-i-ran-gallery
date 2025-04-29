@@ -58,7 +58,7 @@ body {
 }
 
 /* Dark mode styles */
-body.dark-mode {
+/* body.dark-mode {
     background-color: #181818;
     color: #f1f1f1;
 }
@@ -76,7 +76,7 @@ body.dark-mode {
     background-color: #333 !important;
     color: #fff !important;
     border-color: #444 !important;
-}
+} */
 article,aside,details,figcaption,figure,footer,header,main,nav,section {
 	display:block;
 }
