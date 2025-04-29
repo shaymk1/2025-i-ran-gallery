@@ -3,7 +3,7 @@ from django.db import models
 from django.utils.text import slugify
 from taggit.managers import TaggableManager  # using taggit for tags
 from imagekit.models import ImageSpecField
-from imagekit.processors import ResizeToFill
+from imagekit.processors import ResizeToFill, ResizeToFit
 
 
 class Category(models.Model):
@@ -34,7 +34,7 @@ class Photo(models.Model):
     image = models.ImageField(upload_to="photos/")  # using s3
     optimized_image = ImageSpecField(
         source='image',
-        processors=[ResizeToFill(800, 600)],
+        processors=[ResizeToFit(800, 600)],
         format='JPEG',
         options={'quality': 60})
 
@@ -52,7 +52,7 @@ class About(models.Model):
     image = models.ImageField(upload_to="photos/")  # using s3
     optimized_image = ImageSpecField(
         source='image',
-        processors=[ResizeToFill(800, 600)],
+        processors=[ResizeToFit(800, 600)],
         format='JPEG',
         options={'quality': 60})
 
@@ -69,7 +69,7 @@ class Blog(models.Model):
     image = models.ImageField(upload_to="photos/")  # using s3
     optimized_image = ImageSpecField(
         source='image',
-        processors=[ResizeToFill(800, 600)],
+        processors=[ResizeToFit(800, 600)],
         format='JPEG',
         options={'quality': 60})
     date_created = models.DateTimeField(auto_now_add=True)
