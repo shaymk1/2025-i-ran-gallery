@@ -16,6 +16,7 @@ from taggit.models import Tag
 def home(request):
     photos = Photo.objects.all()
     category = Category.objects.all()
+    tags = Blog.objects.filter(tags__name__in=["name"]).distinct()
     paginator = Paginator(photos, 6)
     page_number = request.GET.get("page")
     page_obj = paginator.get_page(page_number)
@@ -23,6 +24,7 @@ def home(request):
     context = {
         "photo": page_obj,
         "category": category,
+        "tags": tags,
     }
 
     return render(request, "index.html", context)

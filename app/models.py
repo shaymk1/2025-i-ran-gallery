@@ -31,6 +31,7 @@ class Photo(models.Model):
     )
     title = models.CharField(max_length=100)
     image = models.ImageField(upload_to="photos/")  # using s3
+    tags = TaggableManager()
 
     class Meta:
         verbose_name_plural = "Photos"
@@ -60,8 +61,7 @@ class Blog(models.Model):
     last_updated = models.DateTimeField(auto_now=True)
     slug = models.SlugField(unique=True)
     categories = models.ManyToManyField("Category", related_name="blogs")
-    tags = models.ManyToManyField("Tag", blank=True)
-    old_tags = TaggableManager(blank=True)
+    tags = TaggableManager()
 
     class Meta:
         ordering = ["-date_created"]
@@ -76,17 +76,17 @@ class Blog(models.Model):
         return self.title
 
 
-class Tag(models.Model):
-    name = models.CharField(max_length=50, unique=True)
-    slug = models.SlugField(null=True, blank=True)
-    category = models.ForeignKey(
-        Category, on_delete=models.CASCADE, related_name="tags", null=True, blank=True
-    )
+# class Tag(models.Model):
+#     name = models.CharField(max_length=50, unique=True)
+#     slug = models.SlugField(unique=True, blank=True)
+#     category = models.ForeignKey(
+#         Category, on_delete=models.CASCADE, related_name="tags", null=True, blank=True
+#     )
 
-    def save(self, *args, **kwargs):
-        if not self.slug or self.slug == "temp-slug":
-            self.slug = slugify(self.name)  # Generate from name
-        super().save(*args, **kwargs)
+#     def save(self, *args, **kwargs):
+#         if not self.slug or self.slug == "temp-slug":
+#             self.slug = slugify(self.name)  # Generate from name
+#         super().save(*args, **kwargs)
 
 
 # class Tag(models.Model):

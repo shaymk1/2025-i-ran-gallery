@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Category, Photo, About, Blog, Tag
+from .models import Category, Photo, About, Blog
 from django.utils.text import slugify
 
 
@@ -28,19 +28,19 @@ class BlogAdmin(admin.ModelAdmin):
     display_tags.short_description = "Tags"
 
 
-class TagAdmin(admin.ModelAdmin):
-    prepopulated_fields = {
-        "slug": ("name", "category")
-    }  # Prepopulate slug in the admin form
+# class TagAdmin(admin.ModelAdmin):
+#     prepopulated_fields = {
+#         "slug": ("name", "category")
+#     }  # Prepopulate slug in the admin form
 
-    def save_model(self, request, obj, form, change):
-        if not obj.slug:  # Only generate slug if it's not already set
-            obj.slug = slugify(f"{obj.name}-{obj.category}")
-        super().save_model(request, obj, form, change)
+#     def save_model(self, request, obj, form, change):
+#         if not obj.slug:  # Only generate slug if it's not already set
+#             obj.slug = slugify(f"{obj.name}-{obj.category}")
+#         super().save_model(request, obj, form, change)
 
 
 admin.site.register(Category)
 admin.site.register(Photo)
 admin.site.register(About)
 admin.site.register(Blog, BlogAdmin)
-admin.site.register(Tag, TagAdmin)
+# admin.site.register(Tag, TagAdmin)
