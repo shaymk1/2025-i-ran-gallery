@@ -37,6 +37,7 @@
 - [x] password reset— **Done**
 - [x] sessions— **Done**
 - [x] related blogs— **Done**
+- [x] dark mode— **Done** [ ] 
 - [x] social media sharing integration
 - [x] RSS Feed
 - [x] Caching but expire the cache for post and related pages ehen it'd updsted/published

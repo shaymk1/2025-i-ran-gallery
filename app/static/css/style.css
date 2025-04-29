@@ -56,6 +56,27 @@ html {
 body {
 	background:#fff;
 }
+
+/* Dark mode styles */
+body.dark-mode {
+    background-color: #181818;
+    color: #f1f1f1;
+}
+.dark-mode .card,
+.dark-mode .container,
+.dark-mode .site-content,
+.dark-mode .content-area {
+    background-color: #232323 !important;
+    color: #f1f1f1 !important;
+}
+.dark-mode a {
+    color: #9ecbff;
+}
+.dark-mode .btn-primary {
+    background-color: #333 !important;
+    color: #fff !important;
+    border-color: #444 !important;
+}
 article,aside,details,figcaption,figure,footer,header,main,nav,section {
 	display:block;
 }
