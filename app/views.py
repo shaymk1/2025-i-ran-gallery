@@ -144,11 +144,15 @@ def blog(request):
 def blog_detail(request, slug):
     blog = Blog.objects.get(slug=slug)
     photo = Photo.objects.all()
-    # category = blog.categories.all()
+    # Get tags for the current blog
+    blog_tags = blog.tags.all()
+    # Find other blogs that share at least one tag with the current blog, excluding itself
+    related_posts = Blog.objects.filter(tags__in=blog_tags).exclude(id=blog.id).distinct()[:4]
     context = {
         "blog": blog,
         "photo": photo,
-        # "category": category,
+        "related_posts": related_posts,
+        "blog_tags": blog_tags,
     }
     return render(request, "blog_detailed.html", context)
 
