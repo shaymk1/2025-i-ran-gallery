@@ -2,6 +2,7 @@ from django.urls import path
 from django.contrib.auth import views as auth_views
 from django.contrib.auth.views import LogoutView
 from django.contrib.auth import views as auth_views
+from .feeds import LatestPostsFeed
 from . import views
 
 urlpatterns = [
@@ -20,7 +21,8 @@ urlpatterns = [
     path("tag/<slug:tag_slug>/", views.blog_by_tag, name="blog_by_tag"),
     path("login/", views.login_with_message, name="login"),
     path("logout/", views.logout_with_message, name="logout"),
-    path('contact/', views.contact, name='contact'),
+    path("contact/", views.contact, name="contact"),
+    path("rss/", LatestPostsFeed(), name="rss_feed"),  # for rss feed
     # to reset password
     path(
         "password-reset/",
