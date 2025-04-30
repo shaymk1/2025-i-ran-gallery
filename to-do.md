@@ -24,23 +24,25 @@
 - [x] Delete blog — **Done**
 - [x] Update blog/photo — **Done**
 
-### 11/04/2025
 
-- [x] Environmental variables — 
-- [x] security check — 
-- [x] Deployment — 
-  
-### Future expansion
+### extra features
 
 - [x] Tags— **Done** 
 - [x] search— **Done**
 - [x] password reset— **Done**
 - [x] sessions— **Done**
 - [x] related blogs— **Done**
+
+### Future expansion
+
 - [x] dark mode— 
 - [x] social media sharing integration
 - [x] RSS Feed
 - [x] Caching but expire the cache for post and related pages ehen it'd updsted/published
 - [x] Google sitemap
 
+### final checks
 
+- [x] Environmental variables — 
+- [x] security check — 
+- [x] Deployment — 
