@@ -36,14 +36,31 @@
 		<div id="content" class="site-content">
 			<div id="primary" class="content-area column two-thirds single-portfolio">
 				<main id="main" class="site-main">
-					<div class="nav-buttons" style="margin: 6px; padding: 3px; display: flex; gap: 10px;">
+					<div class="nav-buttons" style="margin: 6px; padding: 3px; display: flex; gap: 10px; align-items: center;">
 						<!-- Delete Button -->
 						<a href="{% url 'delete' 'blog' blog.id %}" class="btn btn-danger" style="color: white;">Delete</a>
-					
 						<!-- Update Button -->
 						<a href="{% url 'update_blog'  blog.id %}" class="btn btn-primary" style="color: white;">Update</a>
 						<!-- Back Button -->
 						<a href="{% url 'blog' %}" class="btn btn-primary" style="color: white;background-color:orange;">Back</a>
+						<!-- Share Button Dropdown -->
+						<div class="dropdown">
+							<button class="btn btn-dark dropdown-toggle d-flex align-items-center" type="button" id="shareDropdown" data-bs-toggle="dropdown" aria-expanded="false" style="background:black; color:white; border:none;">
+								<i class="fas fa-share-alt me-2"></i> Share
+							</button>
+							<ul class="dropdown-menu" aria-labelledby="shareDropdown">
+								<li><a class="dropdown-item" href="https://twitter.com/intent/tweet?url={{ request.build_absolute_uri }}&text={{ blog.title }}" target="_blank"><i class="fab fa-twitter me-2"></i>Twitter</a></li>
+								<li><a class="dropdown-item" href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri }}" target="_blank"><i class="fab fa-facebook me-2"></i>Facebook</a></li>
+								<li><a class="dropdown-item" href="https://wa.me/?text={{ blog.title }}%20{{ request.build_absolute_uri }}" target="_blank"><i class="fab fa-whatsapp me-2"></i>WhatsApp</a></li>
+								<li><a class="dropdown-item"
+									href="https://mail.google.com/mail/?view=cm&fs=1&to=&su={{ blog.title|urlencode }}&body={{ request.build_absolute_uri|urlencode }}"
+									target="_blank">
+									 <i class="fas fa-envelope me-2"></i>Email
+								 </a>
+								</a>
+							</li>
+							</ul>
+						</div>
 					</div>
 					<article class="portfolio hentry">
 						<header class="entry-header">
@@ -79,6 +96,7 @@
 							<a href="{% url 'blog_by_tag' tag.slug %}" class="tag text-black">#{{ tag.name }}</a>
 						{% endfor %}
 					</div>
+					
 					{% comment %} related posts {% endcomment %}
 					{% if related_posts %}
 							<div class="related-posts mt-5">
