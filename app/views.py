@@ -1,10 +1,3 @@
-# from re import A
-# from calendar import c
-# import re
-# from .forms import AboutForm
-# import re
-# from multiprocessing import context
-# from re import U
 from django.shortcuts import render, redirect
 from .models import Photo, Category, About, Blog
 from django.core.paginator import Paginator
@@ -14,6 +7,8 @@ from django.db.models import Q
 from django.contrib.auth.decorators import login_required
 from taggit.models import Tag
 from .forms import BlogForm, UpdateBlogForm, UpdatePhotoForm
+from django.contrib.auth.views import LoginView, LogoutView
+from django.contrib import messages
 
 #####################photo views#######################
 
@@ -77,8 +72,10 @@ def add_photo(request):
                 image=image,
                 category=category,
             )
-
+        messages.success(request, "photo added successfully!")
         return redirect("home")
+    else:
+        messages.error(request, 'Something went wrong, please try again...')
     context = {
         "category": category,
         "photo": photo,
@@ -96,7 +93,10 @@ def update_photo(request, id):
         form = UpdatePhotoForm(request.POST, request.FILES, instance=photo)
         if form.is_valid():
             form.save()
+            messages.success(request, "photo updated successfully!")
             return redirect("home")
+        else:
+            messages.error(request, 'Something went wrong, please try again...')
     else:
         form = UpdatePhotoForm(instance=photo)
     context = {
@@ -129,6 +129,7 @@ def blog(request):
         # Show all blog titles
     else:
         blog_titles = Blog.objects.all().order_by("-date_created")[:5]
+
     # Show only the latest 5 titles # Show only the latest 5 titles
 
     context = {
@@ -147,7 +148,9 @@ def blog_detail(request, slug):
     # Get tags for the current blog
     blog_tags = blog.tags.all()
     # Find other blogs that share at least one tag with the current blog, excluding itself
-    related_posts = Blog.objects.filter(tags__in=blog_tags).exclude(id=blog.id).distinct()[:4]
+    related_posts = (
+        Blog.objects.filter(tags__in=blog_tags).exclude(id=blog.id).distinct()[:4]
+    )
     context = {
         "blog": blog,
         "photo": photo,
@@ -163,7 +166,10 @@ def add_blog(request):
         form = BlogForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
+            messages.success(request, "Blog post created successfully!")
             return redirect("blog")
+        else:
+            messages.error(request, 'Something went wrong, please try again...')
     else:
         form = BlogForm()
 
@@ -179,7 +185,10 @@ def update_blog(request, id):
         form = UpdateBlogForm(request.POST, request.FILES, instance=blog)
         if form.is_valid():
             form.save()
+            messages.success(request, "Blog post updated successfully!")
             return redirect("blog")
+        else:
+            messages.error(request, 'Something went wrong, please try again...')
 
     else:
         form = UpdateBlogForm(instance=blog)
@@ -222,7 +231,9 @@ def delete(request, object_type, id):
     # Handle POST request to confirm deletion
     if request.method == "POST":
         obj.delete()
-        return redirect(redirect_url)  # Redirect to home or another page after deletion
+        messages.success(request, f"{object_type.capitalize()} deleted successfully.")
+        return redirect(redirect_url)
+   
 
     # Render the delete confirmation page
     context = {
@@ -230,6 +241,23 @@ def delete(request, object_type, id):
         "object_type": object_type,
     }
     return render(request, "delete.html", context)
+
+
+#####################login and logout messages#######################
+
+
+def login_with_message(request):
+    if request.user.is_authenticated:
+        return redirect("home")
+    response = LoginView.as_view(template_name="registration/login.html")(request)
+    if request.method == "POST" and request.user.is_authenticated:
+        messages.success(request, f"Welcome back, {request.user.username}!")
+    return response
+
+
+def logout_with_message(request):
+    messages.success(request, "You have been logged out successfully.")
+    return LogoutView.as_view()(request)
 
 
 # Update both blog and photo objects dynamically

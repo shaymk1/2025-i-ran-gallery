@@ -18,12 +18,9 @@ urlpatterns = [
     path("edit_category/<int:id>/", views.edit_category, name="edit_category"),
     path("search/", views.search, name="search"),
     path("tag/<slug:tag_slug>/", views.blog_by_tag, name="blog_by_tag"),
-    path(
-        "login/", auth_views.LoginView.as_view(template_name="login.html"), name="login"
-    ),
-    path("logout/", LogoutView.as_view(next_page="login"), name="logout"),
+    path("login/", views.login_with_message, name="login"),
+    path("logout/", views.logout_with_message, name="logout"),
     # to reset password
-    # path("tag_detail/<slug:slug>/", views.tag_detail, name="tag_detail"),
     path(
         "password-reset/",
         auth_views.PasswordResetView.as_view(
@@ -55,3 +52,8 @@ urlpatterns = [
         name="password_reset_complete",
     ),
 ]
+
+# path(
+#     "login/", auth_views.LoginView.as_view(template_name="login.html"), name="login"
+# ),
+# path("logout/", LogoutView.as_view(next_page="login"), name="logout"),
