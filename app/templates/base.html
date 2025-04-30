@@ -26,9 +26,22 @@
     {% comment %} preferred URL {% endcomment %}
     <link rel="canonical" href="{{ request.build_absolute_uri }}">
 ;
-    <title>I Ran in 2025</title>
+    <title>In 2025, I Ran</title>
 </head>
 <body>
+    {% comment %} alert messages {% endcomment %}
+    {% if messages %}
+  <div class="container mt-3">
+    {% for message in messages %}
+      <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+        {{ message }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+    {% endfor %}
+  </div>
+{% endif %}
+
+{% comment %} header and navigation bar {% endcomment %}
 <header id="masthead" class="site-header">
     <div class="site-branding" style="text-align:center; margin-bottom:1rem;">
         <a href="{% url 'home' %}">
