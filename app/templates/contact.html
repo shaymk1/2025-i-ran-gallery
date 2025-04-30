@@ -1,0 +1,25 @@
+{% extends "base.html" %} {% load static %} {% block content %}
+<body class="home page page-template page-template-template-portfolio page-template-template-portfolio-php">
+	<div id="page">
+		<div class="container">
+			<!-- #masthead -->
+			<div id="content" class="site-content">
+				<div id="primary"
+					class="content-area column two-thirds single-portfolio">
+					<main id="main" class="site-main">
+                        <div class="container mt-5">
+                            <h2>Contact Me</h2>
+                            <form method="post">
+                                {% csrf_token %}
+                                {{ form.as_p }}
+                                <button type="submit" class="btn btn-primary">Send</button>
+                            </form>
+                        </div>
+                    </main>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+
+{% endblock %}

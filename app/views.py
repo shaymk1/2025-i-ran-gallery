@@ -6,9 +6,10 @@ from django.shortcuts import get_object_or_404
 from django.db.models import Q
 from django.contrib.auth.decorators import login_required
 from taggit.models import Tag
-from .forms import BlogForm, UpdateBlogForm, UpdatePhotoForm
+from .forms import BlogForm, UpdateBlogForm, UpdatePhotoForm, ContactForm
 from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib import messages
+from django.core.mail import send_mail
 
 #####################photo views#######################
 
@@ -257,6 +258,27 @@ def logout_with_message(request):
     messages.success(request, "You have been logged out successfully.")
     return LogoutView.as_view(next_page="home")(request)
     # return redirect("home")
+
+
+#####################contact#######################
+
+
+def contact(request):
+    if request.method == "POST":
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            # Send email
+            send_mail(
+                f"Contact Form: {form.cleaned_data['name']}",
+                form.cleaned_data["message"],
+                form.cleaned_data["email"],
+                ["shaesblog12@gmail.com"], 
+            )
+            messages.success(request, "Your message has been sent!")
+            form = ContactForm()  # Clear the form
+    else:
+        form = ContactForm()
+    return render(request, "contact.html", {"form": form})
 
 
 # Update both blog and photo objects dynamically

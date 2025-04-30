@@ -20,6 +20,7 @@ urlpatterns = [
     path("tag/<slug:tag_slug>/", views.blog_by_tag, name="blog_by_tag"),
     path("login/", views.login_with_message, name="login"),
     path("logout/", views.logout_with_message, name="logout"),
+    path('contact/', views.contact, name='contact'),
     # to reset password
     path(
         "password-reset/",

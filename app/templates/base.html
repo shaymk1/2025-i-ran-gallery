@@ -63,6 +63,7 @@
                     <li><a href="{% url 'add_blog' %}" style="color:#222; padding:0.7rem 2rem; display:block; text-decoration:none; font-size:1.1rem;">Add A Blog</a></li>
                 </ul>
             </li>
+            <li style="margin-right:2.5rem;"><a href="{% url 'contact' %}" style="color:#222; text-decoration:none; font-weight:600; font-size:1.25rem; padding:0.5rem 0;">Contact</a></li>
         </ul>
         <form action="{% url 'logout' %}" method="post" class="logout-form" style="display:inline; margin-left:auto;">
             {% csrf_token %}
