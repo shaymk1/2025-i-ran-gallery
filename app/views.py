@@ -74,8 +74,7 @@ def add_photo(request):
             )
         messages.success(request, "photo added successfully!")
         return redirect("home")
-    else:
-        messages.error(request, 'Something went wrong, please try again...')
+
     context = {
         "category": category,
         "photo": photo,
@@ -96,7 +95,7 @@ def update_photo(request, id):
             messages.success(request, "photo updated successfully!")
             return redirect("home")
         else:
-            messages.error(request, 'Something went wrong, please try again...')
+            messages.error(request, "Something went wrong, please try again...")
     else:
         form = UpdatePhotoForm(instance=photo)
     context = {
@@ -169,7 +168,7 @@ def add_blog(request):
             messages.success(request, "Blog post created successfully!")
             return redirect("blog")
         else:
-            messages.error(request, 'Something went wrong, please try again...')
+            messages.error(request, "Something went wrong, please try again...")
     else:
         form = BlogForm()
 
@@ -188,7 +187,7 @@ def update_blog(request, id):
             messages.success(request, "Blog post updated successfully!")
             return redirect("blog")
         else:
-            messages.error(request, 'Something went wrong, please try again...')
+            messages.error(request, "Something went wrong, please try again...")
 
     else:
         form = UpdateBlogForm(instance=blog)
@@ -233,7 +232,6 @@ def delete(request, object_type, id):
         obj.delete()
         messages.success(request, f"{object_type.capitalize()} deleted successfully.")
         return redirect(redirect_url)
-   
 
     # Render the delete confirmation page
     context = {
@@ -257,7 +255,8 @@ def login_with_message(request):
 
 def logout_with_message(request):
     messages.success(request, "You have been logged out successfully.")
-    return LogoutView.as_view()(request)
+    return LogoutView.as_view(next_page="home")(request)
+    # return redirect("home")
 
 
 # Update both blog and photo objects dynamically

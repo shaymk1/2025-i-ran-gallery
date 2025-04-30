@@ -32,6 +32,7 @@
 - [x] password reset— **Done**
 - [x] sessions— **Done**
 - [x] related blogs— **Done**
+- [x] alert messages — **Done** 
 
 ### Future expansion
 
