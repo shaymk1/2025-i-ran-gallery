@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     "storages",  # aws s3
     "taggit",  # for tags
     'imagekit',  # for image optimization
+    "django.contrib.sitemaps",  # for sitemaps
 ]
 
 MIDDLEWARE = [

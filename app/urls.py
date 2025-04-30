@@ -2,8 +2,16 @@ from django.urls import path
 from django.contrib.auth import views as auth_views
 from django.contrib.auth.views import LogoutView
 from django.contrib.auth import views as auth_views
-from .feeds import LatestPostsFeed
+from .feeds import LatestPostsFeed  # for rss feeds
+from django.contrib.sitemaps.views import sitemap  # sitemaps
+from app.sitemaps import BlogSitemap  # sitemaps
 from . import views
+
+
+sitemaps = {
+    "blogs": BlogSitemap,
+}
+
 
 urlpatterns = [
     path("", views.home, name="home"),
@@ -23,6 +31,13 @@ urlpatterns = [
     path("logout/", views.logout_with_message, name="logout"),
     path("contact/", views.contact, name="contact"),
     path("rss/", LatestPostsFeed(), name="rss_feed"),  # for rss feed
+    # sitemaps
+    path(
+        "sitemap.xml",
+        sitemap,
+        {"sitemaps": sitemaps},
+        name="django.contrib.sitemaps.views.sitemap",
+    ),
     # to reset password
     path(
         "password-reset/",
