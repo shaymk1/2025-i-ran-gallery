@@ -293,8 +293,7 @@ def subscribe(request):
         if form.is_valid():
             email = form.cleaned_data["email"]
             config = sib_api_v3_sdk.Configuration()
-            api_key = settings.BREVO_API_KEY
-            # config.api_key["api-key"] = settings.BREVO_API_KEY
+            config.api_key["api-key"] = settings.BREVO_API_KEY
             api_instance = sib_api_v3_sdk.ContactsApi(sib_api_v3_sdk.ApiClient(config))
             try:
                 # check if contact exists
@@ -312,16 +311,11 @@ def subscribe(request):
                     messages.error(
                         request, "Subscription service unavailable. Try again later."
                     )
-                if messages.success:
-                    return render(request, "subscribe_success.html", {"no_base": True})
-                else:
-                    return render(request, "subscribe_error.html", {"no_base": True})
             return redirect("home")
     else:
         form = SubscribeForm()
     context = {
         "form": form,
-        "api_key": api_key,
     }
     return render(request, "subscribe.html", context)
 
