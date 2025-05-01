@@ -37,10 +37,10 @@
 ### Future expansion
 
 - [x] dark mode— 
-- [x] social media sharing integration
-- [x] RSS Feed
+- [x] social media sharing integration — **Done** 
+- [x] RSS Feed — **Done** 
 - [x] Caching but expire the cache for post and related pages ehen it'd updsted/published
-- [x] Google sitemap
+- [x] Google sitemap — **Done** 
 
 ### final checks
 
