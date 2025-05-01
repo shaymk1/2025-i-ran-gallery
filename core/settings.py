@@ -3,7 +3,8 @@ from dotenv import load_dotenv
 import os
 from django.urls import reverse_lazy
 import shutil
-from django.conf import settings
+import logging
+
 
 # Build paths inside the project
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -11,12 +12,16 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Load environment variables
 load_dotenv(dotenv_path=BASE_DIR / ".env")
 
+#brevo-api-key for email subscription
+BREVO_API_KEY = os.environ.get("BREVO_API_KEY")
+print("BREVO_API_KEY:", BREVO_API_KEY)
 """
 secret key
 debug mode
 - True for development
 - False for production
 """
+
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ.get("SECRET_KEY")
 
@@ -26,6 +31,15 @@ DEBUG = os.environ.get("DEBUG", "True") == "True"
 ALLOWED_HOSTS = os.environ.get(
     "ALLOWED_HOSTS", "localhost,127.0.0.1,.elasticbeanstalk.com"
 ).split(",")
+
+
+#print(f"Brevo key exists: {bool(os.environ.get('BREVO_API_KEY'))}")
+
+# Disable boto3 debug logging
+logging.getLogger('boto3').setLevel(logging.WARNING)
+logging.getLogger('botocore').setLevel(logging.WARNING)
+logging.getLogger('s3transfer').setLevel(logging.WARNING)
+
 # Application definition
 INSTALLED_APPS = [
     "app",
@@ -121,7 +135,7 @@ EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER")
 EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")
 DEFAULT_FROM_EMAIL = os.getenv("DEFAULT_FROM_EMAIL")
 
-if not settings.DEBUG:
+if not DEBUG:
     DOMAIN = "yourdomain.com"  # For production
 else:
     DOMAIN = "localhost:8000"  # For local testing
@@ -240,15 +254,14 @@ LOGGING = {
 # if hasattr(settings, "SESSION_FILE_PATH"):  # Check if using file-based sessions
 #     session_dir = settings.SESSION_FILE_PATH
  """
-if getattr(settings, "SESSION_ENGINE", "").endswith("file"):
-    session_dir = getattr(settings, "SESSION_FILE_PATH", None)
+if SESSION_ENGINE.endswith("file"):
+    session_dir = SESSION_FILE_PATH
     if session_dir and os.path.exists(session_dir):
         try:
             shutil.rmtree(session_dir)
             os.makedirs(session_dir, exist_ok=True)
         except Exception as e:
             print(f"Couldn't clear session dir: {e}")
-
 # Clear session files on server startup
 # if hasattr(settings, "SESSION_FILE_PATH"):  # Check if using file-based sessions
 #     session_dir = settings.SESSION_FILE_PATH

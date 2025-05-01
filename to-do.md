@@ -33,17 +33,23 @@
 - [x] sessions— **Done**
 - [x] related blogs— **Done**
 - [x] alert messages — **Done** 
+- [x] image optimization — **Done** 
 
 ### Future expansion
 
-- [x] dark mode— 
+- [x] dark mode
 - [x] social media sharing integration — **Done** 
 - [x] RSS Feed — **Done** 
-- [x] Caching but expire the cache for post and related pages ehen it'd updsted/published
+- [x] Subsribers 
+- [x] Caching but expire the cache for post and related pages when it'd updated/published
 - [x] Google sitemap — **Done** 
+- [x] Google analytics
+- [x] Contact form   — **Done** 
 
 ### final checks
 
 - [x] Environmental variables — 
 - [x] security check — 
 - [x] Deployment — 
+
+

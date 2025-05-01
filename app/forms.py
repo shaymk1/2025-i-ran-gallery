@@ -69,13 +69,21 @@ class UpdateBlogForm(forms.ModelForm):
 class UpdatePhotoForm(forms.ModelForm):
     class Meta:
         model = Photo
-        fields = ["title", "image",  "category"]
+        fields = ["title", "image", "category"]
         widgets = {
             "image": forms.FileInput(attrs={"class": "form-control"}),
         }
 
 
 class ContactForm(forms.Form):
-    name = forms.CharField(max_length=100, widget=forms.TextInput(attrs={'class': 'form-control'}))
-    email = forms.EmailField(widget=forms.EmailInput(attrs={'class': 'form-control'}))
-    message = forms.CharField(widget=forms.Textarea(attrs={'class': 'form-control', 'rows': 5}))
+    name = forms.CharField(
+        max_length=100, widget=forms.TextInput(attrs={"class": "form-control"})
+    )
+    email = forms.EmailField(widget=forms.EmailInput(attrs={"class": "form-control"}))
+    message = forms.CharField(
+        widget=forms.Textarea(attrs={"class": "form-control", "rows": 5})
+    )
+
+
+class SubscribeForm(forms.Form):
+    email = forms.EmailField(label="Your email address", required=True)

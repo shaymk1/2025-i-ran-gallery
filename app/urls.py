@@ -31,6 +31,7 @@ urlpatterns = [
     path("logout/", views.logout_with_message, name="logout"),
     path("contact/", views.contact, name="contact"),
     path("rss/", LatestPostsFeed(), name="rss_feed"),  # for rss feed
+    path('subscribe/', views.subscribe, name='subscribe'),
     # sitemaps
     path(
         "sitemap.xml",

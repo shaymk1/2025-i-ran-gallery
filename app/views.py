@@ -6,10 +6,13 @@ from django.shortcuts import get_object_or_404
 from django.db.models import Q
 from django.contrib.auth.decorators import login_required
 from taggit.models import Tag
-from .forms import BlogForm, UpdateBlogForm, UpdatePhotoForm, ContactForm
+from .forms import BlogForm, UpdateBlogForm, UpdatePhotoForm, ContactForm, SubscribeForm
 from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib import messages
 from django.core.mail import send_mail
+import sib_api_v3_sdk  # for sending emails using sendinblue
+from sib_api_v3_sdk.rest import ApiException  # for sending emails using sendinblue
+from django.conf import settings
 
 #####################photo views#######################
 
@@ -272,13 +275,55 @@ def contact(request):
                 f"Contact Form: {form.cleaned_data['name']}",
                 form.cleaned_data["message"],
                 form.cleaned_data["email"],
-                ["shaesblog12@gmail.com"], 
+                ["shaesblog12@gmail.com"],
             )
             messages.success(request, "Your message has been sent!")
             form = ContactForm()  # Clear the form
     else:
         form = ContactForm()
     return render(request, "contact.html", {"form": form})
+
+
+#####################subscribe views with sdk and brevo#######################
+
+
+def subscribe(request):
+    if request.method == "POST":
+        form = SubscribeForm(request.POST)
+        if form.is_valid():
+            email = form.cleaned_data["email"]
+            config = sib_api_v3_sdk.Configuration()
+            api_key = settings.BREVO_API_KEY
+            # config.api_key["api-key"] = settings.BREVO_API_KEY
+            api_instance = sib_api_v3_sdk.ContactsApi(sib_api_v3_sdk.ApiClient(config))
+            try:
+                # check if contact exists
+                api_instance.get_contact_info(email)  # Will raise 404 if not found
+                messages.info(request, "You're already subscribed!")
+            except ApiException as e:
+                if e.status == 404:
+                    # Only proceed if email is new
+                    create_contact = sib_api_v3_sdk.CreateContact(
+                        email=email, list_ids=[2], update_enabled=True
+                    )
+                    api_instance.create_contact(create_contact)
+                    messages.success(request, "Thanks for subscribing!")
+                else:
+                    messages.error(
+                        request, "Subscription service unavailable. Try again later."
+                    )
+                if messages.success:
+                    return render(request, "subscribe_success.html", {"no_base": True})
+                else:
+                    return render(request, "subscribe_error.html", {"no_base": True})
+            return redirect("home")
+    else:
+        form = SubscribeForm()
+    context = {
+        "form": form,
+        "api_key": api_key,
+    }
+    return render(request, "subscribe.html", context)
 
 
 # Update both blog and photo objects dynamically
