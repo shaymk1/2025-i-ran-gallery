@@ -40,14 +40,16 @@
 - [x] dark mode
 - [x] social media sharing integration — **Done** 
 - [x] RSS Feed — **Done** 
-- [x] Subsribers 
+- [x] Subsribers — **Done with brevo** 
 - [x] Caching but expire the cache for post and related pages when it'd updated/published
 - [x] Google sitemap — **Done** 
 - [x] Google analytics
 - [x] Contact form   — **Done** 
 
+
 ### final checks
 
+- [x] Testing
 - [x] Environmental variables — 
 - [x] security check — 
 - [x] Deployment — 
