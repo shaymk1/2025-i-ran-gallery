@@ -230,19 +230,24 @@ LOGGING = {
         "console": {
             "class": "logging.StreamHandler",
         },
+        "file": {
+            "class": "logging.FileHandler",
+            "filename": BASE_DIR / "django.log",  # Log file path
+            "level": "INFO",
+        },
     },
     "loggers": {
         "django": {
-            "handlers": ["console"],
+            "handlers": ["console", "file"],  # Log to both console and file
             "level": "INFO",
         },
         "boto3": {
-            "handlers": ["console"],
-            "level": "DEBUG",
+            "handlers": ["console", "file"],
+            "level": "WARNING",
         },
         "botocore": {
-            "handlers": ["console"],
-            "level": "DEBUG",
+            "handlers": ["console", "file"],
+            "level": "WARNING",
         },
     },
 }

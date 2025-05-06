@@ -175,3 +175,8 @@ cython_debug/
 
 #others
 extras.txt
+*.json
+*.log
+.bak
+data_backup.sqlite3
+to-do.md

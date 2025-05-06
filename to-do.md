@@ -41,10 +41,11 @@
 - [x] social media sharing integration — **Done** 
 - [x] RSS Feed — **Done** 
 - [x] Subsribers — **Done with brevo** 
-- [x] Caching but expire the cache for post and related pages when it'd updated/published
+- [x] Caching but expire the cache for post and related pages when it'd updated/published with redis/memcached
 - [x] Google sitemap — **Done** 
 - [x] Google analytics
 - [x] Contact form   — **Done** 
+- [x] monitoring using sentry
 
 
 ### final checks
