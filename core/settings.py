@@ -2,8 +2,8 @@ from pathlib import Path
 from dotenv import load_dotenv
 import os
 from django.urls import reverse_lazy
-import shutil
-import logging
+import shutil  # for clearing session files
+import logging  # for logging s3 errors
 
 
 # Build paths inside the project
@@ -12,7 +12,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Load environment variables
 load_dotenv(dotenv_path=BASE_DIR / ".env")
 
-#brevo-api-key for email subscription
+# brevo-api-key for email subscription
 BREVO_API_KEY = os.environ.get("BREVO_API_KEY")
 
 """
@@ -33,12 +33,10 @@ ALLOWED_HOSTS = os.environ.get(
 ).split(",")
 
 
-
-
 # Disable boto3 debug logging
-logging.getLogger('boto3').setLevel(logging.WARNING)
-logging.getLogger('botocore').setLevel(logging.WARNING)
-logging.getLogger('s3transfer').setLevel(logging.WARNING)
+logging.getLogger("boto3").setLevel(logging.WARNING)
+logging.getLogger("botocore").setLevel(logging.WARNING)
+logging.getLogger("s3transfer").setLevel(logging.WARNING)
 
 # Application definition
 INSTALLED_APPS = [
@@ -51,7 +49,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "storages",  # aws s3
     "taggit",  # for tags
-    'imagekit',  # for image optimization
+    "imagekit",  # for image optimization
     "django.contrib.sitemaps",  # for sitemaps
 ]
 
