@@ -14,7 +14,7 @@ load_dotenv(dotenv_path=BASE_DIR / ".env")
 
 #brevo-api-key for email subscription
 BREVO_API_KEY = os.environ.get("BREVO_API_KEY")
-print("BREVO_API_KEY:", BREVO_API_KEY)
+
 """
 secret key
 debug mode
@@ -33,7 +33,7 @@ ALLOWED_HOSTS = os.environ.get(
 ).split(",")
 
 
-#print(f"Brevo key exists: {bool(os.environ.get('BREVO_API_KEY'))}")
+
 
 # Disable boto3 debug logging
 logging.getLogger('boto3').setLevel(logging.WARNING)
