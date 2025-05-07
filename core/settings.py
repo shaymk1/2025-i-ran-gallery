@@ -33,6 +33,9 @@ ALLOWED_HOSTS = os.environ.get(
 ).split(",")
 
 
+# Admin Security
+ADMIN_URL = "secure-dashboard-2025/"  # Must match urls.py
+
 # Disable boto3 debug logging
 logging.getLogger("boto3").setLevel(logging.WARNING)
 logging.getLogger("botocore").setLevel(logging.WARNING)
@@ -47,16 +50,21 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "django.contrib.sites",  # for django-allauth
     "storages",  # aws s3
     "taggit",  # for tags
     "imagekit",  # for image optimization
     "django.contrib.sitemaps",  # for sitemaps
+    # "admin_honeypot",  # for honeypot
 ]
+
+SITE_ID = 1  # for django-allauth
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
+    "django_session_timeout.middleware.SessionTimeoutMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
@@ -65,6 +73,7 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = "core.urls"
+
 
 """
 Login Configuration
@@ -85,8 +94,10 @@ Session Configuration
 """
 # Logs out when browser is closed
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+SESSION_EXPIRE_AFTER_LAST_ACTIVITY = True  # 1 hour
 #  Session cookie age (in seconds) if browser stays open
 SESSION_COOKIE_AGE = 3600
+SESSION_EXPIRE_SECONDS = 1800  # 1 hour
 # Resets timeout on activity
 SESSION_SAVE_EVERY_REQUEST = True
 SESSION_FILE_PATH = "C:\\tmp\\django_sessions"
@@ -94,6 +105,7 @@ SESSION_FILE_PATH = "C:\\tmp\\django_sessions"
 SESSION_FILE_PATH = os.path.join(BASE_DIR, "sessions")
 # Clears all sessions on server restart (optional)
 SESSION_ENGINE = "django.contrib.sessions.backends.cached_db"
+SESSION_TIMEOUT_REDIRECT = "home"  # Redirect to home page after session timeout
 
 
 TEMPLATES = [
@@ -118,13 +130,13 @@ WSGI_APPLICATION = "core.wsgi.application"
 
 # Database
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.getenv('DB_NAME'),
-        'USER': os.getenv('DB_USER'),
-        'PASSWORD': os.getenv('DB_PASSWORD'),
-        'HOST': os.getenv('DB_HOST', 'localhost'),
-        'PORT': os.getenv('DB_PORT', '5432'),
+    "default": {
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": os.getenv("DB_NAME"),
+        "USER": os.getenv("DB_USER"),
+        "PASSWORD": os.getenv("DB_PASSWORD"),
+        "HOST": os.getenv("DB_HOST", "localhost"),
+        "PORT": os.getenv("DB_PORT", "5432"),
     }
 }
 # DATABASES = {

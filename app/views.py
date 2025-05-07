@@ -18,6 +18,30 @@ from django.conf import settings
 
 
 def home(request):
+    if request.method == "POST":
+        email = request.POST.get("email")
+        if email:
+            config = sib_api_v3_sdk.Configuration()
+            config.api_key["api-key"] = settings.BREVO_API_KEY
+            api_instance = sib_api_v3_sdk.ContactsApi(sib_api_v3_sdk.ApiClient(config))
+            try:
+                # check if contact exists
+                api_instance.get_contact_info(email)  # Will raise 404 if not found
+                messages.info(request, "You're already subscribed!")
+            except ApiException as e:
+                if e.status == 404:
+                    # Only proceed if email is new
+                    create_contact = sib_api_v3_sdk.CreateContact(
+                        email=email, list_ids=[2], update_enabled=True
+                    )
+                    api_instance.create_contact(create_contact)
+                    messages.success(request, "Thanks for subscribing!")
+                else:
+                    messages.error(
+                        request, "Subscription service unavailable. Try again later."
+                    )
+            return redirect("home")
+
     photos = Photo.objects.all()
     category = Category.objects.all()
     tags = Blog.objects.filter(tags__name__in=["name"]).distinct()

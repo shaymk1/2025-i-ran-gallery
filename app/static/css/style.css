@@ -143,6 +143,17 @@ a img {
     box-sizing: border-box;
 }
 
+.subscribe-form .form-control::placeholder {
+        color: #999;
+        opacity: 0.6;
+}
+
+/* For cross-browser compatibility */
+.subscribe-form .form-control::-webkit-input-placeholder {
+        color: #999;
+        opacity: 0.6;
+    }
+
 /* Submit button styling */
 .btn-submit {
     display: inline-block;

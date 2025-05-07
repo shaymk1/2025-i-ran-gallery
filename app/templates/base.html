@@ -70,7 +70,7 @@
         <div class="nav-actions" style="display: flex; align-items: center; gap: 1rem;">
             <form method="post" action="{% url 'home' %}" class="subscribe-form" style="margin: 0; display: flex; gap: 0.5rem; align-items: center;">
                 {% csrf_token %}
-                <input type="email" name="email" class="form-control" placeholder="Subscribe via email" required style="display:inline-block; width:200px; font-size:1.1rem;">
+                <input type="email" name="email" class="form-control subscribe-form" placeholder="example@love.com" required style="display:inline-block; width:200px; font-size:1.1rem;color: ##999999; opacity:rgba(0, 0, 0, 0.5)">
                 <button type="submit" class="btn btn-warning btn-lg px-4 subscribe-btn" style="background:orange; color:black; font-size:1.15rem; font-weight:600; border:none; min-width:120px;">Subscribe</button>
             </form>
             <form action="{% url 'logout' %}" method="post" class="logout-form" style="display:inline; margin-left:0;">

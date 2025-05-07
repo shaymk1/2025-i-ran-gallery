@@ -86,4 +86,4 @@ class ContactForm(forms.Form):
 
 
 class SubscribeForm(forms.Form):
-    email = forms.EmailField(label="Your email address", required=True)
+    email = forms.EmailField(label="example@love.com", required=True)

@@ -180,7 +180,7 @@
 							<h1 class="my-4">Subscribe To Our Email</h1>
 								<form method="post" action="{% url 'home' %}" class="d-flex gap-2 mt-3">
 									{% csrf_token %}
-									<input type="email" name="email" class="form-control" placeholder="Subscribe via email" required>
+									<input type="email" name="email" class="form-control subscribe-form" placeholder="example@love.com" required>
 									<button type="submit" class="btn btn-primary">Subscribe</button>
 								</form>
 							</aside>
