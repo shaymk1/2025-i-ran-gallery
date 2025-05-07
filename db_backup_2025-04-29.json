@@ -136,7 +136,7 @@
   "pk": 2,
   "fields": {
     "title": "About Me",
-    "description": "If you asked my younger self if they will ever be caught running , and the answer would have always been a staunch NOOOO! And yet here we are­ƒñ¬­ƒñ¬. People really change hey. ­ƒñ¬­ƒÿå­ƒñú­ƒÿÇ­ƒÿü­ƒÿä. I just started walking, and then one day i saw this guy running, and i also thought why not.­ƒÿü­ƒÿä . I was so tired after few seconds but something else kicked in as well, the joy of running. I do not think i will ever stop running if i am still able to..­ƒñ¬­ƒÿä­ƒÿüÔØñ´©Å­ƒñù. I just love it! It has became a lifestyle.",
+    "description": "If you asked my younger self if they will ever be caught running , and the answer would have always been a staunch NOOOO! And yet here we areï¿½ï¿½ñ¬­ƒï¿½. People really change hey. ï¿½ï¿½ñ¬­ƒï¿½å­ƒï¿½ï¿½ï¿½ï¿½ï¿½Ç­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½. I just started walking, and then one day i saw this guy running, and i also thought why not.ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ . I was so tired after few seconds but something else kicked in as well, the joy of running. I do not think i will ever stop running if i am still able to..ï¿½ï¿½ñ¬­ƒï¿½ä­ƒï¿½ï¿½ï¿½ï¿½ï¿½Å­ï¿½ï¿½ï¿½. I just love it! It has became a lifestyle.",
     "image": "photos/clearwater-1_X5qxo37.jpg"
   }
 },
@@ -151,10 +151,5 @@
     "last_updated": "2025-04-29T18:59:02.588Z",
     "slug": "about-me"
   }
-},
-{
-  "model": "app.blog",
-  "pk": 2,
-  "fields": {
-    "title": "family",
-    "content": 
+}
+]
