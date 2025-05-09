@@ -213,10 +213,10 @@ storage configuration
 # Storage Configuration s3
 STORAGES = {
     "default": {
-        "BACKEND": "core.custom_storage.MediaStorage", # media files storage
+        "BACKEND": "core.custom_storage.MediaStorage",  # media files storage
     },
     "staticfiles": {
-         "BACKEND": "core.custom_storage.StaticStorage",  # static files storage
+        "BACKEND": "core.custom_storage.StaticStorage",  # static files storage
     },
 }
 
@@ -241,7 +241,7 @@ if not DEBUG:
     SECURE_HSTS_INCLUDE_SUBDOMAINS = True
     SECURE_HSTS_PRELOAD = True
     SECURE_CONTENT_TYPE_NOSNIFF = True
-    STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+    # STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 # Logging Configuration for s3
 LOGGING = {
