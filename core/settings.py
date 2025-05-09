@@ -213,15 +213,15 @@ storage configuration
 # Storage Configuration s3
 STORAGES = {
     "default": {
-        "BACKEND": "core.custom_storage.MediaStorage",
+        "BACKEND": "core.custom_storage.MediaStorage", # media files storage
     },
     "staticfiles": {
-        "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
+         "BACKEND": "core.custom_storage.StaticStorage",  # static files storage
     },
 }
 
 # Static files (CSS, JavaScript, Images)
-STATIC_URL = "static/"
+STATIC_URL = f"https://{AWS_S3_CUSTOM_DOMAIN}/static/"  # Update this line
 STATIC_ROOT = BASE_DIR / "staticfiles"
 STATICFILES_DIRS = [
     BASE_DIR / "static",
