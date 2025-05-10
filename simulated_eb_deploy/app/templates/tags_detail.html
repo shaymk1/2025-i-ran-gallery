@@ -1,0 +1,31 @@
+{% extends "base.html" %} {% load static %} {% block content %}
+
+<body class="blog">
+	<div id="page">
+		<div class="container">
+			<!-- #masthead -->
+			<div
+				id="content"
+				class="site-content">
+				<div
+					id="primary"
+					class="content-area column two-thirds">
+					<main
+						id="main"
+						class="site-main"
+						role="main">
+						<div class="grid bloggrid">
+							<h1>Posts tagged with "{{ tag.name }}"</h1>
+							{% for blog in blogs %}
+							<a href="{% url 'blog_detail' blog.slug %}">{{ blog.title }}</a
+							><br />
+							{% endfor %}
+						</div>
+					</main>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+
+{% endblock %}

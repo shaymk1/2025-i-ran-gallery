@@ -1,0 +1,101 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+
+<body class="home page page-template page-template-template-portfolio page-template-template-portfolio-php">
+
+<style>
+
+	/* Custom styling for the submit button */
+.btn-submit {
+    display: inline-block;
+    padding: 10px 15px;
+	margin:8px;
+    font-size: 14px;
+    color: #fff;
+    background-color: grey;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    text-align: center;
+    transition: background-color 0.3s ease;
+}
+
+.btn-submit:hover {
+    background-color: black;
+}
+</style>
+
+
+	<div id="page">
+		<div class="container">
+			<main id="main" class="site-main">
+
+					
+					<h1 class="m-4 p-4  text-center"  >Add a New Photo</h1>
+					<div class="row justify-content-center ">
+						<div class="col-md-4">
+							<div class="card">
+								<form method='POST' action="" enctype="multipart/form-data">
+									{% csrf_token %}
+									
+									<div class="form-group m-3">
+										<label for="title" class="form-label">Title</label>
+										<input type="text" name="title" id="title" placeholder="Title *" required
+											class="form-control">
+									</div>
+									<div class="form-group m-3">
+										<label for="image" class="form-label" >Upload image</label>
+										<input  name="image" id="image"  type="file" multiple class="form-control-file" required>
+									</div>
+				
+									<div class="form-group m-3">
+										<label for="category" class="form-label">Select a category</label>
+										<select name="category" id="category" class="form-control">
+											<option value='none'>Select a category</option>
+				
+											{% for cat in category %}
+											<option value="{{cat.id}}">{{cat.month}} /{{cat.venue}}/ {{cat.race}} KM </option>
+											{% endfor %}
+										</select>
+									</div>
+									
+									<div class="form-group m-3">
+										<label for="category_month" class="form-label">New Category Month</label>
+										<input type="text" name="category_month" id="category_month" class="form-control" >
+									</div>
+									<div class="form-group m-3">
+										<label for="category_venue" class="form-label">New Category Venue</label>
+										<input type="text" name="category_venue" id="category_venue" class="form-control" >
+									</div>
+									<div class="form-group m-3">
+										<label for="category_race" class="form-label">How Many KM</label>
+										<input type="text" name="category_race" id="category_race" class="form-control" >
+									</div>
+				
+				
+									
+									<button type='submit' class="btn-submit" >Submit</button>
+				                    <a href="{% url "home" %}" class="btn btn-submit text-white" style="background-color:blue;">Cancel</a>
+								</form>
+							</div>
+					
+					</div>
+			
+					
+			</main>
+			
+		</div>
+		<!-- .container -->
+
+	
+</div>
+<!-- #page -->
+
+</body>
+</html>
+
+{% endblock %}
+
+

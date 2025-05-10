@@ -1,0 +1,110 @@
+{% extends "base.html" %} {% block content %}
+<div class="container mt-5">
+	<div class="row justify-content-center">
+		<div class="col-md-6">
+			<div class="card">
+				{% comment %} alert messages {% endcomment %}
+				{% if messages %}
+					{% for message in messages %}
+						<div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+						{{ message }}
+						<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+						</div>
+					{% endfor %}
+				{% endif %}
+				<div class="card-header">Login</div>
+				<div class="card-body">
+					<form
+						method="post"
+						action="{% url 'login' %}">
+						{% csrf_token %}
+						<!-- Hidden 'next' field for redirect -->
+
+						<input
+							type="hidden"
+							name="next"
+							value="{{ request.GET.next }}" />
+
+						<!-- Username Field -->
+						<div class="mb-3">
+							<label
+								for="username"
+								class="form-label"
+								>Username</label
+							>
+							<input
+								type="text"
+								class="form-control"
+								id="username"
+								name="username" />
+							<!-- name="username" is REQUIRED -->
+						</div>
+
+						<!-- Password Field -->
+						<div class="mb-3 position-relative">
+							<label
+								for="password"
+								class="form-label"
+								>Password</label
+							>
+
+							<input
+								type="password"
+								class="form-control"
+								id="password"
+								name="password" />
+							<span
+								toggle="#password"
+								class="fa fa-fw fa-eye field-icon toggle-password"
+								style="
+									position: absolute;
+									top: 60%;
+									transform: translateX(-50%);
+									right: 15px;
+									cursor: pointer;
+								"></span>
+							<!-- name="password" is REQUIRED -->
+						</div>
+
+						<button
+							type="submit"
+							class="btn btn-primary">
+							Login
+						</button>
+						<a
+							href="{% url 'home' %}"
+							class="btn btn-secondary"
+							style="background-color: red; color: white"
+							>Cancel</a
+						>
+						<a
+							href="{% url 'password_reset' %}"
+							class="btn btn-secondary"
+							style="background-color: black; color: white"
+							>Forgot Password</a
+						>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{% comment %} for the eye icon for the password {% endcomment %}
+	
+<script>
+	document.querySelectorAll('.toggle-password').forEach(function(element) {
+		element.addEventListener('click', function() {
+			const input = document.querySelector(this.getAttribute('toggle'));
+			if (input.type === "password") {
+				input.type = "text";
+				this.classList.remove("fa-eye");
+				this.classList.add("fa-eye-slash");
+			} else {
+				input.type = "password";
+				this.classList.remove("fa-eye-slash");
+				this.classList.add("fa-eye");
+			}
+		});
+	});
+	</script>
+{% endblock %}

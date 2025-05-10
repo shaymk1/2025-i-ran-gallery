@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<body class="home page page-template page-template-template-portfolio page-template-template-portfolio-php">
+	<div id="page">
+		<div class="container">
+			
+			<!-- #masthead -->
+			<div id="content" class="site-content">
+				<div id="primary" class="content-area column full">
+					<main id="main" class="site-main">
+						<div class="grid portfoliogrid">
+
+						{% comment %} image-1 {% endcomment %}
+						{% for photos in photo %}
+							<article class="hentry">
+								<header class="entry-header">
+									<div class="entry-thumbnail">
+										<a href="{% url 'photo_detail' photos.id %}">
+											<img src="{{ photos.optimized_image.url }}" class="attachment-post-thumbnail size-post-thumbnail wp-post-image" alt="pic"/>
+										</a>
+									</div>
+									<h2 class="entry-title" style="margin-top: 6px; ">
+										<a href="{% url 'photo_detail' photos.id %}">{{ photos.title }}</a>
+									</h2>
+
+								{% if photos.category %}
+									<ul class="portfoliotype" style="margin-top: 5px; margin-left: 0;"> 
+										<li style="list-style: none; padding-left: 0;;">
+											<a href="{% url 'photo_detail' photos.id %}" style="text-decoration: none; color: #555; margin-right: 10px; ">
+												{{ photos.category.month }}
+											</a>/
+											<a href="{% url 'photo_detail' photos.id %}" style="text-decoration: none; color: #555; margin-right: 10px; ">
+												{{ photos.category.venue }}
+											</a>/
+											<a href="{% url 'photo_detail' photos.id %}" style="text-decoration: none; color: #555;">
+												{{ photos.category.race }} KM
+											</a>
+										</li>
+									</ul>
+									
+									 {% endif %} 
+								</header>
+							</article>
+						{% endfor %}	
+							
+						
+							
+						</div>
+						<!-- .grid -->
+
+						
+                        <nav class="pagination">
+                            
+                            {% if photo.has_previous %}
+                            <a class="page-numbers" href="?page={{ photo.previous_page_number }}">« Previous</a>
+                            {% endif %}
+
+                            {% for num in photo.paginator.page_range %}
+                                {% if photo.number == num %}
+                                    <span class="page-numbers current">{{ num }}</span>
+                                {% else %}
+                                    <a class="page-numbers" href="?page={{ num }}">{{ num }}</a>
+                                {% endif %}
+                            {% endfor %}
+
+                            {% if photo.has_next %}
+                            <a class="next page-numbers" href="?page={{ photo.next_page_number }}">Next »</a>
+                            {% endif %}
+                            {% comment %} <span class="page-numbers current">1</span>
+                            <a class="page-numbers" href="#">2</a>
+                            <a class="next page-numbers" href="#">Next »</a> {% endcomment %}
+                        </nav>
+                        <br/>
+{% comment %} 						
+						<nav class="pagination">
+						<span class="page-numbers current">1</span>
+						<a class="page-numbers" href="#">2</a>
+						<a class="next page-numbers" href="#">Next »</a>
+						</nav>
+						<br/> {% endcomment %}
+					
+					</main>
+					<!-- #main -->
+				</div>
+				<!-- #primary -->
+			</div>
+			<!-- #content -->
+		</div>
+		<!-- .container -->
+
+	<a href="#top" class="smoothup" title="Back to top"><span class="genericon genericon-collapse"></span></a>
+</div>
+<!-- #page -->
+
+</body>
+
+
+{% endblock %}

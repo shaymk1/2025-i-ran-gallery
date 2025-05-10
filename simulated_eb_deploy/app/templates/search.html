@@ -1,0 +1,46 @@
+
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+
+
+<div class="container mt-4">
+    {% if query %}
+        <h4 class="mb-4">Search results for: "{{ query }}"</h4>
+        
+        {% if results %}
+            <div class="row">
+            {% for item in results %}
+                <div class="col-md-4 mb-3">
+                    <div class="card h-100">
+                        {% if item.image %}
+                            <img src="{{ item.optimized_image.url }}" class="card-img-top" alt="{{ item.title }}">
+                        {% endif %}
+                        <div class="card-body">
+                            <h5 class="card-title">{{ item.title }}</h5>
+                            {% if item.description %}
+                                <p class="card-text small">{{ item.description|truncatewords:15 }}</p>
+                            {% elif item.content %}
+                                <p class="card-text small">{{ item.content|truncatewords:15 }}</p>
+                            {% endif %}
+                            <div class="mt-2">
+                                {% if item.image %}
+                                    <a href="{% url 'photo_detail' item.id %}" class="btn btn-sm btn-primary text-white">View Photo</a>
+                                {% else %}
+                                    <a href="{% url 'blog_detail' item.slug %}" class="btn btn-sm btn-primary text-white">Read More</a>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+            </div>
+        {% else %}
+            <p>No results found.</p>
+        {% endif %}
+    {% else %}
+        <p>Please enter a search term.</p>
+    {% endif %}
+</div>
+{% endblock %}

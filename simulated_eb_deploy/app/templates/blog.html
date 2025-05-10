@@ -1,0 +1,241 @@
+{% extends "base.html" %} {% load static %} {% block content %}
+
+<style>
+	.tag {
+		display: inline-block;
+		background: rgb(241, 234, 230);
+		padding: 2px 8px;
+		margin: 2px;
+		border-radius: 4px;
+		font-size: 0.9em;
+		color: white;
+		text-decoration: none;
+	}
+
+	.tag:hover {
+		background: #e0e0e0;
+		color: black;
+	}
+
+	.tag-cloud {
+		margin: 20px 0;
+	}
+	a {
+		text-decoration: none;
+		color: black;
+	}
+</style>
+
+<body class="blog">
+	<div id="page">
+		<div class="container">
+			<!-- #masthead -->
+			<div
+				id="content"
+				class="site-content">
+				<div
+					id="primary"
+					class="content-area column two-thirds">
+					<main
+						id="main"
+						class="site-main"
+						role="main">
+						<div class="grid bloggrid">
+							{% for blog in blogs %}
+							<article
+								style="margin-bottom: 20px"
+								class="post-{{ blog.id }} post type-post status-publish format-standard has-post-thumbnail hentry category-uncategorized tag-uncategorized">
+								<header class="entry-header">
+									<h1 class="entry-title">
+										<a href="{% url 'blog_detail' blog.slug %}"
+											>{{ blog.title }}</a
+										>
+									</h1>
+									<div class="entry-meta">
+										<span class="posted-on"
+											><time class="entry-date published"
+												>{{blog.date_created}}</time
+											></span
+										>
+									</div>
+									<div class="entry-thumbnail">
+										<a href="{% url 'blog_detail' blog.slug %}">
+											<img
+												src="{{ blog.optimized_image.url }}"
+												alt="image" />
+										</a>
+									</div>
+								</header>
+								<div class="entry-summary">
+									<p>
+										{{ blog.content|truncatewords:30 }}
+										<a
+											class="more-link"
+											href="{% url 'blog_detail' blog.slug %}"
+											>Read more</a
+										>
+									</p>
+								</div>
+								<footer class="entry-footer">
+									<div class="tag-cloud">
+										<h3>Tags</h3>
+										{% for tag in tags %}
+										<a
+											href="{% url 'blog_by_tag' tag.slug %}"
+											class="tag"
+											>{{ tag.name }}</a
+										>
+										{% endfor %}
+									</div>
+									<div class="tags">
+										{% for tag in blog.tags.all %}
+										<span class="cat-links">
+											<a
+												href="{% url 'blog_by_tag' tag.slug %}"
+												rel="category tag"
+												class="tag"
+												>#{{ tag.name }}</a
+											>
+										</span>
+										{% endfor %}
+									</div>
+								</footer>
+							</article>
+
+							{% endfor %}
+						</div>
+						<div class="clearfix"></div>
+						<nav class="pagination"></nav>
+					</main>
+					<!-- #main -->
+				</div>
+				<!-- #primary -->
+
+				<div
+					id="secondary"
+					class="column third">
+					<div
+						id="sidebar-1"
+						class="widget-area"
+						role="complementary">
+						<aside
+							id="text-5"
+							class="widget widget_text">
+							<h4 class="widget-title">About Me</h4>
+							<div class="textwidget">
+								<p>
+									<img
+										src="{% static 'images/me.jpeg' %}"
+										class="alignleft"
+										style="width: 80px; border-radius: 50%; margin-bottom: 0"
+										alt="image" />
+									I am just a girl who recently took up running for the fun of
+									it. In my other lifetime, you will find me doing some coding
+									and sometimes doing some art and taking care of my house
+									plants. In my present lifetime, you will not find me, because
+									i will be in stillness.
+								</p>
+							</div>
+						</aside>
+
+						<!-- Blog List -->
+						<aside
+							id="recent-posts-2"
+							class="widget widget_recent_entries">
+							{% comment %}
+							<h4 class="widget-title">Recent Posts</h4>
+							{% endcomment %}
+
+							<h1 class="my-4">Blog Titles</h1>
+							<ul>
+								{% for blog in blog_titles %}
+								<li>
+									<a href="{% url 'blog_detail' blog.slug %}"
+										>{{ blog.title }}</a
+									>
+								</li>
+								{% endfor %}
+							</ul>
+
+							<!-- Show All Button for Blog Titles -->
+							<div class="mt-3">
+								{% if not show_all_titles %}
+								<a
+									href="?show_all_titles=true"
+									class="btn btn-primary"
+									style="color: white; background-color: grey"
+									>Show All</a
+								>
+								{% else %}
+								<a
+									href="{% url 'blog' %}"
+									class="btn btn-primary"
+									style="color: white; background-color: black"
+									>Show Latest</a
+								>
+								{% endif %}
+							</div>
+						
+							<aside id="recent-posts-2" class="widget widget_recent_entries">
+							<h1 class="my-4">Subscribe To Our Email</h1>
+								<form method="post" action="{% url 'home' %}" class="d-flex gap-2 mt-3">
+									{% csrf_token %}
+									<input type="email" name="email" class="form-control subscribe-form" placeholder="example@love.com" required>
+									<button type="submit" class="btn btn-primary">Subscribe</button>
+								</form>
+							</aside>
+						
+
+						<!-- Pagination Controls -->
+						<nav class="pagination">
+							{% if blogs.has_previous %}
+							<a
+								class="page-numbers"
+								href="?page={{ blogs.previous_page_number }}"
+								style="color: white; background-color: black">
+								« Previous</a
+							>
+							{% endif %}
+							 {% for num in blogs.paginator.page_range %} 
+							 {% if blogs.number == num %}
+							<span class="page-numbers current">{{ num }}</span>
+							{% else %}
+							<a
+								class="page-numbers"
+								href="?page={{ num }}"
+								>{{ num }}</a
+							>
+							{% endif %}
+							{% endfor %} 
+							{% if blogs.has_next %}
+							<a
+								class="next page-numbers"
+								href="?page={{ blogs.next_page_number }}"
+								>Next »</a
+							>
+							{% endif %}
+						</nav>
+					</div>
+					<!-- .widget-area -->
+				</div>
+				<!-- #secondary -->
+			</div>
+			<!-- #content -->
+		</div>
+		<!-- .container -->
+
+		<a
+			href="#top"
+			class="smoothup"
+			title="Back to top"
+			><span class="genericon genericon-collapse"></span
+		></a>
+	</div>
+	<script
+		src="https://apis.google.com/js/platform.js"
+		async=""
+		defer=""
+		gapi_processed="true"></script>
+</body>
+
+{% endblock %}

@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+
+
+<body class="blog">
+	<div id="page">
+		<div class="container">
+			<!-- #masthead -->
+			<div id="content" class="site-content">
+				<div id="primary" class="content-area column two-thirds">
+					<main id="main" class="site-main" role="main">
+						<form method="post" enctype="multipart/form-data">
+							{% csrf_token %}
+							{{ form.non_field_errors }}
+							<div class="form-group m-3">
+								<label for="{{ form.title.id_for_label }}" class="form-label">Title</label>
+								{{ form.title }}
+							</div>
+							<div class="form-group m-3">
+								<label for="{{ form.content.id_for_label }}" class="form-label">Content</label>
+								{{ form.content }}
+							</div>
+							<div class="form-group m-3">
+								<label for="{{ form.image.id_for_label }}" class="form-label">Upload Image</label>
+								{{ form.image }}
+							</div>
+							<div class="form-group m-3">
+								<label for="{{ form.tags.id_for_label }}">Tags</label>
+								{{ form.tags }}
+								<small class="form-text text-muted">
+									Add comma-separated tags (e.g., "django, webdev, tutorial")
+								</small>
+							</div>
+							<button type="submit" class="btn btn-primary" style="background-color:black; color:white;">Submit</button>
+							<a href="{% url 'blog' %}" class="btn btn-primary text-white">Cancel</a>
+						</form>	
+					</main>
+				</div>			
+			</div>		
+		</div>		
+	</div>			
+
+	{% endblock %}					
+	
+	<script>
+		// Initialize CKEditor for the content textarea
+		CKEDITOR.replace('content');
+		height: 300,  // Set the height of the editor
+        width: '100%'  // Ensure it takes the full width of the container
+	</script>
+	<script src="https://cdn.ckeditor.com/4.20.2/standard/ckeditor.js"></script>
+
+</body>
+

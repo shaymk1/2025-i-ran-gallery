@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<body class="home page page-template page-template-template-portfolio page-template-template-portfolio-php">
+<div id="page">
+	<div class="container">
+		
+		<!-- #masthead -->
+		<div id="content" class="site-content">
+			<div id="primary" class="content-area column two-thirds single-portfolio">
+				<main id="main" class="site-main">
+					{% comment %} <div class="nav-next" style="margin: 2px; padding : 3px;">
+						<a href="{% url 'delete' 'photo' photo.id %}" rel="next" ><span class="meta-nav">Delete </span></a>
+					</div> {% endcomment %}
+					<div class="nav-buttons" style="margin: 6px; padding: 3px; display: flex; gap: 10px;">
+						<!-- Delete Button -->
+						<a href="{% url 'delete' 'photo' photo.id %}" class="btn btn-danger" style="color: white;">Delete</a>
+					
+						<!-- Update Button -->
+						<a href="{% url 'update_photo' photo.id %}" class="btn btn-primary" style="color: white;">Update</a>
+						<!-- Back Button -->
+						<a href="{% url 'home'  %}" class="btn btn-primary" style="color: white;background-color:orange;">Back</a>
+					</div>
+					<article class="portfolio hentry">
+						<header class="entry-header">
+							<div class="entry-thumbnail">
+								<img width="800" height="533" src="{{ photo.optimized_image.url }}" class="attachment-post-thumbnail size-post-thumbnail wp-post-image" alt="{{ photo.title }}"/>
+							</div>
+							<h1 class="entry-title">{{ photo.title }}</h1>
+							{% if photo.category %}
+                                  <p style="margin:5px;"><strong>Category:</strong> {{ photo.category.month }} - {{ photo.category.venue }}</p>
+                            {% endif %}
+						</header>
+						{% comment %} <div class="entry-content">
+						
+							<blockquote>
+								<p>
+									I was glad of it: I never liked long walks, especially on chilly afternoons: dreadful to me was the coming home in the raw twilight, with nipped fingers and toes, and a heart saddened by the chidings of Bessie, the nurse, and humbled by the consciousness of my physical inferiority to Eliza, John, and Georgiana Reed.
+								</p>
+							</blockquote>
+							
+						</div> {% endcomment %}
+					</article>
+					
+			
+				<!-- .navigation -->
+				
+				</main>
+				<!-- #main -->
+			</div>
+			<!-- #primary -->
+			
+			{% comment %} <div id="secondary" class="column third">
+				<div class="widget-area">
+					<aside class="widget">
+						<h4 class="widget-title">Request similar project</h4>
+						<form class="wpcf7" method="post" action="contact.php" id="contactform">
+							<div class="form">
+								<p><input type="text" name="name" placeholder="Name *"></p>
+								<p><input type="text" name="email" placeholder="E-mail Address *"></p>
+								<p><textarea name="comment" rows="3" placeholder="Message *"></textarea></p>
+								<input type="submit" id="submit" class="clearfix btn" value="Send">
+							</div>
+						</form>
+						<div class="done">								
+							Your message has been sent. Thank you!
+						</div>
+					</aside>
+				</div>
+			</div> {% endcomment %}
+		</div>
+		<!-- #content -->
+	</div>
+	
+
+</body>
+{% endblock %}

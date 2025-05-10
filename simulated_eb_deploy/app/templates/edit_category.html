@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<body class="home page page-template page-template-template-portfolio page-template-template-portfolio-php">
+	<div id="page">
+		<div class="container">
+			
+			<!-- #masthead -->
+			<div id="content" class="site-content">
+				<div id="primary" class="content-area column full">
+					<main id="main" class="site-main">
+						<h1>Edit Category</h1>
+						<form method="post">
+							{% csrf_token %}
+							<div class="form-group">
+								<label for="month">Month</label>
+								<input type="text" name="month" id="month" value="{{ category.month }}" class="form-control" required>
+							</div>
+							<div class="form-group">
+								<label for="venue">Venue</label>
+								<input type="text" name="venue" id="venue" value="{{ category.venue }}" class="form-control" required>
+							</div>
+							<div class="form-group">
+								<label for="race">Race</label>
+								<input type="text" name="race" id="race" value="{{ category.race }}" class="form-control" required>
+							</div>
+							<button type="submit" class="btn btn-primary">Save Changes</button>
+							<a href="{% url 'home' %}" class="btn btn-secondary" style="margin-left: 10px; color:white;">Cancel</a>
+						</form>
+					</main>
+					<!-- #main -->
+				</div>
+				<!-- #primary -->
+			</div>
+			<!-- #content -->
+		</div>
+		<!-- .container -->
+
+	<a href="#top" class="smoothup" title="Back to top"><span class="genericon genericon-collapse"></span></a>
+</div>
+<!-- #page -->
+
+</body>
+</html>
+
+{% endblock %}
