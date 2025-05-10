@@ -185,3 +185,4 @@ to-do.md
 *.bak
 data_backup_*.json
 db_backup*.sqlite3
+.ebextensions/
