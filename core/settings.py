@@ -139,15 +139,26 @@ WSGI_APPLICATION = "core.wsgi.application"
 #         "PORT": os.getenv("DB_PORT", "5432"),
 #     }
 }
-
+#if i had to intergrate rds from beanstalk
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.postgresql",
+#         "NAME": os.getenv("RDS_DB_NAME"),
+#         "USER": os.getenv("RDS_USER"),
+#         "PASSWORD": os.getenv("RDS_PASSWORD"),
+#         "HOST": os.getenv("RDS_DB_HOST"),
+#         "PORT": os.getenv("RDS_PORT", "5432"),
+#     }
+# }
+#actual standalone rds database
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.postgresql",
-        "NAME": os.getenv("RDS_DB_NAME"),
-        "USER": os.getenv("RDS_USER"),
-        "PASSWORD": os.getenv("RDS_PASSWORD"),
-        "HOST": os.getenv("RDS_DB_HOST"),
-        "PORT": os.getenv("RDS_PORT", "5432"),
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': os.getenv('DB_NAME'),
+        'USER': os.getenv('DB_USER'),
+        'PASSWORD': os.getenv('DB_PASSWORD'),
+        'HOST': os.getenv('DB_HOST'),
+        'PORT': os.getenv('DB_PORT', '5432'),
     }
 }
 # DATABASES = {
