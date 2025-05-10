@@ -174,9 +174,14 @@ cython_debug/
 .pypirc
 
 #others
-extras.txt
+
 *.json
 *.log
-.bak
-data_backup.sqlite3
+
+# Database and backup files
 to-do.md
+*.sqlite3
+*.db
+*.bak
+data_backup_*.json
+db_backup*.sqlite3
