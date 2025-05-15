@@ -88,11 +88,19 @@ WSGI_APPLICATION = "core.wsgi.application"
 # DATABASES = {
 #     "default": dj_database_url.config(default="sqlite:///db.sqlite3", conn_max_age=600)
 # }
+# DATABASES = {
+#     'default': dj_database_url.config(
+#         default=os.environ.get('DATABASE_URL'),  # Reads from Fly.io's environment
+#         conn_max_age=600,  # Optional: improves performance
+#         ssl_require=not DEBUG,   # Important for production!
+#     )
+# }
+
 DATABASES = {
     'default': dj_database_url.config(
-        default=os.environ.get('DATABASE_URL'),  # Reads from Fly.io's environment
-        conn_max_age=600,  # Optional: improves performance
-        ssl_require=not DEBUG,   # Important for production!
+        default='sqlite:///db.sqlite3',
+        conn_max_age=600,
+        ssl_require=False  # not needed for SQLite
     )
 }
 
