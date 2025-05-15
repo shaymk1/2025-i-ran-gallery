@@ -1,10 +1,10 @@
 from pathlib import Path
 from dotenv import load_dotenv
 import os
-from django.urls import reverse_lazy
-import shutil  # for clearing session files
-import logging  # for logging s3 errors
-
+from django.urls import reverse_lazy  # for login redirect
+import shutil
+# import logging
+import dj_database_url  # for database config
 
 # Build paths inside the project
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -12,36 +12,15 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Load environment variables
 load_dotenv(dotenv_path=BASE_DIR / ".env")
 
-# brevo-api-key for email subscription
-BREVO_API_KEY = os.environ.get("BREVO_API_KEY")
-
-"""
-secret key
-debug mode
-- True for development
-- False for production
-"""
-
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get("SECRET_KEY")
-
-# SECURITY WARNING: don't run with debug turned on in production!
+# Secret key & debug
+SECRET_KEY = os.environ.get("SECRET_KEY", "unsafe-dev-key")
 DEBUG = os.environ.get("DEBUG", "True") == "True"
 
-ALLOWED_HOSTS = os.environ.get(
-    "ALLOWED_HOSTS", "localhost,127.0.0.1,.elasticbeanstalk.com"
-).split(",")
+ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", "localhost,127.0.0.1").split(",")
 
+ADMIN_URL = "secure-dashboard-2025/"
 
-# Admin Security
-ADMIN_URL = "secure-dashboard-2025/"  # Must match urls.py
-
-# Disable boto3 debug logging
-logging.getLogger("boto3").setLevel(logging.WARNING)
-logging.getLogger("botocore").setLevel(logging.WARNING)
-logging.getLogger("s3transfer").setLevel(logging.WARNING)
-
-# Application definition
+# Installed apps
 INSTALLED_APPS = [
     "app",
     "django.contrib.admin",
@@ -50,16 +29,15 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "django.contrib.sites",  # for django-allauth
-    "storages",  # aws s3
-    "taggit",  # for tags
-    "imagekit",  # for image optimization
-    "django.contrib.sitemaps",  # for sitemaps
-    # "admin_honeypot",  # for honeypot
+    "django.contrib.sites",
+    "taggit",
+    "imagekit",
+    "django.contrib.sitemaps",
 ]
 
-SITE_ID = 1  # for django-allauth
+SITE_ID = 1
 
+# Middleware
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "whitenoise.middleware.WhiteNoiseMiddleware",
@@ -74,46 +52,24 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = "core.urls"
 
-
-"""
-Login Configuration
-- Redirects to login page if not authenticated
-- Redirects to home page after login
-- Uses reverse_lazy to avoid circular imports
-"""
 LOGIN_URL = reverse_lazy("login")
 LOGIN_REDIRECT_URL = reverse_lazy("home")
 
-"""
-Session Configuration
-- Logs out when browser is closed
-- Session cookie age (in seconds) if browser stays open
-- Resets timeout on activity
-- Path to store session files
-- Clears all sessions on server restart (optional)
-"""
-# Logs out when browser is closed
+# Session config
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
-SESSION_EXPIRE_AFTER_LAST_ACTIVITY = True  # 1 hour
-#  Session cookie age (in seconds) if browser stays open
+SESSION_EXPIRE_AFTER_LAST_ACTIVITY = True
 SESSION_COOKIE_AGE = 3600
-SESSION_EXPIRE_SECONDS = 1800  # 1 hour
-# Resets timeout on activity
+SESSION_EXPIRE_SECONDS = 1800
 SESSION_SAVE_EVERY_REQUEST = True
-SESSION_FILE_PATH = "C:\\tmp\\django_sessions"
-# Path to store session files
 SESSION_FILE_PATH = os.path.join(BASE_DIR, "sessions")
-# Clears all sessions on server restart (optional)
 SESSION_ENGINE = "django.contrib.sessions.backends.cached_db"
-SESSION_TIMEOUT_REDIRECT = "home"  # Redirect to home page after session timeout
+SESSION_TIMEOUT_REDIRECT = "home"
 
-
+# Templates
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [
-            os.path.join(BASE_DIR / "app" / "templates"),
-        ],
+        "DIRS": [BASE_DIR / "app" / "templates"],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -128,46 +84,19 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "core.wsgi.application"
 
-# Database
+# Fly.io/Postgres database config
 # DATABASES = {
-#     "default": {
-#         "ENGINE": "django.db.backends.postgresql",
-#         "NAME": os.getenv("DB_NAME"),
-#         "USER": os.getenv("DB_USER"),
-#         "PASSWORD": os.getenv("DB_PASSWORD"),
-#         "HOST": os.getenv("DB_HOST", "localhost"),
-#         "PORT": os.getenv("DB_PORT", "5432"),
-#     }
-}
-#if i had to intergrate rds from beanstalk
-# DATABASES = {
-#     "default": {
-#         "ENGINE": "django.db.backends.postgresql",
-#         "NAME": os.getenv("RDS_DB_NAME"),
-#         "USER": os.getenv("RDS_USER"),
-#         "PASSWORD": os.getenv("RDS_PASSWORD"),
-#         "HOST": os.getenv("RDS_DB_HOST"),
-#         "PORT": os.getenv("RDS_PORT", "5432"),
-#     }
+#     "default": dj_database_url.config(default="sqlite:///db.sqlite3", conn_max_age=600)
 # }
-#actual standalone rds database
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.getenv('DB_NAME'),
-        'USER': os.getenv('DB_USER'),
-        'PASSWORD': os.getenv('DB_PASSWORD'),
-        'HOST': os.getenv('DB_HOST'),
-        'PORT': os.getenv('DB_PORT', '5432'),
-    }
+    'default': dj_database_url.config(
+        default=os.environ.get('DATABASE_URL'),  # Reads from Fly.io's environment
+        conn_max_age=600,  # Optional: improves performance
+        ssl_require=not DEBUG,   # Important for production!
+    )
 }
-# DATABASES = {
-#      'default': {
-#             'ENGINE': 'django.db.backends.sqlite3',
-#             'NAME': BASE_DIR / 'db.sqlite3',
-#      }
-#      }
-# Email Configuration (Gmail example)smtp
+
+# Email (Gmail example)
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 EMAIL_HOST = "smtp.gmail.com"
 EMAIL_PORT = 587
@@ -176,86 +105,37 @@ EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER")
 EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")
 DEFAULT_FROM_EMAIL = os.getenv("DEFAULT_FROM_EMAIL")
 
-if not DEBUG:
-    DOMAIN = "yourdomain.com"  # For production
-else:
-    DOMAIN = "localhost:8000"  # For local testing
-    PROTOCOL = "http"
+DOMAIN = "localhost:8000" if DEBUG else "your-app.fly.dev"
+PROTOCOL = "http" if DEBUG else "https"
 
 # Password validation
 AUTH_PASSWORD_VALIDATORS = [
     {
-        "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
+        "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator"
     },
-    {
-        "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",
-    },
-    {
-        "NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",
-    },
-    {
-        "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
-    },
+    {"NAME": "django.contrib.auth.password_validation.MinimumLengthValidator"},
+    {"NAME": "django.contrib.auth.password_validation.CommonPasswordValidator"},
+    {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator"},
 ]
 
-# Internationalization
+# i18n
 LANGUAGE_CODE = "en-us"
 TIME_ZONE = "UTC"
 USE_I18N = True
 USE_TZ = True
 
-
-"""
-aws s3 configuration
-- AWS_ACCESS_KEY_ID
-- AWS_SECRET_ACCESS_KEY 
-- AWS_STORAGE_BUCKET_NAME
-"""
-# AWS S3 Configuration
-AWS_ACCESS_KEY_ID = os.environ.get("AWS_ACCESS_KEY_ID")
-AWS_SECRET_ACCESS_KEY = os.environ.get("AWS_SECRET_ACCESS_KEY")
-AWS_STORAGE_BUCKET_NAME = os.environ.get("AWS_STORAGE_BUCKET_NAME")
-AWS_S3_REGION_NAME = os.environ.get("AWS_S3_REGION_NAME", "eu-north-1")
-AWS_S3_CUSTOM_DOMAIN = f"{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com"
-AWS_QUERYSTRING_AUTH = False
-AWS_S3_FILE_OVERWRITE = False
-AWS_DEFAULT_ACL = "public-read"
-AWS_S3_VERIFY = True
-AWS_S3_OBJECT_PARAMETERS = {
-    "CacheControl": "max-age=86400",
-}
-
-
-"""
-storage configuration
-- Default storage backend for media files
-- Static files storage backend
-- Custom storage backend for media files
-"""
-# Storage Configuration s3
-STORAGES = {
-    "default": {
-        "BACKEND": "core.custom_storage.MediaStorage",  # media files storage
-    },
-    "staticfiles": {
-        "BACKEND": "core.custom_storage.StaticStorage",  # static files storage
-    },
-}
-
-# Static files (CSS, JavaScript, Images)
-STATIC_URL = f"https://{AWS_S3_CUSTOM_DOMAIN}/static/"  # Update this line
+# Static files (local)
+STATIC_URL = "/static/"
 STATIC_ROOT = BASE_DIR / "staticfiles"
-STATICFILES_DIRS = [
-    BASE_DIR / "static",
-]
+STATICFILES_DIRS = [BASE_DIR / "static"]
 
-# Media files (User uploads)
-MEDIA_URL = f"https://{AWS_S3_CUSTOM_DOMAIN}/media/"
+# Media files (local)
+MEDIA_URL = "/media/"
+MEDIA_ROOT = BASE_DIR / "media"
 
-# Default primary key field type
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-# Security settings if not in debug mode
+# Production security
 if not DEBUG:
     CSRF_COOKIE_SECURE = True
     SESSION_COOKIE_SECURE = True
@@ -263,43 +143,31 @@ if not DEBUG:
     SECURE_HSTS_INCLUDE_SUBDOMAINS = True
     SECURE_HSTS_PRELOAD = True
     SECURE_CONTENT_TYPE_NOSNIFF = True
-    # STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
-# Logging Configuration for s3
+    SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+    CSRF_TRUSTED_ORIGINS = [f"https://{host}" for host in ALLOWED_HOSTS if host]
+
+# Logging
 LOGGING = {
     "version": 1,
     "disable_existing_loggers": False,
     "handlers": {
-        "console": {
-            "class": "logging.StreamHandler",
-        },
+        "console": {"class": "logging.StreamHandler"},
         "file": {
             "class": "logging.FileHandler",
-            "filename": BASE_DIR / "django.log",  # Log file path
+            "filename": BASE_DIR / "django.log",
             "level": "INFO",
         },
     },
     "loggers": {
         "django": {
-            "handlers": ["console", "file"],  # Log to both console and file
+            "handlers": ["console", "file"],
             "level": "INFO",
-        },
-        "boto3": {
-            "handlers": ["console", "file"],
-            "level": "WARNING",
-        },
-        "botocore": {
-            "handlers": ["console", "file"],
-            "level": "WARNING",
         },
     },
 }
 
-"""
-# Clear session files on server startup
-# if hasattr(settings, "SESSION_FILE_PATH"):  # Check if using file-based sessions
-#     session_dir = settings.SESSION_FILE_PATH
- """
+# Clear session files on startup (if file backend ever used again)
 if SESSION_ENGINE.endswith("file"):
     session_dir = SESSION_FILE_PATH
     if session_dir and os.path.exists(session_dir):
@@ -308,9 +176,3 @@ if SESSION_ENGINE.endswith("file"):
             os.makedirs(session_dir, exist_ok=True)
         except Exception as e:
             print(f"Couldn't clear session dir: {e}")
-# Clear session files on server startup
-# if hasattr(settings, "SESSION_FILE_PATH"):  # Check if using file-based sessions
-#     session_dir = settings.SESSION_FILE_PATH
-#     if os.path.exists(session_dir):  # If session folder exists
-#         shutil.rmtree(session_dir)  # Delete it and all session files inside
-#     os.makedirs(session_dir, exist_ok=True)  # Recreate the folder
