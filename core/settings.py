@@ -3,8 +3,8 @@ from dotenv import load_dotenv
 import os
 from django.urls import reverse_lazy  # for login redirect
 import shutil
-# import logging
 import dj_database_url  # for database config
+#import logging
 
 # Build paths inside the project
 BASE_DIR = Path(__file__).resolve().parent.parent
