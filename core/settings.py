@@ -4,7 +4,8 @@ import os
 from django.urls import reverse_lazy  # for login redirect
 import shutil
 import dj_database_url  # for database config
-#import logging
+
+# import logging
 
 # Build paths inside the project
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -15,8 +16,9 @@ load_dotenv(dotenv_path=BASE_DIR / ".env")
 # Secret key & debug
 SECRET_KEY = os.environ.get("SECRET_KEY")
 DEBUG = os.environ.get("DEBUG", "True") == "True"
-
-ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", "localhost,127.0.0.1").split(",")
+DOMAIN = "in-2025-i-ran-blog.fly.dev"  # from fly.io
+ALLOWED_HOSTS = os.environ.get
+("ALLOWED_HOSTS", "localhost,127.0.0.1", "in-2025-i-ran-blog.fly.dev").split(",")
 
 ADMIN_URL = "secure-dashboard-2025/"
 
@@ -88,21 +90,21 @@ WSGI_APPLICATION = "core.wsgi.application"
 # DATABASES = {
 #     "default": dj_database_url.config(default="sqlite:///db.sqlite3", conn_max_age=600)
 # }
-# DATABASES = {
-#     'default': dj_database_url.config(
-#         default=os.environ.get('DATABASE_URL'),  # Reads from Fly.io's environment
-#         conn_max_age=600,  # Optional: improves performance
-#         ssl_require=not DEBUG,   # Important for production!
-#     )
-# }
-
 DATABASES = {
-    'default': dj_database_url.config(
-        default='sqlite:///db.sqlite3',
-        conn_max_age=600,
-        ssl_require=False  # not needed for SQLite
+    "default": dj_database_url.config(
+        default=os.environ.get("DATABASE_URL"),  # Reads from Fly.io's environment
+        conn_max_age=600,  #  improves performance
+        ssl_require=not DEBUG,  # Important for production!
     )
 }
+
+# DATABASES = {
+#     'default': dj_database_url.config(
+#         default='sqlite:///db.sqlite3',
+#         conn_max_age=600,
+#         ssl_require=False
+#     )
+# }
 
 # Email (Gmail example)
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
