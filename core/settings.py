@@ -3,7 +3,7 @@ from dotenv import load_dotenv
 import os
 import dj_database_url  # for database config
 
-# import logging  # for logging s3 errors
+
 # import shutil  # for clearing session files
 # from django.urls import reverse_lazy
 
@@ -28,14 +28,20 @@ ADMIN_URL = "secure-dashboard-2025/"
 ROOT_URLCONF = "core.urls"
 
 # Fly.io/Postgres database config
-DATABASES = {
-    "default": dj_database_url.config(
-        default=os.environ.get("DATABASE_URL"),
-        conn_max_age=600,
-        ssl_require=not DEBUG,  # Require SSL in production
-    )
-}
+# DATABASES = {
+#     "default": dj_database_url.config(
+#         default=os.environ.get("DATABASE_URL"),
+#         conn_max_age=600,
+#         ssl_require=not DEBUG,  # Require SSL in production
+#     )
+# }
 
+DATABASES = {
+     'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+     }
+     }
 # Production security
 if not DEBUG:
     CSRF_COOKIE_SECURE = True
@@ -67,8 +73,16 @@ INSTALLED_APPS = [
     "imagekit",  # for image optimization
     "django.contrib.sitemaps",  # for sitemaps
     # "admin_honeypot",  # for honeypot
+    "cloudinary",
+    "cloudinary_storage",
 ]
-
+# cloudinary config
+DEFAULT_FILE_STORAGE = "cloudinary_storage.storage.MediaCloudinaryStorage"
+CLOUDINARY_STORAGE = {
+    "CLOUD_NAME": os.environ.get("CLOUDINARY_CLOUD_NAME"),
+    "API_KEY": os.environ.get("CLOUDINARY_API_KEY"),
+    "API_SECRET": os.environ.get("CLOUDINARY_API_SECRET"),
+}
 SITE_ID = 1  # for django-allauth
 
 MIDDLEWARE = [

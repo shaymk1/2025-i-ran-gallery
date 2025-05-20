@@ -187,3 +187,5 @@ data_backup_*.json
 db_backup*.sqlite3
 .ebextensions/
 2025-i-ran-gallery.zip
+photos.zip
+*.zip
