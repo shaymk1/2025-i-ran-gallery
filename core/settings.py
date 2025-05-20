@@ -2,6 +2,7 @@ from pathlib import Path
 from dotenv import load_dotenv
 import os
 import dj_database_url  # for database config
+
 # import logging  # for logging s3 errors
 # import shutil  # for clearing session files
 # from django.urls import reverse_lazy
@@ -10,10 +11,9 @@ import dj_database_url  # for database config
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Load environment variables
+load_dotenv(dotenv_path=BASE_DIR / ".env")
 # Set DEBUG from environment first, so we know if we should load .env
 DEBUG = os.environ.get("DEBUG", "True") == "True"
-if DEBUG:
-    load_dotenv(dotenv_path=BASE_DIR / ".env")
 
 # Secret key & debug
 SECRET_KEY = os.environ.get("SECRET_KEY")
@@ -62,7 +62,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "django.contrib.sites",  # for django-allauth
-   # "storages",  # aws s3
+    # "storages",  # aws s3
     "taggit",  # for tags
     "imagekit",  # for image optimization
     "django.contrib.sitemaps",  # for sitemaps
