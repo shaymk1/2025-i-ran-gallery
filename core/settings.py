@@ -2,8 +2,6 @@ from pathlib import Path
 from dotenv import load_dotenv
 import os
 import dj_database_url  # for database config
-
-
 # import shutil  # for clearing session files
 # from django.urls import reverse_lazy
 
