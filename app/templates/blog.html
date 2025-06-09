@@ -61,7 +61,8 @@
 									<div class="entry-thumbnail">
 										<a href="{% url 'blog_detail' blog.slug %}">
 											<img
-												src="{{ blog.optimized_image.url }}"
+											{% comment %} optimized_image.url {% endcomment %}
+												src="{{ blog.image.url }}"
 												alt="image" />
 										</a>
 									</div>
