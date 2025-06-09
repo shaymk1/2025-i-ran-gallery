@@ -2,6 +2,7 @@ from pathlib import Path
 from dotenv import load_dotenv
 import os
 import dj_database_url  # for database config
+
 # import shutil  # for clearing session files
 # from django.urls import reverse_lazy
 
@@ -15,7 +16,7 @@ DEBUG = os.environ.get("DEBUG", "True") == "True"
 
 # Secret key & debug
 SECRET_KEY = os.environ.get("SECRET_KEY")
-DOMAIN = "in-2025-i-ran-blog.fly.dev"  # from fly.io
+#DOMAIN = "in-2025-i-ran-blog.fly.dev"  # from fly.io
 # Set ALLOWED_HOSTS from environment or default for production
 ALLOWED_HOSTS = os.environ.get(
     "ALLOWED_HOSTS", "localhost,127.0.0.1,in-2025-i-ran-blog.fly.dev"
@@ -24,37 +25,6 @@ ADMIN_URL = "secure-dashboard-2025/"
 
 # Django requires ROOT_URLCONF to be set
 ROOT_URLCONF = "core.urls"
-
-# Fly.io/Postgres database config
-# DATABASES = {
-#     "default": dj_database_url.config(
-#         default=os.environ.get("DATABASE_URL"),
-#         conn_max_age=600,
-#         ssl_require=not DEBUG,  # Require SSL in production
-#     )
-# }
-
-DATABASES = {
-     'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': BASE_DIR / 'db.sqlite3',
-     }
-     }
-# Production security
-if not DEBUG:
-    CSRF_COOKIE_SECURE = True
-    SESSION_COOKIE_SECURE = True
-    SECURE_HSTS_SECONDS = 31536000
-    SECURE_HSTS_INCLUDE_SUBDOMAINS = True
-    SECURE_HSTS_PRELOAD = True
-    SECURE_CONTENT_TYPE_NOSNIFF = True
-    SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
-    # Only trust production domains for CSRF
-    CSRF_TRUSTED_ORIGINS = [
-        f"https://{host}"
-        for host in ALLOWED_HOSTS
-        if host not in ["localhost", "127.0.0.1"]
-    ]
 
 # Application definition
 INSTALLED_APPS = [
@@ -71,16 +41,36 @@ INSTALLED_APPS = [
     "imagekit",  # for image optimization
     "django.contrib.sitemaps",  # for sitemaps
     # "admin_honeypot",  # for honeypot
-    "cloudinary",
-    "cloudinary_storage",
+    # "cloudinary",
+    # "cloudinary_storage",
 ]
-# cloudinary config
-DEFAULT_FILE_STORAGE = "cloudinary_storage.storage.MediaCloudinaryStorage"
-CLOUDINARY_STORAGE = {
-    "CLOUD_NAME": os.environ.get("CLOUDINARY_CLOUD_NAME"),
-    "API_KEY": os.environ.get("CLOUDINARY_API_KEY"),
-    "API_SECRET": os.environ.get("CLOUDINARY_API_SECRET"),
+
+# Fly.io/Postgres database config
+# DATABASES = {
+#     "default": dj_database_url.config(
+#         default=os.environ.get("DATABASE_URL"),
+#         conn_max_age=600,
+#         ssl_require=not DEBUG,  # Require SSL in production
+#     )
+# }
+
+DATABASES = {
+    "default": {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": BASE_DIR / "db.sqlite3",
+    }
 }
+# ImageKit settings
+IMAGEKIT_CACHEFILE_DIR = 'CACHE/images'
+IMAGEKIT_DEFAULT_CACHEFILE_STRATEGY = 'imagekit.cachefiles.strategies.Optimistic'
+# Comment out cloudinary config for now since we're running locally
+# cloudinary config
+# DEFAULT_FILE_STORAGE = "cloudinary_storage.storage.MediaCloudinaryStorage"
+# CLOUDINARY_STORAGE = {
+#     "CLOUD_NAME": os.environ.get("CLOUDINARY_CLOUD_NAME"),
+#     "API_KEY": os.environ.get("CLOUDINARY_API_KEY"),
+#     "API_SECRET": os.environ.get("CLOUDINARY_API_SECRET"),
+# }
 SITE_ID = 1  # for django-allauth
 
 MIDDLEWARE = [

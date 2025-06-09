@@ -5,6 +5,7 @@ from taggit.managers import TaggableManager  # using taggit for tags
 from imagekit.models import ImageSpecField
 from imagekit.processors import ResizeToFit
 from django.urls import reverse
+import os
 
 
 class Category(models.Model):
@@ -27,12 +28,22 @@ class Category(models.Model):
         return f"{self.month} - {self.venue}"
 
 
+# to prevent django from adding a suffix to the filename when uploading
+# this function is used in the all model's image field
+def photo_path(instance, filename):
+    # Get the file extension
+    ext = filename.split(".")[-1]
+    # Use the original filename without any suffix
+    filename = f"{os.path.splitext(filename)[0]}.{ext}"
+    return os.path.join("photos", filename)
+
+
 class Photo(models.Model):
     category = models.ForeignKey(
         Category, on_delete=models.SET_NULL, null=True, related_name="photos"
     )
     title = models.CharField(max_length=100)
-    image = models.ImageField(upload_to="photos/")  # using s3
+    image = models.ImageField(upload_to=photo_path)  
     optimized_image = ImageSpecField(
         source="image",
         processors=[ResizeToFit(800, 600)],
@@ -51,7 +62,7 @@ class Photo(models.Model):
 class About(models.Model):
     title = models.CharField(max_length=100)
     description = models.TextField()
-    image = models.ImageField(upload_to="photos/")  # using s3
+    image = models.ImageField(upload_to=photo_path)  # using s3
     optimized_image = ImageSpecField(
         source="image",
         processors=[ResizeToFit(800, 600)],
@@ -69,7 +80,7 @@ class About(models.Model):
 class Blog(models.Model):
     title = models.CharField(max_length=100)
     content = models.TextField()
-    image = models.ImageField(upload_to="photos/")  # using s3
+    image = models.ImageField(upload_to=photo_path)  # using s3
     optimized_image = ImageSpecField(
         source="image",
         processors=[ResizeToFit(800, 600)],
